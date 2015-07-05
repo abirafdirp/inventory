@@ -50,7 +50,8 @@ class Item(NameModel, TimeStampedModel):
     expireable = models.BooleanField(default=False)
     expires_on = models.DateField(null=True, blank=True)
 
-    #prevent circular import
+    # prevent circular import
+
     location = models.ForeignKey('transaction.Location', related_name='location_of')
 
     def save(self, *args, **kwargs):

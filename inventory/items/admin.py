@@ -12,10 +12,12 @@ class ItemAdmin(admin.ModelAdmin):
     date_hierarchy = 'created'
     list_display = ('name', 'brand', 'categories', 'expireable',
                     'expires_on', 'created','modified')
-    search_fields = ['name']
+
+    # search fields help text is in inventory/templates/admin/search_form.html
+    search_fields = ['name', 'category__name', 'brand__name','expires_on']
     list_filter =  ('expireable', 'brand', 'category')
 
-    #a get_categories function renamed to categories
+    # a get_categories function renamed to categories
     def categories(self, obj):
         return ", ".join([p.name for p in obj.category.all()])
 
