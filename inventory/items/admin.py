@@ -10,7 +10,7 @@ class CategoryAdmin(admin.ModelAdmin):
 
 class BaseItemAdmin(admin.ModelAdmin):
     date_hierarchy = 'created'
-    list_display = ('name', 'brand', 'categories', 'expireable',
+    list_display = ('name', 'sku', 'brand', 'categories', 'expireable',
                     'expires_in', 'created','modified')
 
     # search fields help text is in inventory/templates/admin/search_form.html
@@ -29,9 +29,12 @@ class ItemAdmin(admin.ModelAdmin):
             'location',
     )
     readonly_fields = ('product_id', 'expired')
-    list_display = ('Name', 'product_id', 'location', 'expiration_date', 'expired')
+    list_display = ('Name', 'SKU', 'product_id', 'location', 'expiration_date', 'expired')
     search_fields = ['base_item__name', 'product_id', 'location__name']
-    def get_sku(self, instance):
+
+    # functions below are renamed for verbosity in admin
+    # get sku function renamed to SKU
+    def SKU(self, instance):
         return instance.base_item.sku
     # get name function renamed to Name
     def Name(self, instance):
