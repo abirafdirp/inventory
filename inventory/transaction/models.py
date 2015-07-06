@@ -1,22 +1,23 @@
 from django.db import models
-from items.models import Item
+from items.models import BaseItem
 # Create your models here.
 
 class Location(models.Model):
     name = models.CharField(max_length=40)
     TYPE_CHOICES = (
-        ('warehouse', 'warehouse'),
-        ('store', 'store'),
-        ('refurb/recycle/landfill', 'refurbish/landfill/recyling center')
+        ('Warehouse', 'Warehouse'),
+        ('Store', 'Store'),
+        ('Refurbish/Recycling Center/Landfill', 'Refurbish/Landfill/Recyling center'),
+        ('supplier', 'Supplier')
     )
-    type = models.CharField(max_length=15, choices=TYPE_CHOICES)
+    type = models.CharField(max_length=35, choices=TYPE_CHOICES)
     address = models.CharField(max_length=50)
 
     def __str__(self):
         return "%s - %s" % (self.type, self.name)
 
 class Transaction(models.Model):
-    items = models.ManyToManyField(Item)
+    items = models.ManyToManyField(BaseItem)
     date_time = models.DateTimeField(auto_now_add=True)
     items_in = models.IntegerField(null=True, blank=True)
     items_out = models.IntegerField(null=True, blank=True)
