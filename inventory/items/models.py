@@ -100,6 +100,7 @@ class Item(TimeStampedModel):
             self.expiration_date = datetime.datetime(2099, 12, 12)
         else:
             self.expiration_date = timezone.now() + datetime.timedelta(days=expires_in)
+
         # randomized product id, 7 chars from the max length of SKU
         # and 8 chars is randomized. Max len of product id is 15 chars
         # if there is already one, then it will continue to be randomized
@@ -111,6 +112,9 @@ class Item(TimeStampedModel):
                 self.product_id = product_ID
                 break
         super(Item, self).save(*args, **kwargs)
+
+    class Meta:
+        ordering = ('-expiration_date',)
 
     def __str__(self):
         return self.base_item.name
