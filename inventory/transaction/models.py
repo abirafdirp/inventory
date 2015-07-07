@@ -1,5 +1,6 @@
 from django.db import models
 from items.models import Item
+from inventory.users.models import User
 # Create your models here.
 
 class Location(models.Model):
@@ -12,6 +13,7 @@ class Location(models.Model):
     )
     type = models.CharField(max_length=35, choices=TYPE_CHOICES)
     address = models.CharField(max_length=50)
+    owner = models.ForeignKey(User)
 
     def __str__(self):
         return "%s - %s" % (self.type, self.name)
@@ -25,6 +27,7 @@ class Transaction(models.Model):
                                related_name='origin_of')
     destination = models.ForeignKey(Location, null=True, blank=True,
                                     related_name='destination_of')
+    owner = models.ForeignKey(User)
 
 
 

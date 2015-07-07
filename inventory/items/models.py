@@ -1,8 +1,21 @@
-from django.db import models
+import random
+import string
 import datetime
+from django.db import models
 from django.utils import timezone
-import random, string
+from inventory.users.models import User
+
 # Create your models here.
+class Owner(models.Model):
+    """
+    Abstract model class that provide
+    owner field for authentication in REST
+    """
+
+    owner = models.ForeignKey(User)
+
+    class Meta:
+        abstract = True
 
 class TimeStampedModel(models.Model):
     """

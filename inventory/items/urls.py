@@ -1,9 +1,15 @@
-from django.conf.urls import patterns, url
-# from rest_framework.urlpatterns import
+from django.conf.urls import patterns, url, include
+from rest_framework.routers import DefaultRouter
 from items import views
-urlpatterns = patterns('',
-    url(r'api/item/$', views.ItemList.as_view()),
-    url(r'api/item/(?P<pk>[0-9]+)/$', views.ItemDetail.as_view()),
-)
+
+router = DefaultRouter()
+router.register(r'items', views.ItemViewSet)
+router.register(r'baseitems', views.BaseItemViewSet)
+router.register(r'categories', views.CategoryViewSet)
+router.register(r'brands', views.BrandViewSet)
+
+urlpatterns = [
+    url(r'api/', include(router.urls)),
+]
 
 
