@@ -26,22 +26,19 @@ class BaseItemSerializer(serializers.Serializer):
     class Meta:
         model = BaseItem
 
-        # field added for verbosity
-        field = ('name', 'created', 'modified', 'sku', 'product_id_prefix', 'brand',
+        # fields added for verbosity
+        fields = ('name', 'created', 'modified', 'sku', 'product_id_prefix', 'brand',
                 'category', 'description', 'image', 'expireable', 'expires_in',
         )
 
 class LocationSerializer(serializers.Serializer):
     class Meta:
         model = Location
-        field = ('name', 'type', 'address')
+        fields = ('name', 'type', 'address')
 
 class ItemSerializer(serializers.ModelSerializer):
-    base_item = BaseItemSerializer()
-    location = LocationSerializer()
-
     class Meta:
         model = Item
 
-        # field added for verbosity
-        field = ('base_item', 'product_id', 'expiration_date', 'expired', 'location')
+        # fields added for verbosity
+        fields = ('base_item', 'product_id', 'expiration_date', 'expired', 'location')

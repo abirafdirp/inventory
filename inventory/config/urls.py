@@ -19,7 +19,7 @@ urlpatterns = [
     url(r'^accounts/', include('allauth.urls')),
 
     # Your stuff: custom urls includes go here
-    url(r'^dashboard/', include('items.urls', namespace='dashboard')),
+    url(r'^inventory/', include('items.urls', namespace='dashboard')),
 
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 

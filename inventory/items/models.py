@@ -114,7 +114,7 @@ class Item(TimeStampedModel):
         super(Item, self).save(*args, **kwargs)
 
     class Meta:
-        ordering = ('-expiration_date',)
+        ordering = ('expiration_date',)
 
     def __str__(self):
         return self.base_item.name
