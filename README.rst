@@ -1,4 +1,4 @@
-inventory
+inventory - this project is still under development, there is no releases yet (still working on front-end)
 ==============================
 
 RESTful inventory system using Django
