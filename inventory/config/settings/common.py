@@ -39,7 +39,7 @@ THIRD_PARTY_APPS = (
     'allauth',  # registration
     'allauth.account',  # registration
     'allauth.socialaccount',  # registration
-    'rest_framework', # Django Rest Framework
+    'rest_framework',  # Django Rest Framework
 )
 
 # Apps specific for this project go here.
@@ -260,3 +260,7 @@ LOGGING = {
 }
 
 # Your common stuff: Below this line define 3rd party library settings
+REST_FRAMEWORK = {
+    'DEFAULT_FILTER_BACKENDS': ('rest_framework.filters.DjangoFilterBackend',),
+    'PAGE_SIZE': 10
+}

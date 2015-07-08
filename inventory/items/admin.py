@@ -10,15 +10,14 @@ class CategoryAdmin(admin.ModelAdmin):
 
 class BaseItemAdmin(admin.ModelAdmin):
     date_hierarchy = 'created'
-    list_display = ('name', 'sku', 'brand', 'categories', 'expireable',
+    list_display = ('name', 'sku', 'brand', 'categories',
                     'expires_in', 'created','modified')
 
     # search fields help text is in inventory/templates/admin/search_form.html
     search_fields = ['name', 'category__name', 'brand__name','expires_in','sku','expires_in',
                      'description', 'product_id_prefix__name']
-    list_filter =  ('expireable', 'brand', 'category')
+    list_filter =  ('brand', 'category')
 
-    readonly_fields = ('expireable',)
 
     # get_categories function renamed to categories
     def categories(self, obj):
