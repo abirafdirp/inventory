@@ -38,13 +38,10 @@ class BaseItemSerializer(serializers.ModelSerializer):
 
     # using customized depth will result in disappereance of related fields (a bug?)
     # here the fields will be declared explicitly
-    brand = BrandSerializer()
-    category = CategorySerializer()
-    product_id_prefix = ProductIdPrefixSerializer()
 
     class Meta:
         model = BaseItem
-        depth = 3
+
         # fields added for verbosity
         fields = ('name', 'created', 'modified', 'sku', 'product_id_prefix', 'brand',
                 'category', 'description', 'image', 'expires_in', 'owner'
@@ -57,6 +54,7 @@ class ItemSerializer(serializers.ModelSerializer):
     class Meta:
         model = Item
         depth = 2
+
         # fields added for verbosity
         fields = ('base_item', 'product_id', 'expiration_date', 'expired', 'location', 'owner')
         read_only_fields = ('expiration_date', 'expired')

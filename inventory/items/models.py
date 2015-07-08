@@ -35,7 +35,7 @@ class NameModel(models.Model):
     name.
     """
 
-    name = models.CharField(max_length=30)
+    name = models.CharField(max_length=30, unique=True)
 
     class Meta:
         abstract = True
@@ -63,7 +63,7 @@ class Category(NameModel, TimeStampedModel):
 
 class ProductIdPrefix(models.Model):
     owner = models.ForeignKey(User, related_name='product_id_prefixes')
-    name = models.CharField(max_length=7, help_text='Max length 7 characters')
+    name = models.CharField(max_length=7, unique=True, help_text='Max length 7 characters')
 
     def __str__(self):
         return self.name
