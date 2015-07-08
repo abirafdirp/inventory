@@ -80,7 +80,7 @@ class BaseItem(NameModel, TimeStampedModel):
     category = models.ManyToManyField(Category, related_name='category_of')
     description = models.CharField(max_length=50, blank=True)
     image = models.ImageField(upload_to='items', blank=True)
-    expires_in = models.IntegerField(null=True, blank=True, default=0, verbose_name='Expires in (days)',
+    expires_in = models.IntegerField(null=True, blank=True, verbose_name='Expires in (days)',
                                   help_text='This is NOT expiration date, but how long until '+
                                   'this item will be expired in days. Leave blank if the item'+
                                   ' is not expireable')

@@ -36,8 +36,15 @@ class BaseItemSerializer(serializers.ModelSerializer):
     owner = serializers.ReadOnlyField(source='owner.username')
     permission_classes = (permissions.IsAuthenticatedOrReadOnly,)
 
+    # using customized depth will result in disappereance of related fields (a bug?)
+    # here the fields will be declared explicitly
+    brand = BrandSerializer()
+    category = CategorySerializer()
+    product_id_prefix = ProductIdPrefixSerializer()
+
     class Meta:
         model = BaseItem
+        depth = 3
         # fields added for verbosity
         fields = ('name', 'created', 'modified', 'sku', 'product_id_prefix', 'brand',
                 'category', 'description', 'image', 'expires_in', 'owner'
