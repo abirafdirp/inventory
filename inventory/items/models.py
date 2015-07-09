@@ -23,6 +23,7 @@ class TimeStampedModel(models.Model):
     self-updating 'created' and 'modified'
     fields.
     """
+
     created = models.DateTimeField(auto_now_add=True)
     modified = models.DateTimeField(auto_now_add=True)
 
@@ -44,6 +45,7 @@ class Brand(NameModel, TimeStampedModel):
     """
     Brand of an item.
     """
+
     owner = models.ForeignKey(User, related_name='brands')
 
     def __str__(self):
@@ -53,6 +55,7 @@ class Category(NameModel, TimeStampedModel):
     """
     Category of an item.
     """
+
     owner = models.ForeignKey(User, related_name='categories')
 
     def __str__(self):

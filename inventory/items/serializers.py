@@ -3,7 +3,18 @@ from rest_framework import permissions
 from .models import Item, Brand, Category, ProductIdPrefix, BaseItem
 from inventory.users.models import User
 from transaction.models import Location
-from django.forms import widgets
+
+"""
+some model will have two serializers, because somehow
+I can't make a viewset to display a model in detail (nested related model)
+and properly give options (list e.g categories) in the form at the same time.
+So I create one serializer for viewset that will have two urls, the name of the model
+itself and .../<model_name>/<pk>/ automatically mapped using router. The create page is using
+generics.CreateAPIView and the url is .../<model_name>/<pk>/ and must be manually mapped.
+
+model with no foreign key is still using viewset because there is no nested model in the JSON.
+"""
+
 
 
 class BrandSerializer(serializers.ModelSerializer):
@@ -12,8 +23,10 @@ class BrandSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Brand
-        depth = 1
         field = ('name', 'owner')
+
+####################################################################################################
+####################################################################################################
 
 class CategorySerializer(serializers.ModelSerializer):
     owner = serializers.ReadOnlyField(source='owner.username')
@@ -21,8 +34,10 @@ class CategorySerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Category
-        depth = 1
         field = ('name', 'owner')
+
+####################################################################################################
+####################################################################################################
 
 class ProductIdPrefixSerializer(serializers.ModelSerializer):
     owner = serializers.ReadOnlyField(source='owner.username')
@@ -32,10 +47,42 @@ class ProductIdPrefixSerializer(serializers.ModelSerializer):
         model = ProductIdPrefix
         field = ('name', 'owner')
 
+####################################################################################################
+####################################################################################################
+
+class LocationSerializer(serializers.ModelSerializer):
+    owner = serializers.ReadOnlyField(source='owner.username')
+    permission_classes = (permissions.IsAuthenticatedOrReadOnly,)
+
+    class Meta:
+        model = Location
+        depth = 1
+        fields = ('name', 'type', 'address', 'owner')
+
+####################################################################################################
+####################################################################################################
+
 class BaseItemSerializer(serializers.ModelSerializer):
     owner = serializers.ReadOnlyField(source='owner.username')
     permission_classes = (permissions.IsAuthenticatedOrReadOnly,)
 
+    # using customized depth will result in disappereance of related fields (a bug?)
+    # here the fields will be declared explicitly
+    brand = BrandSerializer()
+    category = CategorySerializer(many=True)
+    product_id_prefix = ProductIdPrefixSerializer()
+
+    class Meta:
+        model = BaseItem
+
+        # fields added for verbosity
+        fields = ('id', 'name', 'created', 'modified', 'sku', 'product_id_prefix', 'brand',
+                'category', 'description', 'image', 'expires_in', 'owner'
+        )
+
+class BaseItemCreateSerializer(serializers.ModelSerializer):
+    owner = serializers.ReadOnlyField(source='owner.username')
+    permission_classes = (permissions.IsAuthenticatedOrReadOnly,)
     # using customized depth will result in disappereance of related fields (a bug?)
     # here the fields will be declared explicitly
 
@@ -47,26 +94,35 @@ class BaseItemSerializer(serializers.ModelSerializer):
                 'category', 'description', 'image', 'expires_in', 'owner'
         )
 
+####################################################################################################
+####################################################################################################
+
 class ItemSerializer(serializers.ModelSerializer):
+    owner = serializers.ReadOnlyField(source='owner.username')
+    permission_classes = (permissions.IsAuthenticatedOrReadOnly,)
+
+    location = LocationSerializer
+
+    class Meta:
+        model = Item
+
+        # fields added for verbosity
+        fields = ('base_item', 'base_item_set', 'product_id', 'expiration_date', 'expired', 'location', 'owner')
+        read_only_fields = ('expiration_date', 'expired')
+
+class ItemCreateSerializer(serializers.ModelSerializer):
     owner = serializers.ReadOnlyField(source='owner.username')
     permission_classes = (permissions.IsAuthenticatedOrReadOnly,)
 
     class Meta:
         model = Item
-        depth = 2
 
         # fields added for verbosity
         fields = ('base_item', 'product_id', 'expiration_date', 'expired', 'location', 'owner')
         read_only_fields = ('expiration_date', 'expired')
 
-class LocationSerializer(serializers.ModelSerializer):
-    owner = serializers.ReadOnlyField(source='owner.username')
-    permission_classes = (permissions.IsAuthenticatedOrReadOnly,)
-
-    class Meta:
-        model = Location
-        depth = 1
-        fields = ('name', 'type', 'address', 'owner')
+####################################################################################################
+####################################################################################################
 
 class UserSerializer(serializers.ModelSerializer):
     base_items = BaseItemSerializer()
