@@ -115,7 +115,7 @@ class Item(TimeStampedModel):
     def save(self, *args, **kwargs):
         self.modified = timezone.now()
         expires_in = self.base_item.expires_in
-        if expires_in == 0:
+        if expires_in == 0 or expires_in == None:
             self.expiration_date = datetime.date(2099, 12, 12)
         else:
             self.expiration_date = timezone.now() + datetime.timedelta(days=expires_in)

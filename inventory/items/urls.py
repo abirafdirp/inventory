@@ -2,19 +2,23 @@ from django.conf.urls import patterns, url, include
 from rest_framework.routers import DefaultRouter
 from items import views
 
-router = DefaultRouter()
-router.register(r'items', views.ItemViewSet)
-router.register(r'baseitems', views.BaseItemViewSet)
-router.register(r'categories', views.CategoryViewSet)
-router.register(r'brands', views.BrandViewSet)
-router.register(r'users', views.UserViewSet)
-router.register(r'productidprefixes', views.ProductIdPrefixViewSet)
-router.register(r'locations', views.LocationViewSet)
+
 
 urlpatterns = [
-    url(r'api/', include(router.urls)),
-    url(r'api/baseitem/create/$', views.BaseItemCreate().as_view()),
-    url(r'api/item/create/$', views.ItemCreate().as_view()),
+    # url(r'api/$', views.APIRootView.as_view()),
+    url(r'api/users/$', views.UserList().as_view()),
+    url(r'api/baseitems/$', views.BaseItemList().as_view()),
+    url(r'api/baseitems/create/$', views.BaseItemCreate().as_view()),
+    url(r'api/items/$', views.ItemList().as_view()),
+    url(r'api/items/create/$', views.ItemCreate().as_view()),
+    url(r'api/brands/$', views.BrandList().as_view()),
+    url(r'api/brands/create/$', views.BrandCreate().as_view()),
+    url(r'api/categories/$', views.CategoryList().as_view()),
+    url(r'api/categories/create/$', views.CategoryCreate().as_view()),
+    url(r'api/productidprefixes/$', views.ProductIdPrefixList().as_view()),
+    url(r'api/productidprefixes/create/$', views.ProductIdPrefixCreate().as_view()),
+    url(r'api/locations/$', views.LocationList().as_view()),
+    url(r'api/locations/create/$', views.LocationCreate().as_view()),
 ]
 
 

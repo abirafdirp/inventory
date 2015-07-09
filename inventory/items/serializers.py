@@ -25,9 +25,6 @@ class BrandSerializer(serializers.ModelSerializer):
         model = Brand
         field = ('name', 'owner')
 
-####################################################################################################
-####################################################################################################
-
 class CategorySerializer(serializers.ModelSerializer):
     owner = serializers.ReadOnlyField(source='owner.username')
     permission_classes = (permissions.IsAuthenticatedOrReadOnly,)
@@ -36,9 +33,6 @@ class CategorySerializer(serializers.ModelSerializer):
         model = Category
         field = ('name', 'owner')
 
-####################################################################################################
-####################################################################################################
-
 class ProductIdPrefixSerializer(serializers.ModelSerializer):
     owner = serializers.ReadOnlyField(source='owner.username')
     permission_classes = (permissions.IsAuthenticatedOrReadOnly,)
@@ -46,9 +40,6 @@ class ProductIdPrefixSerializer(serializers.ModelSerializer):
     class Meta:
         model = ProductIdPrefix
         field = ('name', 'owner')
-
-####################################################################################################
-####################################################################################################
 
 class LocationSerializer(serializers.ModelSerializer):
     owner = serializers.ReadOnlyField(source='owner.username')
@@ -59,15 +50,11 @@ class LocationSerializer(serializers.ModelSerializer):
         depth = 1
         fields = ('name', 'type', 'address', 'owner')
 
-####################################################################################################
-####################################################################################################
-
 class BaseItemSerializer(serializers.ModelSerializer):
     owner = serializers.ReadOnlyField(source='owner.username')
     permission_classes = (permissions.IsAuthenticatedOrReadOnly,)
 
-    # using customized depth will result in disappereance of related fields (a bug?)
-    # here the fields will be declared explicitly
+    # nested related's model class must be initialized
     brand = BrandSerializer()
     category = CategorySerializer(many=True)
     product_id_prefix = ProductIdPrefixSerializer()
@@ -83,8 +70,6 @@ class BaseItemSerializer(serializers.ModelSerializer):
 class BaseItemCreateSerializer(serializers.ModelSerializer):
     owner = serializers.ReadOnlyField(source='owner.username')
     permission_classes = (permissions.IsAuthenticatedOrReadOnly,)
-    # using customized depth will result in disappereance of related fields (a bug?)
-    # here the fields will be declared explicitly
 
     class Meta:
         model = BaseItem
@@ -94,20 +79,19 @@ class BaseItemCreateSerializer(serializers.ModelSerializer):
                 'category', 'description', 'image', 'expires_in', 'owner'
         )
 
-####################################################################################################
-####################################################################################################
-
 class ItemSerializer(serializers.ModelSerializer):
     owner = serializers.ReadOnlyField(source='owner.username')
     permission_classes = (permissions.IsAuthenticatedOrReadOnly,)
 
-    location = LocationSerializer
+    # nested related's model class must be initialized
+    base_item = BaseItemSerializer()
+    location = LocationSerializer()
 
     class Meta:
         model = Item
 
         # fields added for verbosity
-        fields = ('base_item', 'base_item_set', 'product_id', 'expiration_date', 'expired', 'location', 'owner')
+        fields = ('base_item', 'product_id', 'expiration_date', 'expired', 'location', 'owner')
         read_only_fields = ('expiration_date', 'expired')
 
 class ItemCreateSerializer(serializers.ModelSerializer):
@@ -121,14 +105,12 @@ class ItemCreateSerializer(serializers.ModelSerializer):
         fields = ('base_item', 'product_id', 'expiration_date', 'expired', 'location', 'owner')
         read_only_fields = ('expiration_date', 'expired')
 
-####################################################################################################
-####################################################################################################
-
 class UserSerializer(serializers.ModelSerializer):
-    base_items = BaseItemSerializer()
-    brands = BrandSerializer()
-    categories = CategorySerializer()
-    items = ItemSerializer()
+    permission_classes = (permissions.IsAuthenticatedOrReadOnly,)
+    base_items = BaseItemSerializer(many=True)
+    brands = BrandSerializer(many=True)
+    categories = CategorySerializer(many=True)
+    items = ItemSerializer(many=True)
 
     class Meta:
         model = User

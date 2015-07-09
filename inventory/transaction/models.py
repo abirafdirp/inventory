@@ -24,9 +24,9 @@ class Transaction(models.Model):
     items_in = models.IntegerField(null=True, blank=True)
     items_out = models.IntegerField(null=True, blank=True)
     origin = models.ForeignKey(Location, null=True, blank=True,
-                               related_name='origin_of')
+                               related_name='origins')
     destination = models.ForeignKey(Location, null=True, blank=True,
-                                    related_name='destination_of')
+                                    related_name='destinations')
     owner = models.ForeignKey(User)
 
 
