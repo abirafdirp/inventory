@@ -19,7 +19,7 @@ model with no foreign key is still using viewset because there is no nested mode
 
 class BrandSerializer(serializers.ModelSerializer):
     owner = serializers.ReadOnlyField(source='owner.username')
-    permission_classes = (permissions.IsAuthenticatedOrReadOnly,)
+    permission_classes = (permissions.IsAuthenticated,)
 
     class Meta:
         model = Brand
@@ -27,7 +27,7 @@ class BrandSerializer(serializers.ModelSerializer):
 
 class CategorySerializer(serializers.ModelSerializer):
     owner = serializers.ReadOnlyField(source='owner.username')
-    permission_classes = (permissions.IsAuthenticatedOrReadOnly,)
+    permission_classes = (permissions.IsAuthenticated,)
 
     class Meta:
         model = Category
@@ -35,7 +35,7 @@ class CategorySerializer(serializers.ModelSerializer):
 
 class ProductIdPrefixSerializer(serializers.ModelSerializer):
     owner = serializers.ReadOnlyField(source='owner.username')
-    permission_classes = (permissions.IsAuthenticatedOrReadOnly,)
+    permission_classes = (permissions.IsAuthenticated,)
 
     class Meta:
         model = ProductIdPrefix
@@ -43,7 +43,7 @@ class ProductIdPrefixSerializer(serializers.ModelSerializer):
 
 class LocationSerializer(serializers.ModelSerializer):
     owner = serializers.ReadOnlyField(source='owner.username')
-    permission_classes = (permissions.IsAuthenticatedOrReadOnly,)
+    permission_classes = (permissions.IsAuthenticated,)
 
     class Meta:
         model = Location
@@ -52,7 +52,7 @@ class LocationSerializer(serializers.ModelSerializer):
 
 class BaseItemSerializer(serializers.ModelSerializer):
     owner = serializers.ReadOnlyField(source='owner.username')
-    permission_classes = (permissions.IsAuthenticatedOrReadOnly,)
+    permission_classes = (permissions.IsAuthenticated,)
 
     # nested related's model class must be initialized
     brand = BrandSerializer()
@@ -69,7 +69,7 @@ class BaseItemSerializer(serializers.ModelSerializer):
 
 class BaseItemCreateSerializer(serializers.ModelSerializer):
     owner = serializers.ReadOnlyField(source='owner.username')
-    permission_classes = (permissions.IsAuthenticatedOrReadOnly,)
+    permission_classes = (permissions.IsAuthenticated,)
 
     class Meta:
         model = BaseItem
@@ -81,7 +81,7 @@ class BaseItemCreateSerializer(serializers.ModelSerializer):
 
 class ItemSerializer(serializers.ModelSerializer):
     owner = serializers.ReadOnlyField(source='owner.username')
-    permission_classes = (permissions.IsAuthenticatedOrReadOnly,)
+    permission_classes = (permissions.IsAuthenticated,)
 
     # nested related's model class must be initialized
     base_item = BaseItemSerializer()
@@ -96,7 +96,7 @@ class ItemSerializer(serializers.ModelSerializer):
 
 class ItemCreateSerializer(serializers.ModelSerializer):
     owner = serializers.ReadOnlyField(source='owner.username')
-    permission_classes = (permissions.IsAuthenticatedOrReadOnly,)
+    permission_classes = (permissions.IsAuthenticated,)
 
     class Meta:
         model = Item
@@ -106,7 +106,7 @@ class ItemCreateSerializer(serializers.ModelSerializer):
         read_only_fields = ('expiration_date', 'expired')
 
 class UserSerializer(serializers.ModelSerializer):
-    permission_classes = (permissions.IsAuthenticatedOrReadOnly,)
+    permission_classes = (permissions.IsAuthenticated,)
     base_items = BaseItemSerializer(many=True)
     brands = BrandSerializer(many=True)
     categories = CategorySerializer(many=True)

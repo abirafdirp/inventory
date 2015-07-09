@@ -28,7 +28,7 @@ class UserList(generics.ListAPIView):
 class BrandList(generics.ListAPIView):
     queryset = Brand.objects.all()
     serializer_class = serializers.BrandSerializer
-    permission_classes = (permissions.IsAuthenticatedOrReadOnly,
+    permission_classes = (permissions.IsAuthenticated,
                       IsOwnerOrReadOnly,)
     filter_backends = (filters.DjangoFilterBackend,)
     filter_fields = ('name', 'owner')
@@ -39,7 +39,7 @@ class BrandList(generics.ListAPIView):
 class BrandCreate(generics.CreateAPIView):
     queryset = Brand.objects.all()
     serializer_class = serializers.BrandSerializer
-    permission_classes = (permissions.IsAuthenticatedOrReadOnly,
+    permission_classes = (permissions.IsAuthenticated,
                       IsOwnerOrReadOnly,)
 
     def perform_create(self, serializer):
@@ -48,7 +48,7 @@ class BrandCreate(generics.CreateAPIView):
 class CategoryList(generics.ListAPIView):
     queryset = Category.objects.all()
     serializer_class = serializers.CategorySerializer
-    permission_classes = (permissions.IsAuthenticatedOrReadOnly,
+    permission_classes = (permissions.IsAuthenticated,
                       IsOwnerOrReadOnly,)
     filter_backends = (filters.DjangoFilterBackend,)
     filter_fields = ('name', 'owner')
@@ -59,7 +59,7 @@ class CategoryList(generics.ListAPIView):
 class CategoryCreate(generics.CreateAPIView):
     queryset = Category.objects.all()
     serializer_class = serializers.CategorySerializer
-    permission_classes = (permissions.IsAuthenticatedOrReadOnly,
+    permission_classes = (permissions.IsAuthenticated,
                       IsOwnerOrReadOnly,)
 
     def perform_create(self, serializer):
@@ -68,7 +68,7 @@ class CategoryCreate(generics.CreateAPIView):
 class BaseItemList(generics.ListAPIView):
     queryset = BaseItem.objects.all()
     serializer_class = serializers.BaseItemSerializer
-    permission_classes = (permissions.IsAuthenticatedOrReadOnly,
+    permission_classes = (permissions.IsAuthenticated,
                       IsOwnerOrReadOnly,)
     filter_backends = (filters.DjangoFilterBackend,)
     filter_fields = ('id', 'name', 'sku', 'product_id_prefix', 'brand__name', 'category__name', 'description',
@@ -80,7 +80,7 @@ class BaseItemList(generics.ListAPIView):
 class BaseItemCreate(generics.CreateAPIView):
     queryset = BaseItem.objects.all()
     serializer_class = serializers.BaseItemCreateSerializer
-    permission_classes = (permissions.IsAuthenticatedOrReadOnly,
+    permission_classes = (permissions.IsAuthenticated,
                       IsOwnerOrReadOnly,)
 
     def perform_create(self, serializer):
@@ -89,7 +89,7 @@ class BaseItemCreate(generics.CreateAPIView):
 class ItemList(generics.ListAPIView):
     queryset = Item.objects.all()
     serializer_class = serializers.ItemSerializer
-    permission_classes = (permissions.IsAuthenticatedOrReadOnly,
+    permission_classes = (permissions.IsAuthenticated,
                       IsOwnerOrReadOnly,)
     filter_backends = (filters.DjangoFilterBackend,)
     base_item = serializers.BaseItemSerializer()
@@ -101,7 +101,7 @@ class ItemList(generics.ListAPIView):
 class ItemCreate(generics.CreateAPIView):
     queryset = Item.objects.all()
     serializer_class = serializers.ItemCreateSerializer
-    permission_classes = (permissions.IsAuthenticatedOrReadOnly,
+    permission_classes = (permissions.IsAuthenticated,
                       IsOwnerOrReadOnly,)
     base_item = serializers.BaseItemCreateSerializer
 
@@ -111,7 +111,7 @@ class ItemCreate(generics.CreateAPIView):
 class ProductIdPrefixList(generics.ListAPIView):
     queryset = ProductIdPrefix.objects.all()
     serializer_class = serializers.ProductIdPrefixSerializer
-    permission_classes = (permissions.IsAuthenticatedOrReadOnly,
+    permission_classes = (permissions.IsAuthenticated,
                       IsOwnerOrReadOnly,)
     filter_backends = (filters.DjangoFilterBackend,)
     filter_fields = ('name','owner')
@@ -122,7 +122,7 @@ class ProductIdPrefixList(generics.ListAPIView):
 class ProductIdPrefixCreate(generics.CreateAPIView):
     queryset = ProductIdPrefix.objects.all()
     serializer_class = serializers.ProductIdPrefixSerializer
-    permission_classes = (permissions.IsAuthenticatedOrReadOnly,
+    permission_classes = (permissions.IsAuthenticated,
                       IsOwnerOrReadOnly,)
 
     def perform_create(self, serializer):
@@ -131,7 +131,7 @@ class ProductIdPrefixCreate(generics.CreateAPIView):
 class LocationList(generics.ListAPIView):
     queryset = Location.objects.all()
     serializer_class = serializers.LocationSerializer
-    permission_classes = (permissions.IsAuthenticatedOrReadOnly,
+    permission_classes = (permissions.IsAuthenticated,
                       IsOwnerOrReadOnly,)
     filter_backends = (filters.DjangoFilterBackend,)
     filter_fields = ('name', 'type', 'address', 'owner')
@@ -142,7 +142,7 @@ class LocationList(generics.ListAPIView):
 class LocationCreate(generics.CreateAPIView):
     queryset = Location.objects.all()
     serializer_class = serializers.LocationSerializer
-    permission_classes = (permissions.IsAuthenticatedOrReadOnly,
+    permission_classes = (permissions.IsAuthenticated,
                       IsOwnerOrReadOnly,)
 
     def perform_create(self, serializer):
