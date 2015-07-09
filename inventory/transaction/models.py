@@ -23,11 +23,13 @@ class Transaction(models.Model):
     date_time = models.DateTimeField(auto_now_add=True)
     items_in = models.IntegerField(null=True, blank=True)
     items_out = models.IntegerField(null=True, blank=True)
-    origin = models.ForeignKey(Location, null=True, blank=True,
+    origin = models.ManyToManyField(Location, null=True, blank=True,
                                related_name='origins')
-    destination = models.ForeignKey(Location, null=True, blank=True,
+    destination = models.ManyToManyField(Location, null=True, blank=True,
                                     related_name='destinations')
     owner = models.ForeignKey(User)
 
+    def save(self, *args, **kwargs):
+        super(Transaction, self).save(*args, **kwargs)
 
 

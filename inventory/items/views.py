@@ -1,15 +1,13 @@
-from django.shortcuts import render
-from rest_framework import views
 from rest_framework import permissions
 from rest_framework import filters
 from rest_framework import generics
-from rest_framework.reverse import reverse
 from .models import Item
 from .models import BaseItem
 from .models import Category
 from .models import Brand
 from .models import ProductIdPrefix
 from transaction.models import Location
+from transaction.models import Transaction
 from items import serializers
 from .permissions import IsOwnerOrReadOnly
 from inventory.users.models import User
@@ -142,6 +140,26 @@ class LocationList(generics.ListAPIView):
 class LocationCreate(generics.CreateAPIView):
     queryset = Location.objects.all()
     serializer_class = serializers.LocationSerializer
+    permission_classes = (permissions.IsAuthenticated,
+                      IsOwnerOrReadOnly,)
+
+    def perform_create(self, serializer):
+        serializer.save(owner=self.request.user)
+
+class TransactionList(generics.ListAPIView):
+    queryset = Transaction.objects.all()
+    serializer_class = serializers.TransactionSerializer
+    permission_classes = (permissions.IsAuthenticated,
+                      IsOwnerOrReadOnly,)
+    filter_backends = (filters.DjangoFilterBackend,)
+    filter_fields = ('items', 'destination', 'origin', 'owner')
+
+    def perform_create(self, serializer):
+        serializer.save(owner=self.request.user)
+
+class TransactionCreate(generics.CreateAPIView):
+    queryset = Transaction.objects.all()
+    serializer_class = serializers.TransactionCreateSerializer
     permission_classes = (permissions.IsAuthenticated,
                       IsOwnerOrReadOnly,)
 

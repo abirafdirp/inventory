@@ -2,7 +2,7 @@ from rest_framework import serializers
 from rest_framework import permissions
 from .models import Item, Brand, Category, ProductIdPrefix, BaseItem
 from inventory.users.models import User
-from transaction.models import Location
+from transaction.models import Location, Transaction
 
 """
 some model will have two serializers, because somehow
@@ -104,6 +104,31 @@ class ItemCreateSerializer(serializers.ModelSerializer):
         # fields added for verbosity
         fields = ('base_item', 'product_id', 'expiration_date', 'expired', 'location', 'owner')
         read_only_fields = ('expiration_date', 'expired')
+
+class TransactionSerializer(serializers.ModelSerializer):
+    owner = serializers.ReadOnlyField(source='owner.username')
+    permission_classes = (permissions.IsAuthenticated,)
+
+    items = ItemSerializer()
+    location = LocationSerializer()
+
+    class Meta:
+        model = Transaction
+
+        # fields added for verbosity
+        fields = ('items', 'items_in', 'items_out', 'origin', 'destination', 'owner')
+        read_only_fields = ('date_time',)
+
+class TransactionCreateSerializer(serializers.ModelSerializer):
+    owner = serializers.ReadOnlyField(source='owner.username')
+    permission_classes = (permissions.IsAuthenticated,)
+
+    class Meta:
+        model = Transaction
+
+        # fields added for verbosity
+        fields = ('items', 'items_in', 'items_out', 'origin', 'destination', 'owner')
+        read_only_fields = ('date_time',)
 
 class UserSerializer(serializers.ModelSerializer):
     permission_classes = (permissions.IsAuthenticated,)

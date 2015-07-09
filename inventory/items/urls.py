@@ -19,6 +19,8 @@ urlpatterns = [
     url(r'api/productidprefixes/create/$', views.ProductIdPrefixCreate().as_view()),
     url(r'api/locations/$', views.LocationList().as_view()),
     url(r'api/locations/create/$', views.LocationCreate().as_view()),
+    url(r'api/transactions/$', views.TransactionList().as_view()),
+    url(r'api/transactions/create/$', views.TransactionCreate().as_view()),
 ]
 
 
