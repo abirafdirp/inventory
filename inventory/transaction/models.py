@@ -18,18 +18,22 @@ class Location(models.Model):
     def __str__(self):
         return "%s - %s" % (self.type, self.name)
 
+    class Meta:
+        ordering = ('name',)
+
 class Transaction(models.Model):
-    item = models.ForeignKey(BaseItem)
+    item = models.ForeignKey(BaseItem, related_name='transactions')
     date_time = models.DateTimeField(auto_now_add=True)
-    items_in = models.IntegerField(null=True, blank=True)
-    items_out = models.IntegerField(null=True, blank=True)
-    origin = models.ManyToManyField(Location, null=True, blank=True,
-                               related_name='origins')
-    destination = models.ManyToManyField(Location, null=True, blank=True,
-                                    related_name='destinations')
+    items_count = models.IntegerField(null=True, blank=True)
+    origin = models.ForeignKey(Location, related_name='origins')
+    destination = models.ForeignKey(Location, related_name='destinations')
     owner = models.ForeignKey(User)
 
     def save(self, *args, **kwargs):
+        Item.objects.filter(base_item__id=self.item.id, location=self.origin)\
+            .order_by('expiration_date').update(location=self.destination)[:self.items_count]
         super(Transaction, self).save(*args, **kwargs)
 
+    class Meta:
+        ordering = ('date_time',)
 

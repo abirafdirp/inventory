@@ -27,7 +27,7 @@ class BrandList(generics.ListAPIView):
     queryset = Brand.objects.all()
     serializer_class = serializers.BrandSerializer
     permission_classes = (permissions.IsAuthenticated,
-                      IsOwnerOrReadOnly,)
+                          IsOwnerOrReadOnly,)
     filter_backends = (filters.DjangoFilterBackend,)
     filter_fields = ('name', 'owner')
 
@@ -38,7 +38,7 @@ class BrandCreate(generics.CreateAPIView):
     queryset = Brand.objects.all()
     serializer_class = serializers.BrandSerializer
     permission_classes = (permissions.IsAuthenticated,
-                      IsOwnerOrReadOnly,)
+                          IsOwnerOrReadOnly,)
 
     def perform_create(self, serializer):
         serializer.save(owner=self.request.user)
@@ -47,7 +47,7 @@ class CategoryList(generics.ListAPIView):
     queryset = Category.objects.all()
     serializer_class = serializers.CategorySerializer
     permission_classes = (permissions.IsAuthenticated,
-                      IsOwnerOrReadOnly,)
+                          IsOwnerOrReadOnly,)
     filter_backends = (filters.DjangoFilterBackend,)
     filter_fields = ('name', 'owner')
 
@@ -58,7 +58,7 @@ class CategoryCreate(generics.CreateAPIView):
     queryset = Category.objects.all()
     serializer_class = serializers.CategorySerializer
     permission_classes = (permissions.IsAuthenticated,
-                      IsOwnerOrReadOnly,)
+                          IsOwnerOrReadOnly,)
 
     def perform_create(self, serializer):
         serializer.save(owner=self.request.user)
@@ -67,7 +67,7 @@ class BaseItemList(generics.ListAPIView):
     queryset = BaseItem.objects.all()
     serializer_class = serializers.BaseItemSerializer
     permission_classes = (permissions.IsAuthenticated,
-                      IsOwnerOrReadOnly,)
+                          IsOwnerOrReadOnly,)
     filter_backends = (filters.DjangoFilterBackend,)
     filter_fields = ('id', 'name', 'sku', 'product_id_prefix', 'brand__name', 'category__name', 'description',
                      'owner__username', 'expires_in')
@@ -79,7 +79,7 @@ class BaseItemCreate(generics.CreateAPIView):
     queryset = BaseItem.objects.all()
     serializer_class = serializers.BaseItemCreateSerializer
     permission_classes = (permissions.IsAuthenticated,
-                      IsOwnerOrReadOnly,)
+                          IsOwnerOrReadOnly,)
 
     def perform_create(self, serializer):
         serializer.save(owner=self.request.user)
@@ -88,10 +88,10 @@ class ItemList(generics.ListAPIView):
     queryset = Item.objects.all()
     serializer_class = serializers.ItemSerializer
     permission_classes = (permissions.IsAuthenticated,
-                      IsOwnerOrReadOnly,)
+                          IsOwnerOrReadOnly,)
     filter_backends = (filters.DjangoFilterBackend,)
-    base_item = serializers.BaseItemSerializer()
-    filter_fields = ('base_item', 'product_id', 'expiration_date', 'owner', 'location')
+    filter_fields = ('base_item__name', 'product_id', 'expiration_date', 'owner__username',
+                     'location__name', 'expired')
 
     def perform_create(self, serializer):
         serializer.save(owner=self.request.user)
@@ -100,7 +100,7 @@ class ItemCreate(generics.CreateAPIView):
     queryset = Item.objects.all()
     serializer_class = serializers.ItemCreateSerializer
     permission_classes = (permissions.IsAuthenticated,
-                      IsOwnerOrReadOnly,)
+                          IsOwnerOrReadOnly,)
     base_item = serializers.BaseItemCreateSerializer
 
     def perform_create(self, serializer):
@@ -110,7 +110,7 @@ class ProductIdPrefixList(generics.ListAPIView):
     queryset = ProductIdPrefix.objects.all()
     serializer_class = serializers.ProductIdPrefixSerializer
     permission_classes = (permissions.IsAuthenticated,
-                      IsOwnerOrReadOnly,)
+                          IsOwnerOrReadOnly,)
     filter_backends = (filters.DjangoFilterBackend,)
     filter_fields = ('name','owner')
 
@@ -121,7 +121,7 @@ class ProductIdPrefixCreate(generics.CreateAPIView):
     queryset = ProductIdPrefix.objects.all()
     serializer_class = serializers.ProductIdPrefixSerializer
     permission_classes = (permissions.IsAuthenticated,
-                      IsOwnerOrReadOnly,)
+                          IsOwnerOrReadOnly,)
 
     def perform_create(self, serializer):
         serializer.save(owner=self.request.user)
@@ -130,7 +130,7 @@ class LocationList(generics.ListAPIView):
     queryset = Location.objects.all()
     serializer_class = serializers.LocationSerializer
     permission_classes = (permissions.IsAuthenticated,
-                      IsOwnerOrReadOnly,)
+                          IsOwnerOrReadOnly,)
     filter_backends = (filters.DjangoFilterBackend,)
     filter_fields = ('name', 'type', 'address', 'owner')
 
@@ -141,7 +141,7 @@ class LocationCreate(generics.CreateAPIView):
     queryset = Location.objects.all()
     serializer_class = serializers.LocationSerializer
     permission_classes = (permissions.IsAuthenticated,
-                      IsOwnerOrReadOnly,)
+                          IsOwnerOrReadOnly,)
 
     def perform_create(self, serializer):
         serializer.save(owner=self.request.user)
@@ -150,9 +150,9 @@ class TransactionList(generics.ListAPIView):
     queryset = Transaction.objects.all()
     serializer_class = serializers.TransactionSerializer
     permission_classes = (permissions.IsAuthenticated,
-                      IsOwnerOrReadOnly,)
+                          IsOwnerOrReadOnly,)
     filter_backends = (filters.DjangoFilterBackend,)
-    filter_fields = ('item', 'destination', 'origin', 'owner')
+    filter_fields = ('item', 'destination', 'items_count', 'origin', 'owner')
 
     def perform_create(self, serializer):
         serializer.save(owner=self.request.user)
@@ -161,7 +161,7 @@ class TransactionCreate(generics.CreateAPIView):
     queryset = Transaction.objects.all()
     serializer_class = serializers.TransactionCreateSerializer
     permission_classes = (permissions.IsAuthenticated,
-                      IsOwnerOrReadOnly,)
+                          IsOwnerOrReadOnly,)
 
     def perform_create(self, serializer):
         serializer.save(owner=self.request.user)
