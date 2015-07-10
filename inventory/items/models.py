@@ -3,6 +3,7 @@ import string
 import datetime
 from django.db import models
 from django.utils import timezone
+from django.utils.timezone import now
 from inventory.users.models import User
 
 # Create your models here.
@@ -51,6 +52,10 @@ class Brand(NameModel, TimeStampedModel):
     def __str__(self):
         return self.name
 
+    class Meta:
+        ordering = ('name',)
+
+
 class Category(NameModel, TimeStampedModel):
     """
     Category of an item.
@@ -63,6 +68,7 @@ class Category(NameModel, TimeStampedModel):
 
     class Meta:
         verbose_name_plural = "Categories"
+        ordering = ('name',)
 
 class ProductIdPrefix(models.Model):
     owner = models.ForeignKey(User, related_name='product_id_prefixes')
@@ -73,6 +79,7 @@ class ProductIdPrefix(models.Model):
 
     class Meta:
         verbose_name_plural = "Product ID Prefixes"
+        ordering = ('name',)
 
 class BaseItem(NameModel, TimeStampedModel):
     sku = models.CharField(max_length=20, verbose_name='SKU', unique=True)
@@ -96,6 +103,9 @@ class BaseItem(NameModel, TimeStampedModel):
     def __str__(self):
         return self.name
 
+    class Meta:
+        ordering = ('name',)
+
 class Item(TimeStampedModel):
     base_item = models.ForeignKey(BaseItem, related_name='base_item_of')
 
@@ -118,7 +128,7 @@ class Item(TimeStampedModel):
         if expires_in == 0 or expires_in == None:
             self.expiration_date = datetime.date(2099, 12, 12)
         else:
-            self.expiration_date = timezone.now() + datetime.timedelta(days=expires_in)
+            self.expiration_date = timezone.localtime(now()).date() + datetime.timedelta(days=expires_in)
 
         # randomized product id, 7 chars from the max length of SKU
         # and 8 chars is randomized. Max len of product id is 15 chars

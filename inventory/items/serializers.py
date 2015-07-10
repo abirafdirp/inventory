@@ -127,7 +127,7 @@ class TransactionCreateSerializer(serializers.ModelSerializer):
         model = Transaction
 
         # fields added for verbosity
-        fields = ('items', 'items_in', 'items_out', 'origin', 'destination', 'owner')
+        fields = ('item', 'items_in', 'items_out', 'origin', 'destination', 'owner')
         read_only_fields = ('date_time',)
 
 class UserSerializer(serializers.ModelSerializer):

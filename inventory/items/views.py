@@ -152,7 +152,7 @@ class TransactionList(generics.ListAPIView):
     permission_classes = (permissions.IsAuthenticated,
                       IsOwnerOrReadOnly,)
     filter_backends = (filters.DjangoFilterBackend,)
-    filter_fields = ('items', 'destination', 'origin', 'owner')
+    filter_fields = ('item', 'destination', 'origin', 'owner')
 
     def perform_create(self, serializer):
         serializer.save(owner=self.request.user)

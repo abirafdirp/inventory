@@ -1,5 +1,5 @@
 from django.db import models
-from items.models import Item
+from items.models import BaseItem, Item
 from inventory.users.models import User
 # Create your models here.
 
@@ -19,7 +19,7 @@ class Location(models.Model):
         return "%s - %s" % (self.type, self.name)
 
 class Transaction(models.Model):
-    items = models.ManyToManyField(Item)
+    item = models.ForeignKey(BaseItem)
     date_time = models.DateTimeField(auto_now_add=True)
     items_in = models.IntegerField(null=True, blank=True)
     items_out = models.IntegerField(null=True, blank=True)
