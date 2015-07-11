@@ -93,9 +93,9 @@ class ProductIdPrefix(models.Model):
 
 class BaseItem(NameModel, TimeStampedModel):
     sku = models.CharField(max_length=20, verbose_name='SKU', unique=True)
+    product_id_prefix = models.OneToOneField\
         (ProductIdPrefix, null=True, blank=True,
-         verbose_name='Product ID prefix',
-         help_text='must be unique')
+         verbose_name='Product ID prefix', help_text='must be unique')
     brand = models.ForeignKey(Brand, related_name='brand_of')
     category = models.ManyToManyField(Category, related_name='category_of')
     description = models.CharField(max_length=50, blank=True)
@@ -135,7 +135,6 @@ class Item(TimeStampedModel):
     # prevent circular import
     location = models.ForeignKey('transaction.Location',
                                  related_name='location_of')
-
 
     def save(self, *args, **kwargs):
         self.modified = timezone.now()

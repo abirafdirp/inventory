@@ -59,7 +59,7 @@ class Migration(migrations.Migration):
                 ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
                 ('created', models.DateTimeField(auto_now_add=True)),
                 ('modified', models.DateTimeField(auto_now_add=True)),
-                ('product_id', models.CharField(help_text=b'Product ID will be generated randomly to simulate shipment from supplier', max_length=15, blank=True)),
+                ('product_id', models.CharField(help_text=b'Product ID will be generatedrandomly to simulate shipment from supplier', max_length=15, blank=True)),
                 ('expiration_date', models.DateField()),
                 ('expired', models.BooleanField(default=False)),
                 ('base_item', models.ForeignKey(related_name='base_item_of', to='items.BaseItem')),
