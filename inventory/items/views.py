@@ -1,6 +1,9 @@
 from rest_framework import permissions
 from rest_framework import filters
 from rest_framework import generics
+from rest_framework.decorators import api_view
+from rest_framework.response import Response
+from rest_framework.reverse import reverse
 from .models import Item
 from .models import BaseItem
 from .models import Category
@@ -168,3 +171,34 @@ class TransactionCreate(generics.CreateAPIView):
 
     def perform_create(self, serializer):
         serializer.save(owner=self.request.user)
+
+@api_view(('GET',))
+def api_root(request):
+    return Response({
+        'categories': reverse('inventory:category-list', request=request),
+        'create category': reverse('inventory:category-create',
+                                   request=request),
+
+        'base items': reverse('inventory:baseitem-list', request=request),
+        'create base item': reverse('inventory:baseitem-create',
+                                    request=request),
+
+        'brands': reverse('inventory:brand-list', request=request),
+        'create brand': reverse('inventory:brand-create', request=request),
+
+        'items': reverse('inventory:item-list', request=request),
+        'create item': reverse('inventory:item-create', request=request),
+
+        'product ID prefixes': reverse('inventory:productidprefix-list',
+                                       request=request),
+        'create product ID prefixes': reverse\
+            ('inventory:productidprefix-create', request=request),
+
+        'locations': reverse('inventory:location-list', request=request),
+        'create location': reverse('inventory:location-create',
+                                   request=request),
+
+        'transactions': reverse('inventory:transaction-list', request=request),
+        'create transaction': reverse('inventory:transaction-create',
+                                      request=request),
+        })

@@ -21,7 +21,7 @@ urlpatterns = [
                                namespace='rest_framework')),
 
     # Your stuff: custom urls includes go here
-    url(r'^inventory/', include('items.urls', namespace='dashboard')),
+    url(r'^inventory/', include('items.urls', namespace='inventory')),
 
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 
