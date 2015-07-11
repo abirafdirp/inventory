@@ -21,7 +21,8 @@ class UserList(generics.ListAPIView):
     queryset = User.objects.all()
     serializer_class = serializers.UserSerializer
     filter_backends = (filters.DjangoFilterBackend,)
-    filter_fields = ('id', 'username', 'base_items', 'brands', 'categories', 'items')
+    filter_fields = ('id', 'username', 'base_items', 'brands', 'categories',
+                     'items')
 
 class BrandList(generics.ListAPIView):
     queryset = Brand.objects.all()
@@ -69,8 +70,9 @@ class BaseItemList(generics.ListAPIView):
     permission_classes = (permissions.IsAuthenticated,
                           IsOwnerOrReadOnly,)
     filter_backends = (filters.DjangoFilterBackend,)
-    filter_fields = ('id', 'name', 'sku', 'product_id_prefix', 'brand__name', 'category__name', 'description',
-                     'owner__username', 'expires_in')
+    filter_fields = ('id', 'name', 'sku', 'product_id_prefix', 'brand__name',
+                     'category__name', 'description', 'owner__username',
+                     'expires_in')
 
     def perform_create(self, serializer):
         serializer.save(owner=self.request.user)
@@ -90,8 +92,8 @@ class ItemList(generics.ListAPIView):
     permission_classes = (permissions.IsAuthenticated,
                           IsOwnerOrReadOnly,)
     filter_backends = (filters.DjangoFilterBackend,)
-    filter_fields = ('base_item__name', 'product_id', 'expiration_date', 'owner__username',
-                     'location__name', 'expired')
+    filter_fields = ('base_item__name', 'product_id', 'expiration_date',
+                     'owner__username', 'location__name', 'expired')
 
     def perform_create(self, serializer):
         serializer.save(owner=self.request.user)

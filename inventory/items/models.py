@@ -72,7 +72,8 @@ class Category(NameModel, TimeStampedModel):
 
 class ProductIdPrefix(models.Model):
     owner = models.ForeignKey(User, related_name='product_id_prefixes')
-    name = models.CharField(max_length=7, unique=True, help_text='Max length 7 characters')
+    name = models.CharField(max_length=7, unique=True,
+                            help_text='Max length 7 characters')
 
     def __str__(self):
         return self.name
@@ -83,17 +84,19 @@ class ProductIdPrefix(models.Model):
 
 class BaseItem(NameModel, TimeStampedModel):
     sku = models.CharField(max_length=20, verbose_name='SKU', unique=True)
-    product_id_prefix = models.OneToOneField(ProductIdPrefix, null=True, blank=True,
-                                          verbose_name='Product ID prefix',
-                                          help_text='must be unique')
+    product_id_prefix = models.OneToOneField\
+        (ProductIdPrefix, null=True, blank=True,
+         verbose_name='Product ID prefix',
+         help_text='must be unique')
     brand = models.ForeignKey(Brand, related_name='brand_of')
     category = models.ManyToManyField(Category, related_name='category_of')
     description = models.CharField(max_length=50, blank=True)
     image = models.ImageField(upload_to='items', blank=True)
-    expires_in = models.IntegerField(null=True, blank=True, verbose_name='Expires in (days)',
-                                  help_text='This is NOT expiration date, but how long until '+
-                                  'this item will be expired in days. Leave blank if the item'+
-                                  ' is not expireable')
+    expires_in = models.IntegerField\
+        (null=True, blank=True, verbose_name='Expires in (days)',
+         help_text='This is NOT expiration date, but how long until ' +
+         'this item will be expired in days. Leave blank if the item' +
+         ' is not expireable')
     owner = models.ForeignKey(User, related_name='base_items')
 
     def save(self, *args, **kwargs):
@@ -111,24 +114,26 @@ class Item(TimeStampedModel):
 
     # the product id will be randomly generated from its prefix
     # because the product ID is given by the supplier
-    product_id = models.CharField(max_length=15, blank=True,
-                                  help_text='Product ID will be generated randomly to '+
-                                'simulate shipment from supplier'
-                                )
+    product_id = models.CharField\
+        (max_length=15, blank=True, help_text='Product ID will be generated' +
+         'randomly to simulate shipment from supplier'
+         )
     expiration_date = models.DateField()
     expired = models.BooleanField(default=False)
     owner = models.ForeignKey(User, related_name='items')
 
     # prevent circular import
-    location = models.ForeignKey('transaction.Location', related_name='location_of')
+    location = models.ForeignKey('transaction.Location',
+                                 related_name='location_of')
 
     def save(self, *args, **kwargs):
         self.modified = timezone.now()
         expires_in = self.base_item.expires_in
-        if expires_in == 0 or expires_in == None:
+        if expires_in == 0 or expires_in is None:
             self.expiration_date = datetime.date(2099, 12, 12)
         else:
-            self.expiration_date = timezone.localtime(now()).date() + datetime.timedelta(days=expires_in)
+            self.expiration_date = timezone.localtime(now()).date() + \
+                                   datetime.timedelta(days=expires_in)
 
         # randomized product id, 7 chars from the max length of SKU
         # and 8 chars is randomized. Max len of product id is 15 chars
@@ -149,4 +154,5 @@ class Item(TimeStampedModel):
         return self.base_item.name
 
 def randomword(length):
-    return ''.join(random.choice(string.lowercase+string.digits) for i in range(length))
+    return ''.join(random.choice(string.lowercase+string.digits) \
+                   for i in range(length))

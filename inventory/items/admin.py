@@ -14,8 +14,9 @@ class BaseItemAdmin(admin.ModelAdmin):
                     'expires_in', 'created','modified')
 
     # search fields help text is in inventory/templates/admin/search_form.html
-    search_fields = ['name', 'category__name', 'brand__name','expires_in','sku','expires_in',
-                     'description', 'product_id_prefix__name']
+    search_fields = ['name', 'category__name', 'brand__name','expires_in',
+                     'sku','expires_in', 'description',
+                     'product_id_prefix__name']
     list_filter = ('brand', 'category')
 
 
@@ -27,7 +28,8 @@ class ItemAdmin(admin.ModelAdmin):
     fields = ('base_item', 'product_id', 'expired',
               'location',)
     readonly_fields = ('product_id', 'expired')
-    list_display = ('Name', 'SKU', 'product_id', 'location', 'expiration_date', 'expired')
+    list_display = ('Name', 'SKU', 'product_id', 'location', 'expiration_date',
+                    'expired')
     search_fields = ['base_item__name', 'product_id', 'location__name']
 
     # functions below are renamed for verbosity in admin

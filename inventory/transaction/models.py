@@ -8,7 +8,8 @@ class Location(models.Model):
     TYPE_CHOICES = (
         ('Warehouse', 'Warehouse'),
         ('Store', 'Store'),
-        ('Refurbish/Recycling Center/Landfill', 'Refurbish/Landfill/Recyling center'),
+        ('Refurbish/Recycling Center/Landfill',
+         'Refurbish/Landfill/Recyling center'),
         ('supplier', 'Supplier')
     )
     type = models.CharField(max_length=35, choices=TYPE_CHOICES)
@@ -31,7 +32,8 @@ class Transaction(models.Model):
 
     def save(self, *args, **kwargs):
         Item.objects.filter(base_item__id=self.item.id, location=self.origin)\
-            .order_by('expiration_date').update(location=self.destination)[:self.items_count]
+        .order_by('expiration_date')\
+        .update(location=self.destination)[:self.items_count]
         super(Transaction, self).save(*args, **kwargs)
 
     class Meta:
