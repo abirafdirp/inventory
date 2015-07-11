@@ -25,3 +25,6 @@ libssl-dev
 
 ##django-extensions
 graphviz-dev
+
+##python-dev
+python-dev

@@ -116,7 +116,8 @@ class ItemSerializer(serializers.ModelSerializer):
         model = Item
 
         # fields added for verbosity
-        fields = ('base_item', 'product_id', 'expiration_date', 'expired', 'location', 'owner')
+        fields = ('base_item', 'product_id', 'expiration_date', 'expired',
+                  'location', 'owner')
 
 class ItemCreateSerializer(serializers.ModelSerializer):
     owner = serializers.ReadOnlyField(source='owner.username')
@@ -139,5 +140,3 @@ class UserSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
         fields = ('id', 'username', 'base_items', 'brands', 'categories', 'items')
-
-
