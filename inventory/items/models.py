@@ -18,7 +18,9 @@ from inventory.users.models import User
     class Meta:
         abstract = True"""
 
+
 class TimeStampedModel(models.Model):
+
     """
     Abstract model class that provides
     self-updating 'created' and 'modified'
@@ -31,7 +33,9 @@ class TimeStampedModel(models.Model):
     class Meta:
         abstract = True
 
+
 class NameModel(models.Model):
+
     """
     Abstract model class that provides
     name.
@@ -42,7 +46,9 @@ class NameModel(models.Model):
     class Meta:
         abstract = True
 
+
 class Brand(NameModel, TimeStampedModel):
+
     """
     Brand of an item.
     """
@@ -57,6 +63,7 @@ class Brand(NameModel, TimeStampedModel):
 
 
 class Category(NameModel, TimeStampedModel):
+
     """
     Category of an item.
     """
@@ -70,6 +77,7 @@ class Category(NameModel, TimeStampedModel):
         verbose_name_plural = "Categories"
         ordering = ('name',)
 
+
 class ProductIdPrefix(models.Model):
     owner = models.ForeignKey(User, related_name='product_id_prefixes')
     name = models.CharField(max_length=7, unique=True,
@@ -82,9 +90,9 @@ class ProductIdPrefix(models.Model):
         verbose_name_plural = "Product ID Prefixes"
         ordering = ('name',)
 
+
 class BaseItem(NameModel, TimeStampedModel):
     sku = models.CharField(max_length=20, verbose_name='SKU', unique=True)
-    product_id_prefix = models.OneToOneField\
         (ProductIdPrefix, null=True, blank=True,
          verbose_name='Product ID prefix',
          help_text='must be unique')
@@ -109,6 +117,7 @@ class BaseItem(NameModel, TimeStampedModel):
     class Meta:
         ordering = ('name',)
 
+
 class Item(TimeStampedModel):
     base_item = models.ForeignKey(BaseItem, related_name='base_item_of')
 
@@ -118,6 +127,7 @@ class Item(TimeStampedModel):
         (max_length=15, blank=True, help_text='Product ID will be generated' +
          'randomly to simulate shipment from supplier'
          )
+
     expiration_date = models.DateField()
     expired = models.BooleanField(default=False)
     owner = models.ForeignKey(User, related_name='items')
@@ -125,6 +135,7 @@ class Item(TimeStampedModel):
     # prevent circular import
     location = models.ForeignKey('transaction.Location',
                                  related_name='location_of')
+
 
     def save(self, *args, **kwargs):
         self.modified = timezone.now()
@@ -135,13 +146,14 @@ class Item(TimeStampedModel):
             self.expiration_date = timezone.localtime(now()).date() + \
                                    datetime.timedelta(days=expires_in)
 
+
         # randomized product id, 7 chars from the max length of SKU
         # and 8 chars is randomized. Max len of product id is 15 chars
         # if there is already one, then it will continue to be randomized
         while True:
             product_ID = self.base_item.product_id_prefix.name + randomword(8)
             try:
-                Item.objects.get(product_id = product_ID)
+                Item.objects.get(product_id=product_ID)
             except:
                 self.product_id = product_ID
                 break
@@ -153,6 +165,8 @@ class Item(TimeStampedModel):
     def __str__(self):
         return self.base_item.name
 
+
 def randomword(length):
     return ''.join(random.choice(string.lowercase+string.digits) \
                    for i in range(length))
+

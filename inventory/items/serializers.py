@@ -145,4 +145,3 @@ class UserSerializer(serializers.ModelSerializer):
         fields = ('id', 'username', 'base_items', 'brands', 'categories',
                   'items')
 
-
