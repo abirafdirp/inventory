@@ -3,6 +3,7 @@ from items.models import BaseItem, Item
 from inventory.users.models import User
 # Create your models here.
 
+
 class Location(models.Model):
     name = models.CharField(max_length=40)
     TYPE_CHOICES = (
@@ -21,6 +22,7 @@ class Location(models.Model):
 
     class Meta:
         ordering = ('name',)
+
 
 class Transaction(models.Model):
     item = models.ForeignKey(BaseItem, related_name='transactions')

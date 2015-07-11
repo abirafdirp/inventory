@@ -2,8 +2,6 @@ from django.conf.urls import patterns, url, include
 from rest_framework.routers import DefaultRouter
 from items import views
 
-
-
 urlpatterns = [
     # url(r'api/$', views.APIRootView.as_view()),
     url(r'api/users/$', views.UserList().as_view()),

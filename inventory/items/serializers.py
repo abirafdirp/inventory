@@ -27,6 +27,7 @@ class BrandSerializer(serializers.ModelSerializer):
         model = Brand
         field = ('name', 'owner')
 
+
 class CategorySerializer(serializers.ModelSerializer):
     owner = serializers.ReadOnlyField(source='owner.username')
     permission_classes = (permissions.IsAuthenticated,)
@@ -34,6 +35,7 @@ class CategorySerializer(serializers.ModelSerializer):
     class Meta:
         model = Category
         field = ('name', 'owner')
+
 
 class ProductIdPrefixSerializer(serializers.ModelSerializer):
     owner = serializers.ReadOnlyField(source='owner.username')
@@ -43,6 +45,7 @@ class ProductIdPrefixSerializer(serializers.ModelSerializer):
         model = ProductIdPrefix
         field = ('name', 'owner')
 
+
 class LocationSerializer(serializers.ModelSerializer):
     owner = serializers.ReadOnlyField(source='owner.username')
     permission_classes = (permissions.IsAuthenticated,)
@@ -51,6 +54,7 @@ class LocationSerializer(serializers.ModelSerializer):
         model = Location
         depth = 1
         fields = ('name', 'type', 'address', 'owner')
+
 
 class BaseItemSerializer(serializers.ModelSerializer):
     owner = serializers.ReadOnlyField(source='owner.username')
@@ -66,8 +70,9 @@ class BaseItemSerializer(serializers.ModelSerializer):
 
         # fields added for verbosity
         fields = ('id', 'name', 'created', 'modified', 'sku',
-                  'product_id_prefix', 'brand','category',
+                  'product_id_prefix', 'brand', 'category',
                   'description', 'image', 'expires_in', 'owner')
+
 
 class BaseItemCreateSerializer(serializers.ModelSerializer):
     owner = serializers.ReadOnlyField(source='owner.username')
@@ -80,6 +85,7 @@ class BaseItemCreateSerializer(serializers.ModelSerializer):
         fields = ('name', 'created', 'modified', 'sku', 'product_id_prefix',
                   'brand', 'category', 'description', 'image', 'expires_in',
                   'owner')
+
 
 class TransactionSerializer(serializers.ModelSerializer):
     owner = serializers.ReadOnlyField(source='owner.username')
@@ -96,6 +102,7 @@ class TransactionSerializer(serializers.ModelSerializer):
         fields = ('item', 'items_count', 'origin', 'destination', 'owner',
                   'date_time')
 
+
 class TransactionCreateSerializer(serializers.ModelSerializer):
     owner = serializers.ReadOnlyField(source='owner.username')
     permission_classes = (permissions.IsAuthenticated,)
@@ -106,6 +113,7 @@ class TransactionCreateSerializer(serializers.ModelSerializer):
         # fields added for verbosity
         fields = ('item', 'items_count', 'origin', 'destination', 'owner')
         read_only_fields = ('date_time',)
+
 
 class ItemSerializer(serializers.ModelSerializer):
     owner = serializers.ReadOnlyField(source='owner.username')
@@ -122,6 +130,7 @@ class ItemSerializer(serializers.ModelSerializer):
         fields = ('base_item', 'product_id', 'expiration_date', 'expired',
                   'location', 'owner')
 
+
 class ItemCreateSerializer(serializers.ModelSerializer):
     owner = serializers.ReadOnlyField(source='owner.username')
     permission_classes = (permissions.IsAuthenticated,)
@@ -132,6 +141,7 @@ class ItemCreateSerializer(serializers.ModelSerializer):
         # fields added for verbosity
         fields = ('base_item', 'product_id', 'location', 'owner')
         read_only_fields = ('expiration_date', 'expired')
+
 
 class UserSerializer(serializers.ModelSerializer):
     permission_classes = (permissions.IsAuthenticated,)
@@ -144,4 +154,3 @@ class UserSerializer(serializers.ModelSerializer):
         model = User
         fields = ('id', 'username', 'base_items', 'brands', 'categories',
                   'items')
-
