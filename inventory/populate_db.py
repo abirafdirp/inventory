@@ -40,28 +40,26 @@ def populate():
 
 def add_baseitem(owner, name, sku, brand, category, product_id_prefix,
                  expires_in, description='', image=''):
-    b = BaseItem.objects.get_or_create\
-        (owner=owner, name=name, sku=sku, brand=brand, category=category,
+    b = BaseItem.objects.create\
+        (owner=owner, name=name, sku=sku, brand=brand,
          product_id_prefix=product_id_prefix, description=description,
          image=image, expires_in=expires_in)
+    b.category.create(owner=owner, name=category)
     display(name, 'base item')
     return b
 
 def add_productidprefix(owner, name):
     b = ProductIdPrefix.objects.get_or_create(owner=owner, name=name)[0]
-    b.save()
     display(name, 'product ID prefix')
     return b
 
 def add_brand(owner, name):
     b = Brand.objects.get_or_create(owner=owner, name=name)[0]
-    b.save()
     display(name, 'brand')
     return b
 
 def add_category(owner, name):
     c = Category.objects.get_or_create(owner=owner, name=name)[0]
-    b.save()
     display(name, 'category')
     return c
 
