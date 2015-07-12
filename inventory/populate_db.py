@@ -26,42 +26,42 @@ def populate():
         print 'invalid username or password'
         return
 
-    smartphone = add_category(owner=owner, name='Smartphone')
-
-    samsung = add_brand(owner=owner, name='Samsung')
-
-    glxy6prefix = add_productidprefix(owner=owner, name='SMGG6-')
-
     glxy6base = add_baseitem(owner=owner, name='Galaxy S6', sku='SMSNGGLXY6',
-                             brand=samsung, product_id_prefix=glxy6prefix,
-                             category=smartphone, expires_in=0)
+                             brand='Samsung', product_id_prefix='GLXY6A',
+                             category='Smartphone', expires_in=0)
 
 # def additem()
 
 def add_baseitem(owner, name, sku, brand, category, product_id_prefix,
                  expires_in, description='', image=''):
     b = BaseItem.objects.create\
-        (owner=owner, name=name, sku=sku, brand=brand,
-         product_id_prefix=product_id_prefix, description=description,
+        (owner=owner, name=name, sku=sku, description=description,
          image=image, expires_in=expires_in)
-    b.category.create(owner=owner, name=category)
+    b.save()
+    b.category.get_or_create(owner=owner, name=category)
+    b.brand.get_or_create(owner=owner, name=brand)
+    b.product_id_prefix.get_or_create(owner=owner, name=product_id_prefix)
     display(name, 'base item')
     return b
+
 
 def add_productidprefix(owner, name):
     b = ProductIdPrefix.objects.get_or_create(owner=owner, name=name)[0]
     display(name, 'product ID prefix')
     return b
 
+
 def add_brand(owner, name):
     b = Brand.objects.get_or_create(owner=owner, name=name)[0]
     display(name, 'brand')
     return b
 
+
 def add_category(owner, name):
     c = Category.objects.get_or_create(owner=owner, name=name)[0]
     display(name, 'category')
     return c
+
 
 def display(name, model):
     print 'Added %s in %s' %(name, model)

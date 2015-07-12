@@ -98,7 +98,7 @@ class BaseItem(NameModel, TimeStampedModel):
     product_id_prefix = models.OneToOneField\
         (ProductIdPrefix, null=True, blank=True, unique=True,
          verbose_name='Product ID prefix', help_text='must be unique')
-    brand = models.ForeignKey(Brand, related_name='brand_of')
+    brand = models.ForeignKey(Brand, related_name='brand_of', null=True)
     category = models.ManyToManyField(Category, related_name='category_of')
     description = models.CharField(max_length=50, blank=True)
     image = models.ImageField(upload_to='items', blank=True)
