@@ -6,6 +6,9 @@ import sys
 import django
 django.setup()
 
+from django.conf import settings
+from django.contrib.auth.models import check_password
+from django.contrib.auth import authenticate
 from items.models import BaseItem
 from items.models import Item
 from items.models import Brand
@@ -18,11 +21,11 @@ def populate():
     # get user for auth, username is from command line argument
     username = str(sys.argv[1])
     password = str(sys.argv[2])
-    print username
     try:
-        owner = User.objects.get(username=username, password=password)
+        owner = User.objects.get(username=username)
+        print owner.password
     except:
-        print 'invalid username or password
+        print 'invalid username or password'
         return
     # add_category()
 
