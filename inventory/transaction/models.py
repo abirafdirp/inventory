@@ -5,7 +5,7 @@ from inventory.users.models import User
 
 
 class Location(models.Model):
-    name = models.CharField(max_length=40)
+    name = models.CharField(max_length=40, unique=True)
     TYPE_CHOICES = (
         ('Warehouse', 'Warehouse'),
         ('Store', 'Store'),
@@ -14,7 +14,7 @@ class Location(models.Model):
         ('supplier', 'Supplier')
     )
     type = models.CharField(max_length=35, choices=TYPE_CHOICES)
-    address = models.CharField(max_length=50)
+    address = models.CharField(max_length=50, unique=True)
     owner = models.ForeignKey(User)
 
     def __str__(self):
