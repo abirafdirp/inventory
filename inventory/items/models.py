@@ -81,7 +81,8 @@ class Category(NameModel, TimeStampedModel):
 class ProductIdPrefix(models.Model):
     owner = models.ForeignKey(User, related_name='product_id_prefixes')
     name = models.CharField(max_length=7, unique=True,
-                            help_text='Max length 7 characters')
+                            help_text='max length 7 characters and must' +
+                            'be unique')
 
     def __str__(self):
         return self.name
@@ -92,9 +93,10 @@ class ProductIdPrefix(models.Model):
 
 
 class BaseItem(NameModel, TimeStampedModel):
-    sku = models.CharField(max_length=20, verbose_name='SKU', unique=True)
+    sku = models.CharField(max_length=20, verbose_name='SKU', unique=True,
+                           help_text='must be unique')
     product_id_prefix = models.OneToOneField\
-        (ProductIdPrefix, null=True, blank=True,
+        (ProductIdPrefix, null=True, blank=True, unique=True
          verbose_name='Product ID prefix', help_text='must be unique')
     brand = models.ForeignKey(Brand, related_name='brand_of')
     category = models.ManyToManyField(Category, related_name='category_of')
@@ -102,7 +104,7 @@ class BaseItem(NameModel, TimeStampedModel):
     image = models.ImageField(upload_to='items', blank=True)
     expires_in = models.IntegerField\
         (null=True, blank=True, verbose_name='Expires in (days)',
-         help_text='This is NOT expiration date, but how long until ' +
+         help_text='this is NOT expiration date, but how long until ' +
          'this item will be expired in days. Leave blank if the item' +
          ' is not expireable')
     owner = models.ForeignKey(User, related_name='base_items')
@@ -124,9 +126,9 @@ class Item(TimeStampedModel):
     # the product id will be randomly generated from its prefix
     # because the product ID is given by the supplier
     product_id = models.CharField\
-        (max_length=15, blank=True, help_text='Product ID will be generated' +
-         'randomly to simulate shipment from supplier'
-         )
+        (max_length=15, blank=True,
+         help_text='left blank to randomize based on product ID prefix',
+         unique=True)
 
     expiration_date = models.DateField()
     expired = models.BooleanField(default=False)
@@ -138,6 +140,9 @@ class Item(TimeStampedModel):
 
     def save(self, *args, **kwargs):
         self.modified = timezone.now()
+
+        # if expires_in is blank then the expiration dat will be fixed at
+        # 2099-12-12
         expires_in = self.base_item.expires_in
         if expires_in == 0 or expires_in is None:
             self.expiration_date = datetime.date(2099, 12, 12)
@@ -146,16 +151,20 @@ class Item(TimeStampedModel):
                                    datetime.timedelta(days=expires_in)
 
 
-        # randomized product id, 7 chars from the max length of SKU
-        # and 8 chars is randomized. Max len of product id is 15 chars
-        # if there is already one, then it will continue to be randomized
-        while True:
-            product_ID = self.base_item.product_id_prefix.name + randomword(8)
-            try:
-                Item.objects.get(product_id=product_ID)
-            except:
-                self.product_id = product_ID
-                break
+        # randomized product id, 7 chars is from product ID
+        # prefix and 8 chars is randomized. Max len of product id is
+        # 15 chars, if there is already one, then it will continue to
+        # be randomized
+        random_len = 15 - len(self.base_item.product_id_prefix.name)
+        if self.product_id == '':
+            while True:
+                product_id = self.base_item.product_id_prefix.name +\
+                             randomword(random_len)
+                try:
+                    Item.objects.get(product_id=product_id)
+                except:
+                    self.product_id = product_ID
+                    break
         super(Item, self).save(*args, **kwargs)
 
     class Meta:
