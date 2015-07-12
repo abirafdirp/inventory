@@ -1,8 +1,13 @@
 from rest_framework import serializers
 from rest_framework import permissions
-from .models import Item, Brand, Category, ProductIdPrefix, BaseItem
+from .models import Item
+from .models import Brand
+from .models import Category
+from .models import ProductIdPrefix
+from .models import BaseItem
 from inventory.users.models import User
-from transaction.models import Location, Transaction
+from transaction.models import Location
+from transaction.models import Transaction
 
 """
 some model will have two serializers, because somehow

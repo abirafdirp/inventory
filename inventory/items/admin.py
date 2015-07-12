@@ -1,6 +1,9 @@
 from django.contrib import admin
-from .models import Brand, Category, BaseItem, Item, ProductIdPrefix
-# Register your models here.
+from .models import Item
+from .models import Brand
+from .models import Category
+from .models import ProductIdPrefix
+from .models import BaseItem
 
 
 class BrandAdmin(admin.ModelAdmin):
