@@ -26,6 +26,10 @@ def populate():
         print 'invalid username or password'
         return
 
+    # clear current database
+    BaseItem.objects.all().delete()
+    print 'current database cleared'
+
     glxy6base = add_baseitem(owner=owner, name='Galaxy S6', sku='SMSNGGLXY6',
                              brand='Samsung', product_id_prefix='GLXY6A',
                              category='Smartphone', expires_in=0)
@@ -38,9 +42,27 @@ def add_baseitem(owner, name, sku, brand, category, product_id_prefix,
         (owner=owner, name=name, sku=sku, description=description,
          image=image, expires_in=expires_in)
     b.save()
-    b.category.get_or_create(owner=owner, name=category)
-    b.brand.get_or_create(owner=owner, name=brand)
-    b.product_id_prefix.get_or_create(owner=owner, name=product_id_prefix)
+
+    try:
+        b.category.create(owner=owner, name=category)
+    except:
+        c = Category.objects.get(name=category)
+        b.category.add(c)
+
+    try:
+        b.brand.create(owner=owner, name=brand)
+    except:
+        b.brand.add(Brand.objects.get(name=brand))
+    try:
+        b.product_id_prefix.create(owner=owner, name=product_id_prefix)
+    except:
+        b.product_id_prefix.create(ProductIdPrefix.objects.get\
+            (name=product_id_prefix))
+
+
+
+    # b.brand.get_or_create(owner=owner, name=brand)
+    # b.product_id_prefix.get_or_create(owner=owner, name=product_id_prefix)
     display(name, 'base item')
     return b
 

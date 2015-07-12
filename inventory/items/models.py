@@ -110,7 +110,7 @@ class BaseItem(NameModel, TimeStampedModel):
     owner = models.ForeignKey(User, related_name='base_items')
 
     def save(self, *args, **kwargs):
-        self.modified = datetime.datetime.today()
+        self.modified = timezone.datetime.today()
         super(BaseItem, self).save(*args, **kwargs)
 
     def __str__(self):
