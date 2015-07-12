@@ -19,10 +19,10 @@ class Migration(migrations.Migration):
                 ('created', models.DateTimeField(auto_now_add=True)),
                 ('modified', models.DateTimeField(auto_now_add=True)),
                 ('name', models.CharField(unique=True, max_length=30)),
-                ('sku', models.CharField(unique=True, max_length=20, verbose_name=b'SKU')),
+                ('sku', models.CharField(help_text=b'must be unique', unique=True, max_length=20, verbose_name=b'SKU')),
                 ('description', models.CharField(max_length=50, blank=True)),
                 ('image', models.ImageField(upload_to=b'items', blank=True)),
-                ('expires_in', models.IntegerField(help_text=b'This is NOT expiration date, but how long until this item will be expired in days. Leave blank if the item is not expireable', null=True, verbose_name=b'Expires in (days)', blank=True)),
+                ('expires_in', models.IntegerField(help_text=b'this is NOT expiration date, but how long until this item will be expired in days. Leave blank if the item is not expireable', null=True, verbose_name=b'Expires in (days)', blank=True)),
             ],
             options={
                 'ordering': ('name',),
@@ -59,7 +59,7 @@ class Migration(migrations.Migration):
                 ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
                 ('created', models.DateTimeField(auto_now_add=True)),
                 ('modified', models.DateTimeField(auto_now_add=True)),
-                ('product_id', models.CharField(help_text=b'Product ID will be generatedrandomly to simulate shipment from supplier', max_length=15, blank=True)),
+                ('product_id', models.CharField(help_text=b'left blank to randomize based on product ID prefix', unique=True, max_length=15, blank=True)),
                 ('expiration_date', models.DateField()),
                 ('expired', models.BooleanField(default=False)),
                 ('base_item', models.ForeignKey(related_name='base_item_of', to='items.BaseItem')),
@@ -72,7 +72,7 @@ class Migration(migrations.Migration):
             name='ProductIdPrefix',
             fields=[
                 ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
-                ('name', models.CharField(help_text=b'Max length 7 characters', unique=True, max_length=7)),
+                ('name', models.CharField(help_text=b'max length 7 characters and mustbe unique', unique=True, max_length=7)),
                 ('owner', models.ForeignKey(related_name='product_id_prefixes', to=settings.AUTH_USER_MODEL)),
             ],
             options={

@@ -54,3 +54,7 @@ node_modules/
 
 # virtual environments
 .env
+
+# migrations
+migrations/
+**/inventory/media/
