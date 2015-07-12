@@ -96,7 +96,7 @@ class BaseItem(NameModel, TimeStampedModel):
     sku = models.CharField(max_length=20, verbose_name='SKU', unique=True,
                            help_text='must be unique')
     product_id_prefix = models.OneToOneField\
-        (ProductIdPrefix, null=True, blank=True, unique=True
+        (ProductIdPrefix, null=True, blank=True, unique=True,
          verbose_name='Product ID prefix', help_text='must be unique')
     brand = models.ForeignKey(Brand, related_name='brand_of')
     category = models.ManyToManyField(Category, related_name='category_of')
