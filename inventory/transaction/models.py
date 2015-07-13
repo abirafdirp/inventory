@@ -10,7 +10,7 @@ class Location(models.Model):
         ('Warehouse', 'Warehouse'),
         ('Store', 'Store'),
         ('Refurbish/Recycling Center/Landfill',
-         'Refurbish/Landfill/Recyling center'),
+         'Refurbish/Recycling Center/Landfill'),
         ('supplier', 'Supplier')
     )
     type = models.CharField(max_length=35, choices=TYPE_CHOICES)
@@ -27,17 +27,20 @@ class Location(models.Model):
 class Transaction(models.Model):
     item = models.ForeignKey(BaseItem, related_name='transactions')
     date_time = models.DateTimeField(auto_now_add=True)
-    items_count = models.IntegerField(null=True, blank=True)
+    items_count = models.IntegerField()
     origin = models.ForeignKey(Location, related_name='origins')
     destination = models.ForeignKey(Location, related_name='destinations')
     owner = models.ForeignKey(User)
 
     def save(self, *args, **kwargs):
-        Item.objects.filter(base_item__id=self.item.id, location=self.origin)\
-        .order_by('expiration_date')\
-        .update(location=self.destination)[:self.items_count]
+        items = Item.objects.filter\
+                   (base_item__id=self.item.id,location=self.origin).\
+                    order_by('expiration_date').values('pk')[:self.items_count]
+        Item.objects.filter(pk__in=items).update(location=self.destination)
         super(Transaction, self).save(*args, **kwargs)
 
     class Meta:
         ordering = ('date_time',)
 
+    def __str__(self):
+        return str(self.date_time)

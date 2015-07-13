@@ -124,11 +124,10 @@ class Item(TimeStampedModel):
     base_item = models.ForeignKey(BaseItem, related_name='base_item_of')
 
     # the product id will be randomly generated from its prefix
-    # because the product ID is given by the supplier
+    # the uniqueness will be guaranteed at overrided save method
     product_id = models.CharField\
         (max_length=15, blank=True,
-         help_text='left blank to randomize based on product ID prefix',
-         unique=True)
+         help_text='left blank to randomize based on product ID prefix')
 
     expiration_date = models.DateField()
     expired = models.BooleanField(default=False)
@@ -163,7 +162,7 @@ class Item(TimeStampedModel):
                 try:
                     Item.objects.get(product_id=product_id)
                 except:
-                    self.product_id = product_ID
+                    self.product_id = product_id
                     break
         super(Item, self).save(*args, **kwargs)
 

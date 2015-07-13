@@ -13,7 +13,8 @@ class LocationAdmin(admin.ModelAdmin):
     ]
 
 class TransactionAdmin(admin.ModelAdmin):
-    pass
+    list_display = ('date_time', 'items_count', 'origin', 'destination')
+    ordering = ['-date_time',]
 
 admin.site.register(Location, LocationAdmin)
 admin.site.register(Transaction, TransactionAdmin)
