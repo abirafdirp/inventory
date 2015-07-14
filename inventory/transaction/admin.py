@@ -11,10 +11,20 @@ class LocationAdmin(admin.ModelAdmin):
     inlines = [
         ItemInline
     ]
+    readonly_fields = ('owner',)
+
+    def save_model(self, request, obj, form, change):
+        obj.owner = request.user
+        obj.save()
 
 class TransactionAdmin(admin.ModelAdmin):
     list_display = ('date_time', 'items_count', 'origin', 'destination')
     ordering = ['-date_time',]
+    readonly_fields = ('owner',)
+
+    def save_model(self, request, obj, form, change):
+        obj.owner = request.user
+        obj.save()
 
 admin.site.register(Location, LocationAdmin)
 admin.site.register(Transaction, TransactionAdmin)
