@@ -34,7 +34,7 @@ class Transaction(models.Model):
 
     def save(self, *args, **kwargs):
         items = Item.objects.filter\
-                   (base_item__id=self.item.id,location=self.origin).\
+                   (base_item__id=self.item.id, location=self.origin).\
                     order_by('expiration_date').values('pk')[:self.items_count]
         Item.objects.filter(pk__in=items).update(location=self.destination)
         super(Transaction, self).save(*args, **kwargs)
