@@ -48,6 +48,7 @@ LOCAL_APPS = (
     # Your stuff: custom apps go here
     'items',
     'transaction',
+    'apiv1',
 )
 
 # See: https://docs.djangoproject.com/en/dev/ref/settings/#installed-apps
@@ -68,7 +69,7 @@ MIDDLEWARE_CLASSES = (
 # MIGRATIONS CONFIGURATION
 # ------------------------------------------------------------------------------
 MIGRATION_MODULES = {
-    'sites': 'inventory.contrib.sites.migrations'
+    # 'sites': 'inventory.contrib.sites.migrations' bugged makemigrations
 }
 
 # DEBUG
