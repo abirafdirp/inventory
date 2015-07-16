@@ -1,0 +1,42 @@
+.sidebar {
+    background-color: rgba(232, 232, 232, 1);
+    display: block;
+    overflow-x: hidden;
+    overflow-y: auto; /* Scrollable contents if viewport is shorter than content. */
+}
+
+.nav-sidebar {
+    margin-right: -15px;
+    margin-bottom: 20px;
+    margin-left: -14px;
+}
+
+.nav-sidebar > li > a{
+    color: #0f0f0f;
+}
+
+.nav-sidebar > li > a:hover,
+.nav-sidebar > li > a:focus {
+    background-color: #ffffff;
+}
+
+.nav-sidebar > .active > a,
+.nav-sidebar > .active > a:hover,
+.nav-sidebar > .active > a:focus{
+    background-color: #ffffff;
+
+}
+
+.brand > a {
+    color: #0f0f0f;
+}
+
+.brand > a:hover {
+    color: rgba(51, 43, 138, 1)
+}
+
+.main {
+    padding: 20px;
+}
+
+
