@@ -49,6 +49,7 @@ LOCAL_APPS = (
     'items',
     'transaction',
     'apiv1',
+    'dashboard',
 )
 
 # See: https://docs.djangoproject.com/en/dev/ref/settings/#installed-apps

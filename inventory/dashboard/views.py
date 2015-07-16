@@ -2,7 +2,7 @@ from django.views.generic import View
 from django.shortcuts import render
 
 class DashboardView(View):
-
-    def get(self, request, *args, **kwargs):
-        return render(request, )
+    template_name = 'dashboard.html'
+    def get(self, request):
+        return render(request, self.template_name)
 

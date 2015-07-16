@@ -24,7 +24,7 @@ urlpatterns = [
 
     # Your stuff: custom urls includes go here
     url(r'^inventory/apiv1', include('apiv1.urls', namespace='apiv1')),
-    url(r'^inventory/', include('dashboard.urls', namespace='apiv1')),
+    url(r'^dashboard/', include('dashboard.urls', namespace='apiv1')),
 
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 
