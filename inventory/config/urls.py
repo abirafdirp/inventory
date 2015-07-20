@@ -12,6 +12,8 @@ urlpatterns = [
         name="home"),
     url(r'^about/$', TemplateView.as_view(template_name='pages/about.html'),
         name="about"),
+    url(r'^about1/$', TemplateView.as_view(template_name='forms/create_base_item.html'),
+        name="about1"),
 
     # Django Admin
     url(r'^admin/', include(admin.site.urls)),

@@ -50,6 +50,7 @@ LOCAL_APPS = (
     'transaction',
     'apiv1',
     'dashboard',
+    'djangular',
 )
 
 # See: https://docs.djangoproject.com/en/dev/ref/settings/#installed-apps
@@ -264,4 +265,5 @@ LOGGING = {
 # Your common stuff: Below this line define 3rd party library settings
 REST_FRAMEWORK = {
     'DEFAULT_FILTER_BACKENDS': ('rest_framework.filters.DjangoFilterBackend',),
+    'PAGE_SIZE': 10
 }
