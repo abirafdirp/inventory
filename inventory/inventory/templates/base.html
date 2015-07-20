@@ -14,23 +14,18 @@
 
 	</head>
 
-	<body>
-        {%  block main-sidebar %}
+	<body ng-app="inventory">
+        {%  block main %}
         {%  endblock %}
 
-		<!-- jQuery -->
-        <script src="{% static 'js/jquery-2.1.4.min.js' %}"></script>
-        <!-- angular -->
+        <!-- angular v1.4.2 -->
 		<script src="{% static 'js/angular.min.js' %}"></script>
+        <script src="{% static 'js/angular-route.min.js' %}"></script>
+		<script src="{% static 'js/app.js' %}"></script>
+        <!-- jQuery -->
+        <script src="{% static 'js/jquery-2.1.4.min.js' %}"></script>
 		<!-- Bootstrap JavaScript -->
 		<script src="{% static 'js/bootstrap.min.js' %}"></script>
-        <!-- Menu Toggle Script -->
-        <script>
-            $("#menu-toggle").click(function(e) {
-                e.preventDefault();
-                $("#wrapper").toggleClass("toggled");
-            });
-        </script>
 
 	</body>
 
