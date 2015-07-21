@@ -1,5 +1,10 @@
 var app = angular.module('inventory', ['ngRoute', 'ui.bootstrap']);
 
+app.config(function($interpolateProvider) {
+    $interpolateProvider.startSymbol('{$');
+    $interpolateProvider.endSymbol('$}');
+});
+
 app.controller('MainController', [
   '$scope', '$http', function($scope, $http) {
     $scope.baseitem = [];
@@ -11,7 +16,3 @@ app.controller('MainController', [
   }
 ]);
 
-var my_app = angular.module('inventory').config(function($interpolateProvider) {
-    $interpolateProvider.startSymbol('{$');
-    $interpolateProvider.endSymbol('$}');
-});
