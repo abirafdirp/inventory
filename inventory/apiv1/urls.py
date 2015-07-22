@@ -27,13 +27,6 @@ urlpatterns = [
     url(r'categories/create/$', views.CategoryCreate().as_view(),
         name='category-create'),
 
-    # product id prefixes
-    url(r'productidprefixes/$', views.ProductIdPrefixList().as_view(),
-        name='productidprefix-list'),
-    url(r'productidprefixes/create/$',
-        views.ProductIdPrefixCreate().as_view(),
-        name='productidprefix-create'),
-
     # locations
     url(r'locations/$', views.LocationList().as_view(),
         name='location-list'),

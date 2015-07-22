@@ -3,7 +3,6 @@ from rest_framework import permissions
 from items.models import Item
 from items.models import Brand
 from items.models import Category
-from items.models import ProductIdPrefix
 from items.models import BaseItem
 from inventory.users.models import User
 from transaction.models import Location
@@ -42,15 +41,6 @@ class CategorySerializer(serializers.ModelSerializer):
         field = ('name', 'owner')
 
 
-class ProductIdPrefixSerializer(serializers.ModelSerializer):
-    owner = serializers.ReadOnlyField(source='owner.username')
-    permission_classes = (permissions.IsAuthenticated,)
-
-    class Meta:
-        model = ProductIdPrefix
-        field = ('name', 'owner')
-
-
 class LocationSerializer(serializers.ModelSerializer):
     owner = serializers.ReadOnlyField(source='owner.username')
     permission_classes = (permissions.IsAuthenticated,)
@@ -68,7 +58,6 @@ class BaseItemSerializer(serializers.ModelSerializer):
     # nested related's model class must be initialized
     brand = BrandSerializer()
     category = CategorySerializer(many=True)
-    product_id_prefix = ProductIdPrefixSerializer()
 
     class Meta:
         model = BaseItem

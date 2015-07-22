@@ -12,7 +12,6 @@ from django.contrib.auth import authenticate
 from items.models import BaseItem
 from items.models import Item
 from items.models import Brand
-from items.models import ProductIdPrefix
 from items.models import Category
 from transaction.models import Location
 from transaction.models import Transaction
@@ -101,8 +100,6 @@ def add_baseitem(owner, name, sku, brand, category, product_id_prefix,
     brand, created = Brand.objects.get_or_create(owner=owner, name=brand)
     category, created = Category.objects.get_or_create(owner=owner,
                                                        name=category)
-    product_id_prefix, created = ProductIdPrefix.objects.get_or_create\
-        (owner=owner, name=product_id_prefix)
 
     base_item, created = BaseItem.objects.get_or_create\
         (owner=owner, name=name, sku=sku, description=description, brand=brand,
@@ -111,12 +108,6 @@ def add_baseitem(owner, name, sku, brand, category, product_id_prefix,
     base_item.category.add(category)
     display(name, 'base item')
     return base_item
-
-
-def add_productidprefix(owner, name):
-    b = ProductIdPrefix.objects.get_or_create(owner=owner, name=name)[0]
-    display(name, 'product ID prefix')
-    return b
 
 
 def add_brand(owner, name):

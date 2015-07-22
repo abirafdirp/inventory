@@ -77,27 +77,12 @@ class Category(NameModel, TimeStampedModel):
         verbose_name_plural = "Categories"
         ordering = ('name',)
 
-
-class ProductIdPrefix(models.Model):
-    owner = models.ForeignKey(User, related_name='product_id_prefixes')
-    name = models.CharField(max_length=7, unique=True,
-                            help_text='max length 7 characters and must' +
-                            'be unique')
-
-    def __str__(self):
-        return self.name
-
-    class Meta:
-        verbose_name_plural = "Product ID Prefixes"
-        ordering = ('name',)
-
-
 class BaseItem(NameModel, TimeStampedModel):
     sku = models.CharField(max_length=20, verbose_name='SKU', unique=True,
                            help_text='must be unique')
-    product_id_prefix = models.OneToOneField\
-        (ProductIdPrefix, null=True, blank=True, unique=True,
-         verbose_name='Product ID prefix', help_text='must be unique')
+    product_id_prefix = models.CharField\
+        (unique=True, verbose_name='Product ID prefix', max_length=7,
+         help_text='must be unique, max length 7 characters')
     brand = models.ForeignKey(Brand, related_name='brand_of', null=True)
     category = models.ManyToManyField(Category, related_name='category_of')
     description = models.CharField(max_length=500, blank=True)
@@ -154,10 +139,10 @@ class Item(TimeStampedModel):
         # prefix and 8 chars is randomized. Max len of product id is
         # 15 chars, if there is already one, then it will continue to
         # be randomized
-        random_len = 15 - len(self.base_item.product_id_prefix.name)
+        random_len = 15 - len(self.base_item.product_id_prefix)
         if self.product_id == '':
             while True:
-                product_id = self.base_item.product_id_prefix.name +\
+                product_id = self.base_item.product_id_prefix +\
                              randomword(random_len)
                 try:
                     Item.objects.get(product_id=product_id)

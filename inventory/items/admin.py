@@ -2,7 +2,6 @@ from django.contrib import admin
 from .models import Item
 from .models import Brand
 from .models import Category
-from .models import ProductIdPrefix
 from .models import BaseItem
 
 
@@ -63,19 +62,10 @@ class ItemAdmin(admin.ModelAdmin):
         obj.owner = request.user
         obj.save()
 
-
-class ProductIdPrefixAdmin(admin.ModelAdmin):
-    readonly_fields = ('owner',)
-
-    def save_model(self, request, obj, form, change):
-        obj.owner = request.user
-        obj.save()
-
 admin.site.register(Brand, BrandAdmin)
 admin.site.register(Category, CategoryAdmin)
 admin.site.register(BaseItem, BaseItemAdmin)
 admin.site.register(Item, ItemAdmin)
-admin.site.register(ProductIdPrefix, ProductIdPrefixAdmin)
 
 
 

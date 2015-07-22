@@ -8,7 +8,6 @@ from rest_framework.permissions import DjangoModelPermissionsOrAnonReadOnly
 from items.models import Item
 from items.models import Brand
 from items.models import Category
-from items.models import ProductIdPrefix
 from items.models import BaseItem
 from transaction.models import Location
 from transaction.models import Transaction
@@ -116,26 +115,6 @@ class ItemCreate(generics.CreateAPIView):
         serializer.save(owner=self.request.user)
 
 
-class ProductIdPrefixList(generics.ListAPIView):
-    queryset = ProductIdPrefix.objects.all()
-    serializer_class = serializers.ProductIdPrefixSerializer
-    permission_classes = (DjangoModelPermissionsOrAnonReadOnly,)
-    filter_backends = (filters.DjangoFilterBackend,)
-    filter_fields = ('name', 'owner')
-
-    def perform_create(self, serializer):
-        serializer.save(owner=self.request.user)
-
-
-class ProductIdPrefixCreate(generics.CreateAPIView):
-    queryset = ProductIdPrefix.objects.all()
-    serializer_class = serializers.ProductIdPrefixSerializer
-    permission_classes = (DjangoModelPermissionsOrAnonReadOnly,)
-
-    def perform_create(self, serializer):
-        serializer.save(owner=self.request.user)
-
-
 class LocationList(generics.ListAPIView):
     queryset = Location.objects.all()
     serializer_class = serializers.LocationSerializer
@@ -191,11 +170,6 @@ def api_root(request):
 
         'items': reverse('apiv1:item-list', request=request),
         'create item': reverse('apiv1:item-create', request=request),
-
-        'product ID prefixes': reverse('apiv1:productidprefix-list',
-                                       request=request),
-        'create product ID prefixes': reverse\
-            ('apiv1:productidprefix-create', request=request),
 
         'locations': reverse('apiv1:location-list', request=request),
         'create location': reverse('apiv1:location-create',
