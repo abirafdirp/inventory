@@ -25,7 +25,11 @@ api.factory('Photo', [
 ]);
 
 
-var app = angular.module('inventory', ['ngRoute', 'ui.bootstrap', 'inventory.api']);
+var app = angular.module('inventory', [
+  'ngRoute',
+  'ui.bootstrap',
+  'inventory.api'
+]);
 
 app.controller('MainController', [
   '$scope', 'BaseItem', function($scope, BaseItem) {
