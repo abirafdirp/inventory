@@ -25,19 +25,13 @@ api.factory('Photo', [
 ]);
 
 
-var app = angular.module('inventory', [
+var inventory = angular.module('inventory', [
   'ngRoute',
   'ui.bootstrap',
   'inventory.api'
 ]);
 
-app.controller('MainController', [
-  '$scope', 'BaseItem', function($scope, BaseItem) {
-    return $scope.baseitems= BaseItem.get();
-  }
-]);
-
-app.config(function($interpolateProvider) {
+inventory.config(function($interpolateProvider) {
     $interpolateProvider.startSymbol('{$');
     $interpolateProvider.endSymbol('$}');
 });
