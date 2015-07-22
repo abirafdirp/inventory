@@ -8,3 +8,4 @@ class DashboardView(View):
     def get(self, request):
         return render(request, self.template_name)
 
+

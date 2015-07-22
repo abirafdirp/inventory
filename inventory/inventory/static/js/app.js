@@ -1,37 +1,24 @@
-var api = angular.module('inventory.api', ['ngResource']);
-
-api.factory('BaseItem', [
-  '$resource', function($resource) {
-    return $resource('/apiv1/baseitems/:id', {
-      id: '@id'
-    });
-  }
-]);
-
-api.factory('Post', [
-  '$resource', function($resource) {
-    return $resource('/api/posts/:id', {
-      id: '@id'
-    });
-  }
-]);
-
-api.factory('Photo', [
-  '$resource', function($resource) {
-    return $resource('/api/photos/:id', {
-      id: '@id'
-    });
-  }
-]);
-
-
-var inventory = angular.module('inventory', [
+var inventoryApp = angular.module('inventory', [
   'ngRoute',
+  'baseItemControllers',
   'ui.bootstrap',
-  'inventory.api'
+  'inventoryServices'
 ]);
 
-inventory.config(function($interpolateProvider) {
+inventoryApp.config(function($interpolateProvider) {
     $interpolateProvider.startSymbol('{$');
     $interpolateProvider.endSymbol('$}');
 });
+
+inventoryApp.config(['$routeProvider',
+  function($routeProvider) {
+    $routeProvider.
+      when('/dashboard', {
+        templateUrl: '/dashboard/base-item-list',
+        controller: 'BaseItemListCtrl'
+      }).
+      otherwise({
+        redirectTo: '/dashboard'
+      });
+  }
+]);

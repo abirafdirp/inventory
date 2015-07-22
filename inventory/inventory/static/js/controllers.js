@@ -1,5 +1,7 @@
-inventory.controller('MainController', [
-  '$scope', 'BaseItem', function($scope, BaseItem) {
+var baseItemControllers = angular.module('baseItemControllers', []);
+
+baseItemControllers.controller('BaseItemListCtrl', ['$scope', 'BaseItem',
+  function($scope, BaseItem) {
     return $scope.baseitems= BaseItem.get();
   }
 ]);

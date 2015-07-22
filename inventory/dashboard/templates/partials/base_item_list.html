@@ -1,0 +1,14 @@
+<div id="content" ng-controller="BaseItemListCtrl" class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
+    <div class="row placeholders">
+        <div ng-repeat="results in baseitems track by $index">
+            <div ng-repeat="result in results">
+                <div class="col-sm-3 placeholder">
+                  <img src="{$ result.image $}" class="img-responsive img-rounded" alt="Generic placeholder thumbnail">
+                  <h4>{$ result.name $}</h4>
+                  <span class="text-muted" ng-show="result.description">{$ result.description | limitTo:80 $}....</span>
+                    <span class="text-muted" ng-show="!result.description">No description</span>
+                </div>
+              </div>
+        </div>
+    </div>
+</div>
