@@ -2,7 +2,7 @@
     <div class="row placeholders">
         <div ng-repeat="results in baseitems track by $index">
             <div ng-repeat="result in results">
-                <div class="col-sm-3 placeholder">
+                <div class="col-xs-10 col-sm-5 col-md-3 placeholder">
                   <img src="{$ result.image $}" class="img-responsive img-rounded" alt="Generic placeholder thumbnail">
                   <h4>{$ result.name $}</h4>
                   <span class="text-muted" ng-show="result.description">{$ result.description | limitTo:80 $}....</span>

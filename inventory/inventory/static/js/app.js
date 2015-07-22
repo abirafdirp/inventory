@@ -1,6 +1,6 @@
 var inventoryApp = angular.module('inventory', [
   'ngRoute',
-  'baseItemControllers',
+  'inventoryControllers',
   'ui.bootstrap',
   'inventoryServices'
 ]);
@@ -13,12 +13,16 @@ inventoryApp.config(function($interpolateProvider) {
 inventoryApp.config(['$routeProvider',
   function($routeProvider) {
     $routeProvider.
-      when('/dashboard', {
+      when('/base-item-list', {
         templateUrl: '/dashboard/base-item-list',
         controller: 'BaseItemListCtrl'
       }).
+      when('/category-list', {
+        templateUrl: '/dashboard/category-list',
+        controller: 'CategoryListCtrl'
+      }).
       otherwise({
-        redirectTo: '/dashboard'
+        redirectTo: '/'
       });
   }
 ]);

@@ -1,7 +1,13 @@
-var baseItemControllers = angular.module('baseItemControllers', []);
+var inventoryControllers = angular.module('inventoryControllers', []);
 
-baseItemControllers.controller('BaseItemListCtrl', ['$scope', 'BaseItem',
+inventoryControllers.controller('BaseItemListCtrl', ['$scope', 'BaseItem',
   function($scope, BaseItem) {
-    return $scope.baseitems= BaseItem.get();
+    return $scope.baseitems = BaseItem.get();
+  }
+]);
+
+inventoryControllers.controller('CategoryListCtrl', ['$scope', 'Category',
+  function($scope, Category) {
+    return $scope.categories = Category.get();
   }
 ]);

@@ -6,7 +6,9 @@ urlpatterns = [
     url(r'^$', views.DashboardView.as_view(), name='dashboard'),
     url(r'^base-item-list/$',
         TemplateView.as_view(template_name='partials/base_item_list.html'),
-        name='baseitemlist')
+        name='baseitemlist'),
+    url(r'^category-list/$',
+        TemplateView.as_view(template_name='partials/category-list.html')),
 ]
 
 

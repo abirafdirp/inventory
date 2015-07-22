@@ -1,0 +1,11 @@
+<div id="content" ng-controller="CategoryListCtrl" class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
+    <div class="row placeholders">
+        <div ng-repeat="results in categories track by $index">
+            <div ng-repeat="result in results">
+                <div class="col-xs-10 col-sm-5 col-md-3 placeholder">
+                  <h4>{$ result.name $}</h4>
+                </div>
+              </div>
+        </div>
+    </div>
+</div>
