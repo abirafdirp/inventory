@@ -8,7 +8,9 @@ urlpatterns = [
         TemplateView.as_view(template_name='partials/base_item_list.html'),
         name='baseitemlist'),
     url(r'^category-list/$',
-        TemplateView.as_view(template_name='partials/category-list.html')),
+        TemplateView.as_view(template_name='partials/category_list.html')),
+    url(r'^item-list/$',
+        TemplateView.as_view(template_name='partials/item_list.html')),
 ]
 
 

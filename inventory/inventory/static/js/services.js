@@ -15,3 +15,11 @@ inventoryServices.factory('Category', ['$resource',
     })
 
 }]);
+
+inventoryServices.factory('Item', ['$resource',
+  function($resource) {
+    return $resource('/apiv1/items/?format=json', {}, {
+      query: {method:'GET', isArray:true}
+    })
+  }
+]);

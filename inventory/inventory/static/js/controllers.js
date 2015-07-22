@@ -11,3 +11,10 @@ inventoryControllers.controller('CategoryListCtrl', ['$scope', 'Category',
     return $scope.categories = Category.get();
   }
 ]);
+
+inventoryControllers.controller('ItemListCtrl', ['$scope', 'Item',
+  function($scope, Item) {
+    return $scope.items = Item.get();
+  }
+]);
+

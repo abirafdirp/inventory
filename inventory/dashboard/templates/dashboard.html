@@ -29,10 +29,10 @@
       <div class="row">
         <div class="col-sm-2 sidebar" ng-init="nav = 'baseitem'">
           <ul class="nav nav-sidebar">
+            <li ng-class="{'active' : nav == 'item'}" ng-click="nav = 'item'"><a href="#/item-list">Items</a></li>
             <li ng-class="{'active' : nav == 'baseitem'}" ng-click="nav = 'baseitem'"><a href="#/base-item-list">Base Items</a></li>
             <li ng-class="{'active' : nav == 'category'}" ng-click="nav = 'category'"><a href="#/category-list">Categories</a></li>
-            <li ng-class="{'active' : nav == 'brand'}" ng-click="nav = 'brand'"><a href="#/brand-list">Categories</a></li>
-            <li ng-class="{'active' : nav == 'item'}" ng-click="nav = 'item'"><a href="#/item-list">Categories</a></li>
+            <li ng-class="{'active' : nav == 'brand'}" ng-click="nav = 'brand'"><a href="#/brand-list">Brands</a></li>
           </ul>
           <ul class="nav nav-sidebar">
           </ul>

@@ -21,6 +21,10 @@ inventoryApp.config(['$routeProvider',
         templateUrl: '/dashboard/category-list',
         controller: 'CategoryListCtrl'
       }).
+      when('/item-list', {
+        templateUrl: '/dashboard/item-list',
+        controller: 'ItemListCtrl'
+      }).
       otherwise({
         redirectTo: '/'
       });
