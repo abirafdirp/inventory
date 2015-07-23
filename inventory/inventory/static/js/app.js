@@ -26,7 +26,7 @@ inventoryApp.config(['$routeProvider',
         controller: 'ItemListCtrl'
       }).
       otherwise({
-        redirectTo: '/'
+        redirectTo: '/base-item-list'
       });
   }
 ]);

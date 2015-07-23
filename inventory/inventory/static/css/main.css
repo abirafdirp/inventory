@@ -86,27 +86,90 @@ body {
 
 
 /*
- * Placeholder dashboard ideas
+ * Placeholders
  */
 
 .placeholders {
+
+}
+.placeholders a .baseitem-placeholder {
+  border: solid;
+  border-color: #cccccc;
+  border-radius: 5%;
+  border-width: 1px;
+  background: #F5F5F5;
+  margin-left: 1px;
+  margin-right: 1px;
+  color: #0f0f0f;
+}
+.placeholders a:hover .baseitem-placeholder {
+  border: solid;
+  border-color: #cccccc;
+  border-radius: 5%;
+  border-width: 1px;
+  color: #fff;
+  background: #428bca;
+  margin-left: 1px;
+  margin-right: 1px;
+}
+.baseitem-placeholders {
   margin-bottom: 30px;
   text-align: center;
 }
-.placeholders h4 {
+.baseitem-placeholders h4 {
   margin-bottom: 0;
+  color: #337AB7;
 }
-.placeholder {
+a:hover .baseitem-placeholder h4 {
+  color: #fff;
+}
+
+/*
+ * Placeholder
+ */
+
+.baseitem-placeholder {
   margin-bottom: 20px;
+  padding-left: 10px;
+  padding-right: 10px;
+  padding-top: 10px;
 }
-.placeholder img {
+@media (min-width: 768px) {
+  .baseitem-placeholder {
+    height: 315px;
+  }
+}
+@media (min-width: 992px) {
+  .baseitem-placeholder {
+    height: 337px;
+  }
+}
+@media (min-width: 1200px) {
+  .baseitem-placeholder {
+    height: 335px;
+  }
+}
+.baseitem-placeholder img {
   display: inline-block;
+
+}
+.category-placeholders {
+  text-align: left;
+}
+.category-placeholder {
+  background: #F5F5F5;
+  padding-top: 2px;
+  padding-bottom: 2px;
+  margin-bottom: 10px;
+  border-radius: 5%;
+}
+.category-placeholder h4 {
+  text-align: center;
 }
 
 /*
  * Override img-responsive bootstrap
  */
-
 .img-responsive,
 .thumbnail > img,
 .thumbnail a > img,
@@ -116,7 +179,6 @@ body {
   max-width: 100%;
   height: auto;
 }
-
 @media (min-width: 768px) {
   .img-responsive,
   .thumbnail > img,
@@ -127,4 +189,12 @@ body {
     max-width: 100%;
     height: 210px;
   }
+}
+
+/*
+ * Create Button
+ */
+
+.button-create {
+
 }
