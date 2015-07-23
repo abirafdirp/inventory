@@ -68,7 +68,7 @@ class BaseItemSerializer(serializers.ModelSerializer):
                   'description', 'image', 'expires_in', 'owner')
 
 
-class BaseItemCreateSerializer(serializers.ModelSerializer):
+class BaseItemCRUDSerializer(serializers.ModelSerializer):
     owner = serializers.ReadOnlyField(source='owner.username')
     permission_classes = (permissions.IsAuthenticated,)
 
@@ -97,7 +97,7 @@ class TransactionSerializer(serializers.ModelSerializer):
                   'date_time')
 
 
-class TransactionCreateSerializer(serializers.ModelSerializer):
+class TransactionCRUDSerializer(serializers.ModelSerializer):
     owner = serializers.ReadOnlyField(source='owner.username')
     permission_classes = (permissions.IsAuthenticated,)
 
@@ -125,7 +125,7 @@ class ItemSerializer(serializers.ModelSerializer):
                   'location', 'owner')
 
 
-class ItemCreateSerializer(serializers.ModelSerializer):
+class ItemCRUDSerializer(serializers.ModelSerializer):
     owner = serializers.ReadOnlyField(source='owner.username')
     permission_classes = (permissions.IsAuthenticated,)
 

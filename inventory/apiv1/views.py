@@ -17,10 +17,8 @@ from .permissions import IsOwnerOrReadOnly
 
 from inventory.users.models import User
 
-# ViewSet will automatically create views for <model> list
-# and <model> detail along with the standardized urls
-# e.g Brand class will have ..../brand/ and ..../brand/<pk> urls
-# showing the list and the details of an item respectively
+# model that does not have foreign key does not have CRUD serializers
+# list and CRUD serializers must be separated in order to format the JSON 
 
 
 class UserList(generics.ListAPIView):
@@ -31,6 +29,7 @@ class UserList(generics.ListAPIView):
                      'items')
 
 
+# brand does not have foreignkey
 class BrandList(generics.ListAPIView):
     queryset = Brand.objects.all()
     serializer_class = serializers.BrandSerializer
@@ -48,6 +47,20 @@ class BrandCreate(generics.CreateAPIView):
         serializer.save(owner=self.request.user)
 
 
+class BrandRetrieveUpdateDestroy(generics.RetrieveUpdateDestroyAPIView):
+    serializer_class = serializers.BrandSerializer
+    permission_classes = (DjangoModelPermissionsOrAnonReadOnly,)
+
+    def perform_create(self, serializer):
+        serializer.save(owner=self.request.user)
+
+    def get_queryset(self):
+        query = self.kwargs['pk']
+        self.queryset = Brand.objects.filter(id=query)
+        return self.queryset
+
+
+# category does not have foreignkey
 class CategoryList(generics.ListAPIView):
     queryset = Category.objects.all()
     serializer_class = serializers.CategorySerializer
@@ -57,12 +70,24 @@ class CategoryList(generics.ListAPIView):
 
 
 class CategoryCreate(generics.CreateAPIView):
+    serializer_class = serializers.CategorySerializer
+    permission_classes = (DjangoModelPermissionsOrAnonReadOnly,)
+
+    def perform_create(self, serializer):
+        serializer.save(owner=self.request.user)
+
+class CategoryRetrieveUpdateDestroy(generics.RetrieveUpdateDestroyAPIView):
     queryset = Category.objects.all()
     serializer_class = serializers.CategorySerializer
     permission_classes = (DjangoModelPermissionsOrAnonReadOnly,)
 
     def perform_create(self, serializer):
         serializer.save(owner=self.request.user)
+
+    def get_queryset(self):
+        query = self.kwargs['pk']
+        self.queryset = Category.objects.filter(id=query)
+        return self.queryset
 
 
 class BaseItemList(generics.ListAPIView):
@@ -77,7 +102,7 @@ class BaseItemList(generics.ListAPIView):
 
 class BaseItemCreate(generics.CreateAPIView):
     queryset = BaseItem.objects.all()
-    serializer_class = serializers.BaseItemCreateSerializer
+    serializer_class = serializers.BaseItemCRUDSerializer
     permission_classes = (DjangoModelPermissionsOrAnonReadOnly,)
 
     def perform_create(self, serializer):
@@ -85,13 +110,12 @@ class BaseItemCreate(generics.CreateAPIView):
 
 
 class BaseItemRetrieveUpdateDestroy(generics.RetrieveUpdateDestroyAPIView):
-    queryset = BaseItem.objects.all()
-    serializer_class = serializers.BaseItemCreateSerializer
+    serializer_class = serializers.BaseItemCRUDSerializer
     permission_classes = (DjangoModelPermissionsOrAnonReadOnly,)
 
     def get_queryset(self):
         query = self.kwargs['pk']
-        self.queryset = BaseItem.objects.get(id=query)
+        self.queryset = BaseItem.objects.filter(id=query)
         return self.queryset
 
     def perform_update(self, serializer):
@@ -109,14 +133,27 @@ class ItemList(generics.ListAPIView):
 
 class ItemCreate(generics.CreateAPIView):
     queryset = Item.objects.all()
-    serializer_class = serializers.ItemCreateSerializer
+    serializer_class = serializers.ItemCRUDSerializer
     permission_classes = (DjangoModelPermissionsOrAnonReadOnly,)
-    base_item = serializers.BaseItemCreateSerializer
+    base_item = serializers.BaseItemSerializer
 
     def perform_create(self, serializer):
         serializer.save(owner=self.request.user)
 
+class ItemRetrieveUpdateDestroy(generics.RetrieveUpdateDestroyAPIView):
+    serializer_class = serializers.ItemCRUDSerializer
+    permission_classes = (DjangoModelPermissionsOrAnonReadOnly,)
+    base_item = serializers.BaseItemSerializer
 
+    def perform_create(self, serializer):
+        serializer.save(owner=self.request.user)
+
+    def get_queryset(self):
+        query = self.kwargs['pk']
+        self.queryset = Item.objects.filter(id=query)
+        return self.queryset
+
+# location does not have foreign key
 class LocationList(generics.ListAPIView):
     queryset = Location.objects.all()
     serializer_class = serializers.LocationSerializer
@@ -134,6 +171,19 @@ class LocationCreate(generics.CreateAPIView):
         serializer.save(owner=self.request.user)
 
 
+class LocationRetrieveUpdateDestroy(generics.RetrieveUpdateDestroyAPIView):
+    serializer_class = serializers.LocationSerializer
+    permission_classes = (DjangoModelPermissionsOrAnonReadOnly,)
+
+    def perform_create(self, serializer):
+        serializer.save(owner=self.request.user)
+
+    def get_queryset(self):
+        query = self.kwargs['pk']
+        self.queryset = Location.objects.filter(id=query)
+        return self.queryset
+
+
 class TransactionList(generics.ListAPIView):
     queryset = Transaction.objects.all()
     serializer_class = serializers.TransactionSerializer
@@ -144,11 +194,25 @@ class TransactionList(generics.ListAPIView):
 
 class TransactionCreate(generics.CreateAPIView):
     queryset = Transaction.objects.all()
-    serializer_class = serializers.TransactionCreateSerializer
+    serializer_class = serializers.TransactionCRUDSerializer
     permission_classes = (DjangoModelPermissionsOrAnonReadOnly,)
 
     def perform_create(self, serializer):
         serializer.save(owner=self.request.user)
+
+
+class TransactionRetrieveUpdateDestroy(generics.RetrieveUpdateDestroyAPIView):
+    serializer_class = serializers.TransactionCRUDSerializer
+    permission_classes = (DjangoModelPermissionsOrAnonReadOnly,)
+
+    def perform_create(self, serializer):
+        serializer.save(owner=self.request.user)
+
+    def get_queryset(self):
+        query = self.kwargs['pk']
+        self.queryset = Transaction.objects.filter(id=query)
+        return self.queryset
+    
 
 @api_view(('GET',))
 def api_root(request):
