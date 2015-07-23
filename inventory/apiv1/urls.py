@@ -10,6 +10,8 @@ urlpatterns = [
     url(r'baseitems/$', views.BaseItemList().as_view(), name='baseitem-list'),
     url(r'baseitems/create/$', views.BaseItemCreate().as_view(),
         name='baseitem-create'),
+    url(r'baseitems/(?P<pk>\d+)/$', views.BaseItemRetrieveUpdateDestroy.as_view(),
+        name='baseitem-retrieveupdatedestroy'),
 
     # items
     url(r'items/$', views.ItemList().as_view(), name='item-list'),
