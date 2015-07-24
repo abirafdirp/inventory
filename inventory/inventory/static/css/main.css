@@ -228,3 +228,7 @@ a:hover .baseitem-placeholder h4 {
   padding-top: 0;
   text-align: right;
 }
+
+.form-actions .btn {
+  margin-left: 5px;
+}

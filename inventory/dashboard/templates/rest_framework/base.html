@@ -73,16 +73,14 @@
                                                     <button class="btn btn-primary js-tooltip"
                                                              name="{{ api_settings.FORM_METHOD_OVERRIDE }}"
                                                             value="PUT">PUT</button>
-                                                </div>
-                                            </fieldset>
-                                        </form>
-                                        <form class="button-form" action="{{ request.get_full_path }}" method="POST" class="form-horizontal">
-                                            {% csrf_token %}
-                                            <input type="hidden" name="{{ api_settings.FORM_METHOD_OVERRIDE }}" value="DELETE" />
-                                            <div class="form-actions">
-                                                <button class="btn btn-danger js-tooltip">DELETE</button>
-                                                </div>
-                                        </form>
+                                            </form>
+                                            <form class="button-form" action="{{ request.get_full_path }}" method="POST" class="form-horizontal">
+                                                {% csrf_token %}
+                                                <input type="hidden" name="{{ api_settings.FORM_METHOD_OVERRIDE }}" value="DELETE" />
+                                                    <button class="btn btn-danger js-tooltip">DELETE</button>
+                                                    </div>
+                                            </form>
+                                        </fieldset>
                                     </div>
                                 {% endif %}
                             </div>
@@ -93,10 +91,3 @@
             <!-- END Content -->
             </div><!-- /.container -->
         </div><!-- ./wrapper -->
-
-        {% block script %}
-            <script src="{% static "rest_framework/js/jquery-1.8.1-min.js" %}"></script>
-            <script src="{% static "rest_framework/js/bootstrap.min.js" %}"></script>
-            <script src="{% static "rest_framework/js/prettify-min.js" %}"></script>
-            <script src="{% static "rest_framework/js/default.js" %}"></script>
-        {% endblock %}
