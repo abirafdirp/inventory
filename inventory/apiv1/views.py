@@ -69,7 +69,7 @@ class CategoryList(generics.ListAPIView):
     filter_fields = ('name', 'owner')
 
 
-class CategoryCreate(generics.CreateAPIView):
+class CategoryCreate(generics.ListCreateAPIView):
     queryset = Category.objects.all()
     serializer_class = serializers.CategorySerializer
     permission_classes = (DjangoModelPermissionsOrAnonReadOnly,)

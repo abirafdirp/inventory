@@ -29,8 +29,8 @@ inventoryApp.config(['$routeProvider', '$httpProvider',
       when('/category/:id', {
         templateUrl: function (params) {return '/apiv1/categories/' + params.id;}
       }).
-      when('/category/create', {
-        templateUrl: '/apiv1/categories/1'
+      when('/create-category', {
+        templateUrl: '/apiv1/categories/create '
       }).
       otherwise({
         redirectTo: '/base-item-list'
