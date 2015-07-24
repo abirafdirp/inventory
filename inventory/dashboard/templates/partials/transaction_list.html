@@ -1,0 +1,15 @@
+
+    <div class="menu">
+        <a href="#/create/transaction" class="btn btn-default">Create</a>
+    </div>
+    <div class="row placeholders category-placeholders">
+        <div ng-repeat="results in transactions track by $index">
+            <div ng-repeat="result in results">
+                <div class="col-xs-6 col-sm-4 col-md-3 col-lg-2">
+                    <a href="#/category/{$ result.id $}"><div class="category-placeholder">
+                        <h4>{$ result.name $}</h4>
+                    </div></a>
+                </div>
+              </div>
+        </div>
+    </div>

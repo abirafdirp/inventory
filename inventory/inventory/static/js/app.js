@@ -19,13 +19,23 @@ inventoryApp.config(['$routeProvider', '$httpProvider',
         controller: 'BaseItemListCtrl'
       }).
       when('/baseitem/:id', {
-        templateUrl: function (params) {return '/apiv1/baseitems/' + params.id;}
+        templateUrl: function (params) {return '/apiv1/baseitems/' + params.id;},
+        controller: 'BaseItemEditCtrl'
       }).
       when('/create/baseitem', {
-        templateUrl: '/apiv1/baseitems/create '
+        templateUrl: '/apiv1/baseitems/create ',
+        controller: 'BaseItemListCtrl'
       }).
       when('/item-list', {
         templateUrl: '/dashboard/item-list',
+        controller: 'ItemListCtrl'
+      }).
+      when('/item/:id', {
+        templateUrl: function (params) {return '/apiv1/items/' + params.id;},
+        controller: 'ItemEditCtrl'
+      }).
+      when('/create/item', {
+        templateUrl: '/apiv1/items/create',
         controller: 'ItemListCtrl'
       }).
       when('/brand-list', {
@@ -33,20 +43,36 @@ inventoryApp.config(['$routeProvider', '$httpProvider',
         controller: 'BrandListCtrl'
       }).
       when('/brand/:id', {
-        templateUrl: function (params) {return '/apiv1/brands/' + params.id;}
+        templateUrl: function (params) {return '/apiv1/brands/' + params.id;},
+        controller: 'BrandEditCtrl'
       }).
       when('/create/brand', {
-        templateUrl: '/apiv1/brands/create '
+        templateUrl: '/apiv1/brands/create ',
+        controller: 'BrandListCtrl'
       }).
       when('/category-list', {
         templateUrl: '/dashboard/category-list',
         controller: 'CategoryListCtrl'
       }).
       when('/category/:id', {
-        templateUrl: function (params) {return '/apiv1/categories/' + params.id;}
+        templateUrl: function (params) {return '/apiv1/categories/' + params.id;},
+        controller: 'CategoryEditCtrl'
       }).
       when('/create/category', {
-        templateUrl: '/apiv1/categories/create '
+        templateUrl: '/apiv1/categories/create ',
+        controller: 'CategoryListCtrl'
+      }).
+      when('/transaction-list', {
+        templateUrl: '/dashboard/transaction-list',
+        controller: 'TransactionListCtrl'
+      }).
+      when('/transaction/:id', {
+        templateUrl: function (params) {return '/apiv1/transactions/' + params.id;},
+        controller: 'TransactionEditCtrl'
+      }).
+      when('/create/transaction', {
+        templateUrl: '/apiv1/transactions/create ',
+        controller: 'TransactionListCtrl'
       }).
       otherwise({
         redirectTo: '/baseitem-list'

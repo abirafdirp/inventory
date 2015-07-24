@@ -31,3 +31,11 @@ inventoryServices.factory('Item', ['$resource',
     })
   }
 ]);
+
+inventoryServices.factory('Transaction', ['$resource',
+  function($resource) {
+    return $resource('/apiv1/transactions/?format=json', {}, {
+      query: {method:'GET'}
+    })
+  }
+]);

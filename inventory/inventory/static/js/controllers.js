@@ -2,24 +2,67 @@ var inventoryControllers = angular.module('inventoryControllers', []);
 
 inventoryControllers.controller('BaseItemListCtrl', ['$scope', 'BaseItem',
   function($scope, BaseItem) {
-    return $scope.baseitems = BaseItem.query();
+    $scope.baseitems = BaseItem.query();
+    $scope.title = 'Create Base Item';
+    $scope.submitted = false;
+  }
+]);
+
+inventoryControllers.controller('BaseItemEditCtrl', ['$scope',
+  function($scope) {
+    $scope.title = 'Edit Base Item';
+    $scope.submitted = false;
   }
 ]);
 
 inventoryControllers.controller('CategoryListCtrl', ['$scope', 'Category',
   function($scope, Category) {
-    return $scope.categories = Category.query();
+    $scope.categories = Category.query();
+    $scope.title = 'Create Category';
+  }
+]);
+
+inventoryControllers.controller('CategoryEditCtrl', ['$scope',
+  function($scope) {
+    $scope.title = 'Edit Category';
   }
 ]);
 
 inventoryControllers.controller('BrandListCtrl', ['$scope', 'Brand',
   function($scope, Brand) {
-    return $scope.brands = Brand.query();
+    $scope.brands = Brand.query();
+    $scope.title = 'Create Brand';
+  }
+]);
+
+inventoryControllers.controller('BrandEditCtrl', ['$scope',
+  function($scope) {
+    $scope.title = 'Edit Brand';
   }
 ]);
 
 inventoryControllers.controller('ItemListCtrl', ['$scope', 'Item',
   function($scope, Item) {
-    return $scope.items = Item.query();
+    $scope.items = Item.query();
+    $scope.title = 'Create Item';
+  }
+]);
+
+inventoryControllers.controller('ItemEditCtrl', ['$scope',
+  function($scope) {
+    $scope.title = 'Edit Item';
+  }
+]);
+
+inventoryControllers.controller('TransactionListCtrl', ['$scope', 'Transaction',
+  function($scope, Transaction) {
+    $scope.transactions = Transaction.query();
+    $scope.title = 'Create Transaction';
+  }
+]);
+
+inventoryControllers.controller('TransactionEditCtrl', ['$scope',
+  function($scope) {
+    $scope.title = 'Edit Transaction';
   }
 ]);

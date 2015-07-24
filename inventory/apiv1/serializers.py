@@ -93,7 +93,7 @@ class TransactionSerializer(serializers.ModelSerializer):
         model = Transaction
 
         # fields added for verbosity
-        fields = ('item', 'items_count', 'origin', 'destination', 'owner',
+        fields = ('id', 'item', 'items_count', 'origin', 'destination', 'owner',
                   'date_time')
 
 
@@ -121,7 +121,7 @@ class ItemSerializer(serializers.ModelSerializer):
         model = Item
 
         # fields added for verbosity
-        fields = ('base_item', 'product_id', 'expiration_date', 'expired',
+        fields = ('id', 'base_item', 'product_id', 'expiration_date', 'expired',
                   'location', 'owner')
 
 
