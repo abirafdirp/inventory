@@ -70,14 +70,15 @@ class CategoryList(generics.ListAPIView):
 
 
 class CategoryCreate(generics.CreateAPIView):
+    queryset = Category.objects.all()
     serializer_class = serializers.CategorySerializer
     permission_classes = (DjangoModelPermissionsOrAnonReadOnly,)
 
     def perform_create(self, serializer):
         serializer.save(owner=self.request.user)
 
+
 class CategoryRetrieveUpdateDestroy(generics.RetrieveUpdateDestroyAPIView):
-    queryset = Category.objects.all()
     serializer_class = serializers.CategorySerializer
     permission_classes = (DjangoModelPermissionsOrAnonReadOnly,)
 
@@ -140,6 +141,7 @@ class ItemCreate(generics.CreateAPIView):
     def perform_create(self, serializer):
         serializer.save(owner=self.request.user)
 
+
 class ItemRetrieveUpdateDestroy(generics.RetrieveUpdateDestroyAPIView):
     serializer_class = serializers.ItemCRUDSerializer
     permission_classes = (DjangoModelPermissionsOrAnonReadOnly,)
@@ -152,6 +154,7 @@ class ItemRetrieveUpdateDestroy(generics.RetrieveUpdateDestroyAPIView):
         query = self.kwargs['pk']
         self.queryset = Item.objects.filter(id=query)
         return self.queryset
+
 
 # location does not have foreign key
 class LocationList(generics.ListAPIView):

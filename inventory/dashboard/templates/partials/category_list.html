@@ -1,16 +1,15 @@
-<div id="content" ng-controller="CategoryListCtrl" class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
+
     <div class="menu">
         <a href="#" class="btn btn-default">Create</a>
     </div>
-    <div class="row placeholders">
+    <div class="row placeholders category-placeholders">
         <div ng-repeat="results in categories track by $index">
             <div ng-repeat="result in results">
                 <div class="col-xs-6 col-sm-4 col-md-3 col-lg-2">
-                    <div class="category-placeholder">
+                    <a href="#/category/{$ result.id $}"><div class="category-placeholder">
                         <h4>{$ result.name $}</h4>
-                    </div>
+                    </div></a>
                 </div>
               </div>
         </div>
     </div>
-</div>

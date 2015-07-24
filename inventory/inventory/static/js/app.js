@@ -10,8 +10,9 @@ inventoryApp.config(function($interpolateProvider) {
     $interpolateProvider.endSymbol('$}');
 });
 
-inventoryApp.config(['$routeProvider',
-  function($routeProvider) {
+inventoryApp.config(['$routeProvider', '$httpProvider',
+  function($routeProvider, $httpProvider) {
+    $httpProvider.defaults.headers.common['Accept'] = '*/*';
     $routeProvider.
       when('/base-item-list', {
         templateUrl: '/dashboard/base-item-list',
@@ -25,8 +26,17 @@ inventoryApp.config(['$routeProvider',
         templateUrl: '/dashboard/item-list',
         controller: 'ItemListCtrl'
       }).
+      when('/category/:id', {
+        templateUrl: function (params) {return '/apiv1/categories/' + params.id;}
+      }).
       otherwise({
         redirectTo: '/base-item-list'
-      });
+      })
   }
 ]);
+
+inventoryApp.config(['$httpProvider',
+  function($httpProvider) {
+    $httpProvider.defaults.xsrfCookieName = 'csrftoken';
+    $httpProvider.defaults.xsrfHeaderName = 'X-CSRFToken';
+  }]);
