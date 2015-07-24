@@ -123,9 +123,6 @@ body {
   margin-bottom: 0;
   color: #337AB7;
 }
-a:hover .baseitem-placeholder h4 {
-  color: #fff;
-}
 
 /*
  * Placeholder
@@ -152,12 +149,14 @@ a:hover .baseitem-placeholder h4 {
     height: 335px;
   }
 }
+a:hover .baseitem-placeholder h4 {
+  color: #fff;
+}
 .baseitem-placeholder img {
   display: inline-block;
 
 }
 .category-placeholders {
-  text-align: left;
 }
 .category-placeholders a:hover .category-placeholder {
   background: #428bca;
@@ -174,7 +173,23 @@ a:hover .baseitem-placeholder h4 {
 .category-placeholder h4 {
   text-align: center;
 }
-
+.brand-placeholders {
+}
+.brand-placeholders a:hover .brand-placeholder {
+  background: #428bca;
+  color: #ffffff;
+  text-decoration: none;
+}
+.brand-placeholder {
+  background: #F5F5F5;
+  padding-top: 2px;
+  padding-bottom: 2px;
+  margin-bottom: 10px;
+  border-radius: 5%;
+}
+.brand-placeholder h4 {
+  text-align: center;
+}
 /*
  * Override img-responsive bootstrap
  */

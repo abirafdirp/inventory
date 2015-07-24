@@ -12,6 +12,12 @@ inventoryControllers.controller('CategoryListCtrl', ['$scope', 'Category',
   }
 ]);
 
+inventoryControllers.controller('BrandListCtrl', ['$scope', 'Brand',
+  function($scope, Brand) {
+    return $scope.brands = Brand.query();
+  }
+]);
+
 inventoryControllers.controller('ItemListCtrl', ['$scope', 'Item',
   function($scope, Item) {
     return $scope.items = Item.query();

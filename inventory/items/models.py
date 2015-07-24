@@ -83,10 +83,10 @@ class BaseItem(NameModel, TimeStampedModel):
     product_id_prefix = models.CharField\
         (unique=True, verbose_name='Product ID prefix', max_length=7,
          help_text='must be unique, max length 7 characters')
-    brand = models.ForeignKey(Brand, related_name='brand_of', null=True)
+    brand = models.ForeignKey(Brand, related_name='brand_of')
     category = models.ManyToManyField(Category, related_name='category_of')
-    description = models.CharField(max_length=500, blank=True)
-    image = models.ImageField(upload_to='items', blank=True)
+    description = models.CharField(max_length=500, null=True, blank=True)
+    image = models.ImageField(upload_to='items', null=True, blank=True)
     expires_in = models.IntegerField\
         (null=True, blank=True, verbose_name='Expires in (days)',
          help_text='this is NOT expiration date, but how long until ' +

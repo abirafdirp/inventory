@@ -38,7 +38,7 @@ class BrandList(generics.ListAPIView):
     filter_fields = ('name', 'owner')
 
 
-class BrandCreate(generics.CreateAPIView):
+class BrandCreate(generics.ListCreateAPIView):
     queryset = Brand.objects.all()
     serializer_class = serializers.BrandSerializer
     permission_classes = (DjangoModelPermissionsOrAnonReadOnly,)
@@ -101,7 +101,7 @@ class BaseItemList(generics.ListAPIView):
                      'expires_in')
 
 
-class BaseItemCreate(generics.CreateAPIView):
+class BaseItemCreate(generics.ListCreateAPIView):
     queryset = BaseItem.objects.all()
     serializer_class = serializers.BaseItemCRUDSerializer
     permission_classes = (DjangoModelPermissionsOrAnonReadOnly,)
@@ -132,7 +132,7 @@ class ItemList(generics.ListAPIView):
                      'owner__username', 'location__name', 'expired')
 
 
-class ItemCreate(generics.CreateAPIView):
+class ItemCreate(generics.ListCreateAPIView):
     queryset = Item.objects.all()
     serializer_class = serializers.ItemCRUDSerializer
     permission_classes = (DjangoModelPermissionsOrAnonReadOnly,)
@@ -165,7 +165,7 @@ class LocationList(generics.ListAPIView):
     filter_fields = ('name', 'type', 'address', 'owner')
 
 
-class LocationCreate(generics.CreateAPIView):
+class LocationCreate(generics.ListCreateAPIView):
     queryset = Location.objects.all()
     serializer_class = serializers.LocationSerializer
     permission_classes = (DjangoModelPermissionsOrAnonReadOnly,)
@@ -195,7 +195,7 @@ class TransactionList(generics.ListAPIView):
     filter_fields = ('item', 'destination', 'items_count', 'origin', 'owner')
 
 
-class TransactionCreate(generics.CreateAPIView):
+class TransactionCreate(generics.ListCreateAPIView):
     queryset = Transaction.objects.all()
     serializer_class = serializers.TransactionCRUDSerializer
     permission_classes = (DjangoModelPermissionsOrAnonReadOnly,)

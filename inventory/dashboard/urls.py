@@ -13,6 +13,8 @@ urlpatterns = [
         TemplateView.as_view(template_name='partials/category_list.html')),
     url(r'^item-list/$',
         TemplateView.as_view(template_name='partials/item_list.html')),
+    url(r'^brand-list/$',
+        TemplateView.as_view(template_name='partials/brand_list.html')),
 ]
 
 

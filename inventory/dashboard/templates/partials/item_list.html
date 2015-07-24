@@ -1,12 +1,14 @@
-<div id="content" ng-controller="ItemListCtrl" class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
-    <div class="row placeholders">
+<div class="menu">
+        <a href="#/create/category" class="btn btn-default">Create</a>
+    </div>
+
+    <div class="row placeholders item-placeholders">
         <div ng-repeat="results in items track by $index">
             <div ng-repeat="result in results">
-                <div class="col-xs-10 col-sm-5 col-md-3 placeholder">
-                  <img src="{$ result.image $}" class="img-responsive img-rounded" alt="Generic placeholder thumbnail">
-                  <h4>{$ result.name $}</h4>
+                <div class="col-xs-10 col-sm-5 col-md-3 item-placeholder">
+                  <img ng-src="{$ result.base_item.image $}" class="img-responsive img-rounded" alt="Generic placeholder thumbnail">
+                  <h4>{$ result.base_item.name $}</h4>
                 </div>
               </div>
         </div>
     </div>
-</div>

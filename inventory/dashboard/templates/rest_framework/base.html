@@ -15,20 +15,10 @@
                 {% if display_edit_forms %}
 
                     {% if post_form or raw_data_post_form %}
-                        <div {% if post_form %}class="tabbable"{% endif %}>
                             {% if post_form %}
-                                <ul class="nav nav-tabs form-switcher">
-                                    <li>
-                                        <a name='html-tab' href="#post-object-form" data-toggle="tab">HTML form</a>
-                                    </li>
-                                    <li>
-                                        <a name='raw-tab' href="#post-generic-content-form" data-toggle="tab">Raw data</a>
-                                    </li>
-                                </ul>
                             {% endif %}
-                            <div class="well tab-content">
+                            <div class="well">
                                 {% if post_form %}
-                                    <div class="tab-pane" id="post-object-form">
                                         {% with form=post_form %}
                                             <form action="{{ request.get_full_path }}"
                                                   method="POST" enctype="multipart/form-data" class="form-horizontal" novalidate>
@@ -41,23 +31,9 @@
                                                 </fieldset>
                                             </form>
                                         {% endwith %}
-                                    </div>
                                 {% endif %}
-                                <div {% if post_form %}class="tab-pane"{% endif %} id="post-generic-content-form">
-                                    {% with form=raw_data_post_form %}
-                                        <form action="{{ request.get_full_path }}" method="POST" class="form-horizontal">
-                                            <fieldset>
-                                                {% include "rest_framework/raw_data_form.html" %}
-                                                <div class="form-actions">
-                                                    <button class="btn btn-primary"
-                                                            title="Make a POST request on the {{ name }} resource">POST</button>
-                                                </div>
-                                            </fieldset>
-                                        </form>
-                                    {% endwith %}
-                                </div>
+                                
                             </div>
-                        </div>
                     {% endif %}
 
                     {% if put_form or raw_data_put_form or raw_data_patch_form %}
