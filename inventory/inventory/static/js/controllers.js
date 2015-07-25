@@ -64,9 +64,9 @@ inventoryControllers.controller('TransactionEditCtrl', ['$scope',
     $scope.title = 'Edit Transaction';
   }
 ]);
-
-inventoryControllers.controller('IsFormSubmittedCtrl', ['$scope', 'IsFormSubmitted',
-  function($scope, IsFormSubmitted) {
-    $scope.IsFormSubmitted = IsFormSubmitted;
+inventoryControllers.controller('FormValidationCtrl', ['$scope', '$location',
+  function($scope, $location) {
+    $scope.currenturl = $location.url();
   }
 ]);
+

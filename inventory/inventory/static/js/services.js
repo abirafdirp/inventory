@@ -39,16 +39,12 @@ inventoryServices.factory('Transaction', ['$resource',
     })
   }
 ]);
-inventoryServices.factory('IsFormSubmitted', function() {
-  var submitted;
-  function set(data) {
-    submitted = data;
-  }
-  function get() {
-    return submitted;
+inventoryServices.factory('ValidationError', function() {
+  function containsError(data) {
+    data = JSON.stringify(data);
+    return data.match(/results/)
   }
   return {
-    set: set,
-    get: get
+    containsError: containsError
   }
 });
