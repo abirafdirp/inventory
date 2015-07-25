@@ -48,6 +48,6 @@ urlpatterns = [
         name='transaction-list'),
     url(r'transactions/create/$', views.TransactionCreate().as_view(),
         name='transaction-create'),
-    url(r'transactions/(?P<pk>\d+)/$', views.TransactionRetrieveUpdateDestroy.as_view(),
+    url(r'transactions/(?P<pk>\d+)/$', views.TransactionRetrieve.as_view(),
         name='transaction-retrieveupdatedestroy'),
 ]

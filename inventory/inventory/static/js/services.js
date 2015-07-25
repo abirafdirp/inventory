@@ -39,12 +39,10 @@ inventoryServices.factory('Transaction', ['$resource',
     })
   }
 ]);
-inventoryServices.factory('ValidationError', function() {
-  function containsError(data) {
-    data = JSON.stringify(data);
-    return data.match(/results/)
+inventoryServices.factory('Location', ['$resource',
+  function($resource) {
+    return $resource('/apiv1/locations/?format=json', {}, {
+      query: {method:'GET', isArray:true}
+    })
   }
-  return {
-    containsError: containsError
-  }
-});
+]);

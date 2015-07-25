@@ -186,8 +186,12 @@ a:hover .baseitem-placeholder h4 {
 }
 .item-placeholder {
   border-style: solid;
-  color: #cccccc;
   border-width: 1px;
+  border-color: #cccccc;
+}
+.placeholders a:hover .item-placeholder{
+  background: #428bca;
+  color: #ffffff;
 }
 /*
  * Override img-responsive bootstrap

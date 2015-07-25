@@ -204,7 +204,7 @@ class TransactionCreate(generics.ListCreateAPIView):
         serializer.save(owner=self.request.user)
 
 
-class TransactionRetrieveUpdateDestroy(generics.RetrieveUpdateDestroyAPIView):
+class TransactionRetrieve(generics.RetrieveAPIView):
     serializer_class = serializers.TransactionCRUDSerializer
     permission_classes = (DjangoModelPermissionsOrAnonReadOnly,)
 

@@ -1,5 +1,11 @@
 var inventoryControllers = angular.module('inventoryControllers', []);
 
+inventoryControllers.controller('NavCtrl', ['$scope', '$route',
+  function($scope, $route) {
+    $scope.$route = $route;
+  }
+]);
+
 inventoryControllers.controller('BaseItemListCtrl', ['$scope', 'BaseItem',
   function($scope, BaseItem) {
     $scope.baseitems = BaseItem.query();
@@ -64,6 +70,21 @@ inventoryControllers.controller('TransactionEditCtrl', ['$scope',
     $scope.title = 'Edit Transaction';
   }
 ]);
+
+inventoryControllers.controller('LocationListCtrl', ['$scope', 'Location',
+  function($scope, Location) {
+    $scope.locations = Location.query();
+    $scope.title = 'Create Location';
+    $scope.items_in_locations = {};
+  }
+]);
+
+inventoryControllers.controller('LocationEditCtrl', ['$scope', 'Location',
+  function($scope, Location) {
+    $scope.title = 'Edit Location';
+  }
+]);
+
 inventoryControllers.controller('FormValidationCtrl', ['$scope', '$location',
   function($scope, $location) {
     $scope.not_form_validation = $location.url();

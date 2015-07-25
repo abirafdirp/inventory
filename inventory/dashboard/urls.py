@@ -17,6 +17,8 @@ urlpatterns = [
         TemplateView.as_view(template_name='partials/brand_list.html')),
     url(r'^transaction-list/$',
         TemplateView.as_view(template_name='partials/transaction_list.html')),
+    url(r'^location-list/$',
+        TemplateView.as_view(template_name='partials/location_list.html')),
 ]
 
 

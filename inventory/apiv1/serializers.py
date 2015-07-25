@@ -48,7 +48,7 @@ class LocationSerializer(serializers.ModelSerializer):
     class Meta:
         model = Location
         depth = 1
-        fields = ('name', 'type', 'address', 'owner')
+        fields = ('id', 'name', 'type', 'address', 'owner')
 
 
 class BaseItemSerializer(serializers.ModelSerializer):
@@ -106,7 +106,7 @@ class TransactionCRUDSerializer(serializers.ModelSerializer):
 
         # fields added for verbosity
         fields = ('item', 'items_count', 'origin', 'destination', 'owner')
-        read_only_fields = ('date_time',)
+        read_only_fields = ('date_time', )
 
 
 class ItemSerializer(serializers.ModelSerializer):
