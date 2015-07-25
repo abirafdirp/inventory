@@ -66,7 +66,7 @@ inventoryControllers.controller('TransactionEditCtrl', ['$scope',
 ]);
 inventoryControllers.controller('FormValidationCtrl', ['$scope', '$location',
   function($scope, $location) {
-    $scope.is_form_validation = $location.url();
+    $scope.not_form_validation = $location.url();
   }
 ]);
 

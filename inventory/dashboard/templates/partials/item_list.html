@@ -2,17 +2,14 @@
     <a href="#/create/item" class="btn btn-default">Create</a>
 </div>
 
-<div class="row placeholders baseitem-placeholders">
-    <div ng-repeat="results in items track by $index">
-        <div ng-repeat="result in results">
-            <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
-                <a href="#/item/{$ result.id $}">
-                    <div class="baseitem-placeholder">
-                      <img ng-src="{$ result.base_item.image $}" class="img-responsive img-rounded" alt="Generic placeholder thumbnail">
-                      <h4>{$ result.base_item.name $}</h4>
-                    </div>
-                </a>
-            </div>
+<div class="row placeholders">
+    <div ng-repeat="item in items track by $index">
+        <div class="col-xs-12">
+            <a href="#/item/{$ item.id $}">
+                <div class="item-placeholder">
+                  <h4>{$ item.base_item.name $}</h4>
+                </div>
+            </a>
         </div>
     </div>
 </div>

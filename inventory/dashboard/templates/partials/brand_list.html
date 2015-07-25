@@ -2,14 +2,12 @@
 <div class="menu">
     <a href="#/create/brand" class="btn btn-default">Create</a>
 </div>
-<div class="row placeholders brand-placeholders">
-    <div ng-repeat="results in brands track by $index">
-        <div ng-repeat="result in results">
-            <div class="col-xs-6 col-sm-4 col-md-3 col-lg-2">
-                <a href="#/brand/{$ result.id $}"><div class="brand-placeholder">
-                    <h4>{$ result.name $}</h4>
-                </div></a>
-            </div>
-          </div>
+<div class="row placeholders">
+    <div ng-repeat="brand in brands track by $index">
+        <div class="col-xs-6 col-sm-4 col-md-3 col-lg-2">
+            <a href="#/brand/{$ brand.id $}"><div class="brand-placeholder">
+                <h4>{$ brand.name $}</h4>
+            </div></a>
+        </div>
     </div>
 </div>

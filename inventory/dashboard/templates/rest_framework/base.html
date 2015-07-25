@@ -1,5 +1,5 @@
 <div ng-app="inventory">
-<div ng-controller="FormValidationCtrl">
+<div ng-controller="FormValidationCtrl" ng-init="http_status_code = '{{ response.status_code }}'">
 {% load url from future %}
 {% load staticfiles %}
 {% load rest_framework %}
@@ -17,28 +17,44 @@
 <!-- jQuery -->
 <script src="{% static 'js/jquery-2.1.4.min.js' %}"></script>
 <!-- Bootstrap JavaScript -->
-<script src="{% static 'js/bootstrap.min.js' %}"></script>
 
-<script src="{% static "rest_framework/js/prettify-min.js" %}"></script>
-<script src="{% static "rest_framework/js/default.js" %}"></script>
+<div ng-if="!not_form_validation">
+<link rel="stylesheet" type="text/css" href="{% static "rest_framework/css/bootstrap.min.css" %}"/>
+<link rel="stylesheet" type="text/css" href="{% static "rest_framework/css/bootstrap-tweaks.css" %}"/>
+<link rel="stylesheet" type="text/css" href="{% static "rest_framework/css/prettify.css" %}"/>
+<link rel="stylesheet" type="text/css" href="{% static "rest_framework/css/default.css" %}"/>
+</div>
 
+
+<div ng-class="{ 'col-xs-8 col-xs-offset-2' : !not_form_validation }">
 <div class="wrapper">
     <!-- Content -->
     <div id="content"">
         <h4>{$ title $}</h4>
-        <div ng-hide=" is_form_validation " class="content-main">
+        <div ng-if="http_status_code == '201' && !not_form_validation"><h2>Created <input type="button" class="btn btn-primary align-right" onclick="history.go(-2)" value="Back"></h2>
+                </div>
+        <div ng-if="http_status_code == '200' && !not_form_validation"><h2>Success <input type="button" class="btn btn-primary align-right" onclick="history.go(-2)" value="Back"></h2>
+                </div>
+        <div ng-if="http_status_code == '400' && !not_form_validation"><h2>Error <input type="button" class="btn btn-primary align-right" onclick="history.go(-2)" value="Back"></h2>
+                </div>
+        <div ng-if="http_status_code == '204' && !not_form_validation"><h2>Deleted <input type="button" class="btn btn-primary align-right" onclick="history.go(-2)" value="Back"></h2>
+                </div>
+
+
+
+
+        <div ng-if="!not_form_validation " class="content-main">
             <div class="response-info">
                 <pre class="prettyprint">
-                        {% autoescape off %}
-                        {% for key, val in response_headers.items %}
-                        {% endfor %}{{ content|urlize_quoted_links }}
+                        {% autoescape off %}{{ content|urlize_quoted_links }}
                 </pre>{% endautoescape %}
             </div>
         </div>
 
-        <div ng-show=" is_form_validation" class="well">
-            {% if display_edit_forms %}
-                {% if post_form or raw_data_post_form %}
+
+        {% if display_edit_forms %}
+            {% if post_form or raw_data_post_form %}
+                <div ng-if="not_form_validation" class="well">
                     {% if post_form %}
                         {% with form=post_form %}
                             <form action="{{ request.get_full_path }}"
@@ -57,7 +73,7 @@
                 </div>
 
             {% if put_form or raw_data_put_form or raw_data_patch_form %}
-                <div ng-show="{$ submitted == false $}" {% if put_form %}{% endif %}>
+                <div ng-if="not_form_validation" {% if put_form %}{% endif %}>
                     <div class="well tab-content">
                         {% if put_form %}
                             <div id="put-object-form">
@@ -86,6 +102,7 @@
     </div>
     <!-- END Content -->
 </div><!-- ./wrapper -->
+</div>
 </div>
 </div>
 

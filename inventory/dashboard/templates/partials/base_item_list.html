@@ -2,20 +2,17 @@
     <a href="#/create/baseitem" class="btn btn-default">Create</a>
 </div>
 
-<div class="row placeholders baseitem-placeholders">
-    <div ng-repeat="results in baseitems track by $index">
-        <div ng-repeat="result in results">
-            <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
-                <a href="#/baseitem/{$ result.id $}">
-                    <div class="baseitem-placeholder">
-                      <img ng-src="{$ result.image $}" class="img-responsive img-rounded" alt="Generic placeholder thumbnail">
-                      <h4>{$ result.name $}</h4>
-                      <div ng-show="result.description">{$ result.description | limitTo:80 $}....</div>
-                        <div ng-show="!result.description">No description</div>
-                    </div>
-                </a>
-            </div>
-
+<div class="row placeholders">
+    <div ng-repeat="baseitem in baseitems">
+        <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+            <a href="#/baseitem/{$ baseitem.id $}">
+                <div class="baseitem-placeholder">
+                  <img ng-src="{$ baseitem.image $}" class="img-responsive img-rounded" alt="Generic placeholder thumbnail">
+                  <h4>{$ baseitem.name $}</h4>
+                  <div ng-show="baseitem.description">{$ baseitem.description | limitTo:80 $}....</div>
+                    <div ng-show="!baseitem.description">No description</div>
+                </div>
+            </a>
         </div>
     </div>
 </div>

@@ -1,6 +1,6 @@
 /*
 
-This CSS file contains some tweaks specific to the included Bootstrap theme. 
+This CSS file contains some tweaks specific to the included Bootstrap theme.
 It's separate from `style.css` so that it can be easily overridden by replacing
 a single block in the template.
 
@@ -97,6 +97,10 @@ html {
   margin: 0 auto;
 }*/
 
+body {
+  background: url("../img/grid.png") repeat-x;
+  background-attachment: fixed;
+}
 
 #content {
   margin: 0;

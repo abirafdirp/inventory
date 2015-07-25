@@ -3,7 +3,7 @@ var inventoryServices = angular.module('inventoryServices', ['ngResource']);
 inventoryServices.factory('BaseItem', ['$resource',
   function($resource){
     return $resource('/apiv1/baseitems/?format=json', {}, {
-      query: {method:'GET'}
+      query: {method:'GET', isArray:true}
     })
   }
 ]);
@@ -11,7 +11,7 @@ inventoryServices.factory('BaseItem', ['$resource',
 inventoryServices.factory('Category', ['$resource',
   function($resource){
     return $resource('/apiv1/categories/?format=json', {}, {
-      query: {method:'GET'}
+      query: {method:'GET', isArray:true}
     })
 
 }]);
@@ -19,7 +19,7 @@ inventoryServices.factory('Category', ['$resource',
 inventoryServices.factory('Brand', ['$resource',
   function($resource){
     return $resource('/apiv1/brands/?format=json', {}, {
-      query: {method:'GET'}
+      query: {method:'GET', isArray:true}
     })
 
 }]);
@@ -27,7 +27,7 @@ inventoryServices.factory('Brand', ['$resource',
 inventoryServices.factory('Item', ['$resource',
   function($resource) {
     return $resource('/apiv1/items/?format=json', {}, {
-      query: {method:'GET'}
+      query: {method:'GET', isArray:true}
     })
   }
 ]);
@@ -35,7 +35,7 @@ inventoryServices.factory('Item', ['$resource',
 inventoryServices.factory('Transaction', ['$resource',
   function($resource) {
     return $resource('/apiv1/transactions/?format=json', {}, {
-      query: {method:'GET'}
+      query: {method:'GET', isArray:true}
     })
   }
 ]);
