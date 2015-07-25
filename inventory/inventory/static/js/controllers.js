@@ -4,14 +4,12 @@ inventoryControllers.controller('BaseItemListCtrl', ['$scope', 'BaseItem',
   function($scope, BaseItem) {
     $scope.baseitems = BaseItem.query();
     $scope.title = 'Create Base Item';
-    $scope.submitted = false;
   }
 ]);
 
 inventoryControllers.controller('BaseItemEditCtrl', ['$scope',
   function($scope) {
     $scope.title = 'Edit Base Item';
-    $scope.submitted = false;
   }
 ]);
 
@@ -64,5 +62,11 @@ inventoryControllers.controller('TransactionListCtrl', ['$scope', 'Transaction',
 inventoryControllers.controller('TransactionEditCtrl', ['$scope',
   function($scope) {
     $scope.title = 'Edit Transaction';
+  }
+]);
+
+inventoryControllers.controller('IsFormSubmittedCtrl', ['$scope', 'IsFormSubmitted',
+  function($scope, IsFormSubmitted) {
+    $scope.IsFormSubmitted = IsFormSubmitted;
   }
 ]);

@@ -1,12 +1,12 @@
-<div  ng-app="inventory">
+<div ng-app="inventory">
+<div ng-controller="IsFormSubmittedCtrl">
 {% load url from future %}
 {% load staticfiles %}
 {% load rest_framework %}
 
-<div ng-hide="false">
 <!-- angular v1.4.2 -->
-<script src="{% static 'js/angular.min.js' %}"></script>
-<script src="{% static 'js/angular-route.min.js' %}"></script>
+<script src="{% static 'js/angular.js' %}"></script>
+<script src="{% static 'js/angular-route.js' %}"></script>
 <script src="{% static 'js/angular-resource.js' %}"></script>
 <!-- angular-ui-bootstrap v0.13.0 -->
 <script src="{% static 'js/ui-bootstrap-tpls-0.13.0.js' %}"></script>
@@ -22,85 +22,70 @@
 <script src="{% static "rest_framework/js/prettify-min.js" %}"></script>
 <script src="{% static "rest_framework/js/default.js" %}"></script>
 
-<link rel="stylesheet" type="text/css" href="{% static "rest_framework/css/bootstrap-tweaks.css" %}"/>
-<link rel="stylesheet" type="text/css" href="{% static "rest_framework/css/prettify.css" %}"/>
-<link rel="stylesheet" type="text/css" href="{% static "rest_framework/css/default.css" %}"/>
-</div>
+<div class="wrapper">
+    <!-- Content -->
+    <div id="content"">
+        <h4>{$ title $}</h4>
+        <div ng-hide="{$ IsFormSubmitted.get() == null $}" class="content-main">
+            <div class="response-info">
+                <pre class="prettyprint">
+                        {% autoescape off %}
+                        {% for key, val in response_headers.items %}
+                        {% endfor %}{{ content|urlize_quoted_links }}
+                </pre>{% endautoescape %}
+            </div>
+        </div>
 
-        <div class="wrapper">
-
-
-
-
-            <!-- Content -->
-            <div id="content"">
-
-            <h4>{$ title $}</h4>
-
-                <div ng-hide="{$ submitted == false $}" class="content-main">
-                    <div class="response-info">
-                        <pre class="prettyprint">
-                                {% autoescape off %}
-                                {% for key, val in response_headers.items %}
-                                {% endfor %}{{ content|urlize_quoted_links }}
-                                    </pre>{% endautoescape %}
-                    </div>
-                </div>
-
-                {% if display_edit_forms %}
-
-                    {% if post_form or raw_data_post_form %}
-                            {% if post_form %}
-                            {% endif %}
-                            <div ng-show="{$ submitted == false $}" class="well">
-                                {% if post_form %}
-                                        {% with form=post_form %}
-                                            <form action="{{ request.get_full_path }}"
-                                                  method="POST" enctype="multipart/form-data" class="form-horizontal" novalidate>
-                                                <fieldset>
-                                                    {{ post_form }}
-                                                    <div class="form-actions">
-                                                        <button class="btn btn-primary"
-                                                                title="Make a POST request on the {{ name }} resource" ng-click=" submitted = true ">POST</button>
-                                                    </div>
-                                                </fieldset>
-                                            </form>
-                                        {% endwith %}
-                                {% endif %}
-                                
-                            </div>
-                    {% endif %}
-
-                    {% if put_form or raw_data_put_form or raw_data_patch_form %}
-                        <div ng-show="{$ submitted == false $}" {% if put_form %}{% endif %}>
-                            <div class="well tab-content">
-                                {% if put_form %}
-                                    <div id="put-object-form">
-                                        <form action="{{ request.get_full_path }}"
-                                              method="POST" enctype="multipart/form-data" class="form-horizontal" novalidate>
-                                            <fieldset>
-                                                {{ put_form }}
-                                                <div class="form-actions">
-                                                    <button class="btn btn-primary js-tooltip"
-                                                             name="{{ api_settings.FORM_METHOD_OVERRIDE }}"
-                                                            value="PUT" ng-click=" submitted = true ">PUT</button>
-                                            </form>
-                                            <form class="button-form" action="{{ request.get_full_path }}" method="POST" class="form-horizontal">
-                                                {% csrf_token %}
-                                                <input type="hidden" name="{{ api_settings.FORM_METHOD_OVERRIDE }}" value="DELETE" />
-                                                    <button class="btn btn-danger js-tooltip" ng-click=" submitted = true ">DELETE</button>
-                                                    </div>
-                                            </form>
-                                        </fieldset>
+        <div ng-hide="{$ IsFormSubmitted.get() == !null $}" class="well">
+            {% if display_edit_forms %}
+                {% if post_form or raw_data_post_form %}
+                    {% if post_form %}
+                        {% with form=post_form %}
+                            <form action="{{ request.get_full_path }}"
+                                  method="POST" enctype="multipart/form-data" class="form-horizontal" novalidate>
+                                <fieldset>
+                                    {{ post_form }}
+                                    <div class="form-actions">
+                                        <button class="btn btn-primary"
+                                                title="Make a POST request on the {{ name }} resource" ng-click="IsFormSubmitted.set(true) ">POST</button>
                                     </div>
-                                {% endif %}
-                            </div>
-                        </div>
+                                </fieldset>
+                            </form>
+                        {% endwith %}
                     {% endif %}
                 {% endif %}
-            </div>
-            <!-- END Content -->
-        </div><!-- ./wrapper -->
+                </div>
+
+            {% if put_form or raw_data_put_form or raw_data_patch_form %}
+                <div ng-show="{$ submitted == false $}" {% if put_form %}{% endif %}>
+                    <div class="well tab-content">
+                        {% if put_form %}
+                            <div id="put-object-form">
+                                <form action="{{ request.get_full_path }}"
+                                      method="POST" enctype="multipart/form-data" class="form-horizontal" novalidate>
+                                    <fieldset>
+                                        {{ put_form }}
+                                        <div class="form-actions">
+                                            <button class="btn btn-primary js-tooltip"
+                                                     name="{{ api_settings.FORM_METHOD_OVERRIDE }}"
+                                                    value="PUT" ng-click=" submitted = true ">PUT</button>
+                                    </form>
+                                    <form class="button-form" action="{{ request.get_full_path }}" method="POST" class="form-horizontal">
+                                        {% csrf_token %}
+                                        <input type="hidden" name="{{ api_settings.FORM_METHOD_OVERRIDE }}" value="DELETE" />
+                                            <button class="btn btn-danger js-tooltip" ng-click=" submitted = true ">DELETE</button>
+                                            </div>
+                                    </form>
+                                </fieldset>
+                            </div>
+                        {% endif %}
+                    </div>
+                </div>
+            {% endif %}
+        {% endif %}
+    </div>
+    <!-- END Content -->
+</div><!-- ./wrapper -->
 </div>
 </div>
 

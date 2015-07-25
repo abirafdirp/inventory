@@ -39,3 +39,16 @@ inventoryServices.factory('Transaction', ['$resource',
     })
   }
 ]);
+inventoryServices.factory('IsFormSubmitted', function() {
+  var submitted;
+  function set(data) {
+    submitted = data;
+  }
+  function get() {
+    return submitted;
+  }
+  return {
+    set: set,
+    get: get
+  }
+});
