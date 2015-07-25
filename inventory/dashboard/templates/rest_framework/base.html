@@ -26,8 +26,7 @@
     <!-- Content -->
     <div id="content"">
         <h4>{$ title $}</h4>
-        <h4>{$ currenturl $}</h4>
-        <div ng-hide="" class="content-main">
+        <div ng-hide=" is_form_validation " class="content-main">
             <div class="response-info">
                 <pre class="prettyprint">
                         {% autoescape off %}
@@ -37,7 +36,7 @@
             </div>
         </div>
 
-        <div ng-hide="" class="well">
+        <div ng-show=" is_form_validation" class="well">
             {% if display_edit_forms %}
                 {% if post_form or raw_data_post_form %}
                     {% if post_form %}
