@@ -8,12 +8,14 @@
 <div class="row placeholders">
     <div class="col-xs-12"><h4>{{ items_in_locations }}</h4></div>
     <div class="col-xs-12">
-        <div class="col-xs-6"><h4>Location</h4></div>
-        <div class="col-xs-6"><h4>Items avaiable</h4></div>
+        <div class="col-xs-4"><h4>Item</h4></div>
+        <div class="col-xs-4"><h4>Location</h4></div>
+        <div class="col-xs-4"><h4>Items avaiable</h4></div>
     </div>
-    <div class="col-xs-12 item-placeholder" ng-repeat="(key, value) in items_in_locations">
-        <div class="col-xs-6"><h4>{$ key $}</h4></div>
-        <div class="col-xs-6"><h4>{$ value $}</h4></div>
+    <div class="col-xs-12 item-placeholder" ng-repeat="items in items_in_locations">
+        <div class="col-xs-4"><h4>{$ items.name $}</h4></div>
+        <div class="col-xs-4"><h4>{$ items.location $}</h4></div>
+        <div class="col-xs-4"><h4>{$ items.count $}</h4></div>
     </div>
     <div></div>
     <div class="col-xs-12">

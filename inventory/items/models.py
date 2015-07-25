@@ -83,8 +83,8 @@ class BaseItem(NameModel, TimeStampedModel):
     product_id_prefix = models.CharField\
         (unique=True, verbose_name='Product ID prefix', max_length=7,
          help_text='must be unique, max length 7 characters')
-    brand = models.ForeignKey(Brand, related_name='brand_of')
-    category = models.ManyToManyField(Category, related_name='category_of')
+    brand = models.ForeignKey(Brand, related_name='baseitems')
+    category = models.ManyToManyField(Category, related_name='baseitems')
     description = models.CharField(max_length=500, null=True, blank=True)
     image = models.ImageField(upload_to='items', null=True, blank=True)
     expires_in = models.IntegerField\
@@ -92,7 +92,7 @@ class BaseItem(NameModel, TimeStampedModel):
          help_text='this is NOT expiration date, but how long until ' +
          'this item will be expired in days. Leave blank if the item' +
          ' is not expireable')
-    owner = models.ForeignKey(User, related_name='base_items')
+    owner = models.ForeignKey(User, related_name='baseitems')
 
     def save(self, *args, **kwargs):
         self.modified = timezone.datetime.today()
@@ -106,7 +106,7 @@ class BaseItem(NameModel, TimeStampedModel):
 
 
 class Item(TimeStampedModel):
-    base_item = models.ForeignKey(BaseItem, related_name='base_item_of')
+    base_item = models.ForeignKey(BaseItem, related_name='items')
 
     # the product id will be randomly generated from its prefix
     # the uniqueness will be guaranteed at overrided save method
@@ -120,7 +120,7 @@ class Item(TimeStampedModel):
 
     # prevent circular import
     location = models.ForeignKey('transaction.Location',
-                                 related_name='location_of')
+                                 related_name='items')
 
     def save(self, *args, **kwargs):
         self.modified = timezone.now()
