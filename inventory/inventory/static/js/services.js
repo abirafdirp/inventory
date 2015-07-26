@@ -46,3 +46,10 @@ inventoryServices.factory('Location', ['$resource',
     })
   }
 ]);
+inventoryServices.factory('ItemsInLocations', ['$resource',
+  function($resource) {
+    return $resource('/apiv1/items-in-locations/?format=json', {}, {
+      query: {method:'GET', isArray:true}
+    })
+  }
+]);

@@ -225,6 +225,10 @@ a:hover .baseitem-placeholder h4 {
   margin-bottom: 20px;
 }
 
+.menu-transaction{
+  margin-top: 50px;
+}
+
 .well {
   -webkit-box-shadow: none;
      -moz-box-shadow: none;
@@ -249,4 +253,8 @@ a:hover .baseitem-placeholder h4 {
 
 .form-actions .btn {
   margin-left: 5px;
+}
+
+.transaction-list-heading {
+  margin-top: 30px;
 }

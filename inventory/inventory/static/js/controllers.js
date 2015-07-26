@@ -85,6 +85,12 @@ inventoryControllers.controller('LocationEditCtrl', ['$scope', 'Location',
   }
 ]);
 
+inventoryControllers.controller('ItemsInLocationsCtrl', ['$scope', 'ItemsInLocations',
+  function($scope, ItemsInLocation) {
+    $scope.items_in_locations = ItemsInLocation.query();
+  }
+]);
+
 inventoryControllers.controller('FormValidationCtrl', ['$scope', '$location',
   function($scope, $location) {
     $scope.not_form_validation = $location.url();

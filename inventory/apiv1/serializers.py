@@ -148,3 +148,12 @@ class UserSerializer(serializers.ModelSerializer):
         model = User
         fields = ('id', 'username', 'base_items', 'brands', 'categories',
                   'items')
+
+
+class ItemInLocationsSerializer(serializers.Serializer):
+    base_item__name = serializers.CharField(max_length=30)
+    location__name = serializers.CharField(max_length=30)
+    pk__count = serializers.IntegerField()
+    location__type = serializers.CharField(max_length=30)
+
+

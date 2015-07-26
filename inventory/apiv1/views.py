@@ -5,6 +5,7 @@ from rest_framework.decorators import api_view
 from rest_framework.response import Response
 from rest_framework.reverse import reverse
 from rest_framework.permissions import DjangoModelPermissionsOrAnonReadOnly
+from django.db.models import Count
 from items.models import Item
 from items.models import Brand
 from items.models import Category
@@ -215,6 +216,18 @@ class TransactionRetrieve(generics.RetrieveAPIView):
         query = self.kwargs['pk']
         self.queryset = Transaction.objects.filter(id=query)
         return self.queryset
+
+
+class ItemsInLocationsView(generics.GenericAPIView):
+    serializer_class = serializers.ItemInLocationsSerializer
+    permission_classes = (permissions.AllowAny, )
+
+    def get(self, request, format=None):
+        data = Item.objects.values\
+            ('base_item__name', 'location__name', 'location__type').\
+            order_by().annotate(Count('pk'))
+        serializer = serializers.ItemInLocationsSerializer(data, many=True)
+        return Response(serializer.data)
     
 
 @api_view(('GET',))
@@ -240,5 +253,8 @@ def api_root(request):
 
         'transactions': reverse('apiv1:transaction-list', request=request),
         'create transaction': reverse('apiv1:transaction-create',
+                                      request=request),
+
+        'items in locations': reverse('apiv1:items-in-locations',
                                       request=request),
         })
