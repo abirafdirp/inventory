@@ -195,14 +195,14 @@ STATICFILES_FINDERS = (
 
 # MEDIA CONFIGURATION
 # ------------------------------------------------------------------------------
-MEDIAFILES_DIRS = (MEDIA_ROOT)
+
 
 # See: https://docs.djangoproject.com/en/dev/ref/settings/#media-root
 MEDIA_ROOT = os.path.join(ROOT_DIR, 'media')
 
 # See: https://docs.djangoproject.com/en/dev/ref/settings/#media-url
 MEDIA_URL = '/media/'
-
+MEDIAFILES_DIRS = (MEDIA_ROOT)
 # URL Configuration
 # ------------------------------------------------------------------------------
 ROOT_URLCONF = 'config.urls'
