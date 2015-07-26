@@ -5,8 +5,8 @@
 {% load rest_framework %}
 
 <!-- angular v1.4.2 -->
-<script src="{% static 'js/angular.js' %}"></script>
-<script src="{% static 'js/angular-route.js' %}"></script>
+<script src="{% static 'js/angular.min.js' %}"></script>
+<script src="{% static 'js/angular-route.min.js' %}"></script>
 <script src="{% static 'js/angular-resource.js' %}"></script>
 <!-- angular-ui-bootstrap v0.13.0 -->
 <script src="{% static 'js/ui-bootstrap-tpls-0.13.0.js' %}"></script>
@@ -14,6 +14,7 @@
 <script src="{% static 'js/app.js' %}"></script>
 <script src="{% static 'js/controllers.js' %}"></script>
 <script src="{% static 'js/services.js' %}"></script>
+<script src="{% static 'js/dirPagination.js' %}"></script>
 <!-- jQuery -->
 <script src="{% static 'js/jquery-2.1.4.min.js' %}"></script>
 <!-- Bootstrap JavaScript -->
@@ -24,6 +25,7 @@
 <link rel="stylesheet" type="text/css" href="{% static "rest_framework/css/prettify.css" %}"/>
 <link rel="stylesheet" type="text/css" href="{% static "rest_framework/css/default.css" %}"/>
 </div>
+<link rel="shortcut icon" type="image/png" href="{% static "favicon/favicon.ico" %}"/>
 
 
 <div ng-class="{ 'col-xs-8 col-xs-offset-2' : !not_form_validation }">
