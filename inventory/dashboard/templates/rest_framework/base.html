@@ -5,8 +5,8 @@
 {% load rest_framework %}
 
 <!-- angular v1.4.2 -->
-<script src="{% static 'js/angular.min.js' %}"></script>
-<script src="{% static 'js/angular-route.min.js' %}"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.2/angular.min.js"></script>
+<script src="{% static 'js/angular-route.js' %}"></script>
 <script src="{% static 'js/angular-resource.js' %}"></script>
 <!-- angular-ui-bootstrap v0.13.0 -->
 <script src="{% static 'js/ui-bootstrap-tpls-0.13.0.js' %}"></script>
@@ -16,11 +16,12 @@
 <script src="{% static 'js/services.js' %}"></script>
 <script src="{% static 'js/dirPagination.js' %}"></script>
 <!-- jQuery -->
-<script src="{% static 'js/jquery-2.1.4.min.js' %}"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
 <!-- Bootstrap JavaScript -->
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
 
 <div ng-if="!not_form_validation">
-<link rel="stylesheet" type="text/css" href="{% static "rest_framework/css/bootstrap.min.css" %}"/>
+<link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css" rel="stylesheet">
 <link rel="stylesheet" type="text/css" href="{% static "rest_framework/css/bootstrap-tweaks.css" %}"/>
 <link rel="stylesheet" type="text/css" href="{% static "rest_framework/css/prettify.css" %}"/>
 <link rel="stylesheet" type="text/css" href="{% static "rest_framework/css/default.css" %}"/>
