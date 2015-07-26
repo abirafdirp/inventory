@@ -26,7 +26,7 @@ urlpatterns = [
     url(r'^apiv1/', include('apiv1.urls', namespace='apiv1')),
     url(r'^dashboard/', include('dashboard.urls', namespace='apiv1')),
 
-    (r'^media/(?P<path>.*)$', 'django.views.static.serve',
+    url(r'^media/(?P<path>.*)$', 'django.views.static.serve',
         {'document_root': settings.MEDIA_ROOT, 'show_indexes': True, }),
 
 ] 
