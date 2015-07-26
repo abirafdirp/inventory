@@ -58,10 +58,6 @@ INSTALLED_APPS += ("gunicorn", )
 # Uploaded Media Files
 # ------------------------
 # See: http://django-storages.readthedocs.org/en/latest/index.html
-INSTALLED_APPS += (
-    'storages',
-)
-DEFAULT_FILE_STORAGE = 'storages.backends.s3boto.S3BotoStorage'
 
 
 # URL that handles the media served from MEDIA_ROOT, used for managing stored files.
