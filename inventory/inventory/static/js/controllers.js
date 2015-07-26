@@ -96,4 +96,11 @@ inventoryControllers.controller('FormValidationCtrl', ['$scope', '$location',
     $scope.not_form_validation = $location.url();
   }
 ]);
-
+inventoryControllers.controller('SearchSortPaginationCtrl', ['$scope',
+  function($scope) {
+    $scope.sort = function(keyname){
+        $scope.sortKey = keyname;   //set the sortKey to the param passed
+        $scope.reverse = !$scope.reverse; //if true make it false and vice versa
+    }
+  }
+]);

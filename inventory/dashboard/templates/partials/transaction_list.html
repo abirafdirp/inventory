@@ -1,40 +1,110 @@
-<div ng-controller="ItemsInLocationsCtrl">
-    <div class="row placeholders">
-        <h3>Items Avaiable</h3>
-        <div class="col-xs-12"><h4></h4></div>
-        <div class="col-xs-12">
-            <div class="col-xs-3"><h4>Item</h4></div>
-            <div class="col-xs-3"><h4>Type</h4></div>
-            <div class="col-xs-3"><h4>Location</h4></div>
-            <div class="col-xs-3"><h4>Items avaiable</h4></div>
-        </div>
-        <div class="col-xs-12 item-placeholder" ng-repeat="item in items_in_locations">
-            <div class="col-xs-3"><h4>{$ item.base_item__name $}</h4></div>
-            <div class="col-xs-3"><h4>{$ item.location__type $}</h4></div>
-            <div class="col-xs-3"><h4>{$ item.location__name $}</h4></div>
-            <div class="col-xs-3"><h4>{$ item.pk__count $}</h4></div>
-        </div>
-    </div>
-    <div class="row placeholders">
-        <div class="menu-transaction">
-            <a href="#/create/transaction" class="btn btn-info">Create a Transaction</a>
-        </div>
-        <h3 class="transaction-list-heading">Transactions</h3>
-        <div class="col-xs-12">
-            <div class="col-xs-2"><h4>Item</h4></div>
-            <div class="col-xs-3"><h4>Date</h4></div>
-            <div class="col-xs-2"><h4>Origin</h4></div>
-            <div class="col-xs-2"><h4>Destination</h4></div>
-            <div class="col-xs-2"><h4>Moved items</h4></div>
-        </div>
-        <div ng-repeat="transaction in transactions track by $index">
-                <div class="col-xs-12 item-placeholder">
-                    <div class="col-xs-2"><h4>{$ transaction.item.name $}</h4></div>
-                    <div class="col-xs-3"><h4>{$ transaction.date_time $}</h4></div>
-                    <div class="col-xs-2"><h4>{$ transaction.origin.type + ' - ' + transaction.origin.name $}</h4></div>
-                    <div class="col-xs-2"><h4>{$ transaction.destination.type + ' - ' + transaction.destination.name $}</h4></div>
-                    <div class="col-xs-2"><h4>{$ transaction.items_count $}</h4></div>
+<div ng-controller="SearchSortPaginationCtrl">
+    <div ng-controller="ItemsInLocationsCtrl">
+        <div class="row placeholders">
+            <div class="col-xs-12">
+                <h3>Items Available</h3>
+                <div class="menu">
+                    <form class="form-inline">
+                        <div class="form-group">
+                            <input type="text" ng-model="search2" class="form-control" placeholder="Search">
+                        </div>
+                    </form>
                 </div>
+                <div class="table-responsive">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th ng-click="sort('base_item__name')">Item
+                                    <span class="glyphicon sort-icon" ng-show="sortKey=='base_item__name'" ng-class="{'glyphicon-chevron-up':reverse,'glyphicon-chevron-down':!reverse}"></span>
+                                </th>
+                                <th ng-click="sort('location__type')">Type
+                                    <span class="glyphicon sort-icon" ng-show="sortKey=='location__type'" ng-class="{'glyphicon-chevron-up':reverse,'glyphicon-chevron-down':!reverse}"></span>
+                                </th>
+                                <th ng-click="sort('location__name')">Location
+                                    <span class="glyphicon sort-icon" ng-show="sortKey=='location__name'" ng-class="{'glyphicon-chevron-up':reverse,'glyphicon-chevron-down':!reverse}"></span>
+                                </th>
+                                <th ng-click="sort('pk__count')">Items Available
+                                    <span class="glyphicon sort-icon" ng-show="sortKey=='base_item.name'" ng-class="{'glyphicon-chevron-up':reverse,'glyphicon-chevron-down':!reverse}"></span>
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr dir-paginate="item in items_in_locations|orderBy:sortKey:reverse|filter:search2|itemsPerPage:4" pagination-id="itemsinlocations">
+                                <td>{$ item.base_item__name $}</td>
+                                <td>{$ item.location__type $}</td>
+                                <td>{$ item.location__name $}</td>
+                                <td>{$ item.pk__count $}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="clearfix"></div>
+                <div style="text-align: center">
+                    <dir-pagination-controls
+                        max-size="15"
+                        direction-links="true"
+                        pagination-id="itemsinlocations"
+                        boundary-links="true" >
+                    </dir-pagination-controls>
+                </div>
+            </div>
+        </div>
+
+
+        <div class="row placeholders">
+            <div class="col-xs-12">
+                <h3 class="transaction-list-heading">Transactions</h3>
+                <div class="menu menu-transaction">
+                    <form class="form-inline">
+                        <div class="form-group">
+                            <a href="#/create/transaction" class="btn btn-info">Create a Transaction</a>
+                        </div>
+                        <div class="form-group">
+                            <input type="text" ng-model="search" class="form-control" placeholder="Search">
+                        </div>
+                    </form>
+                </div>
+                <div class="table-responsive">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th ng-click="sort('item.name')">Item
+                                 <span class="glyphicon sort-icon" ng-show="sortKey=='item.name'" ng-class="{'glyphicon-chevron-up':reverse,'glyphicon-chevron-down':!reverse}"></span>
+                                </th>
+                                <th ng-click="sort('date.time')">Date
+                                    <span class="glyphicon sort-icon" ng-show="sortKey=='date.time'" ng-class="{'glyphicon-chevron-up':reverse,'glyphicon-chevron-down':!reverse}"></span>
+                                </th>
+                                <th ng-click="sort('origin.name')">Origin
+                                    <span class="glyphicon sort-icon" ng-show="sortKey=='origin.name'" ng-class="{'glyphicon-chevron-up':reverse,'glyphicon-chevron-down':!reverse}"></span>
+                                </th>
+                                <th ng-click="sort('destination.name')">Destination
+                                    <span class="glyphicon sort-icon" ng-show="sortKey=='destination.name'" ng-class="{'glyphicon-chevron-up':reverse,'glyphicon-chevron-down':!reverse}"></span>
+                                </th>
+                                <th ng-click="sort('items_count')">Moved Items
+                                    <span class="glyphicon sort-icon" ng-show="sortKey=='items_count'" ng-class="{'glyphicon-chevron-up':reverse,'glyphicon-chevron-down':!reverse}"></span>
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr dir-paginate="transaction in transactions|orderBy:sortKey:reverse|filter:search|itemsPerPage:2">
+                                <td>{$ transaction.item.name $}</td>
+                                <td>{$ transaction.date_time $}</td>
+                                <td>{$ transaction.origin.type + ' - ' + transaction.origin.name $}</td>
+                                <td>{$ transaction.destination.type + ' - ' + transaction.destination.name $}</td>
+                                <td>{$ transaction.items_count $}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="clearfix"></div>
+                <div style="text-align: center">
+                    <dir-pagination-controls
+                        max-size="15"
+                        direction-links="true"
+                        boundary-links="true" >
+                    </dir-pagination-controls>
+                </div>
+            </div>
         </div>
     </div>
 </div>

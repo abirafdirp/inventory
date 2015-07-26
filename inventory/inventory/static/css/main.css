@@ -222,13 +222,17 @@ a:hover .baseitem-placeholder h4 {
  */
 
 .menu {
-  margin-bottom: 20px;
+  margin-bottom: 10px;
+}
+.menu-grid {
+  margin-bottom: 40px;
+}
+.menu > .form-inline > .form-group{
 }
 
-.menu-transaction{
-  margin-top: 50px;
-}
-
+/*
+ * browsable api
+ */
 .well {
   -webkit-box-shadow: none;
      -moz-box-shadow: none;
@@ -257,4 +261,17 @@ a:hover .baseitem-placeholder h4 {
 
 .transaction-list-heading {
   margin-top: 30px;
+}
+
+.table a {
+  display: block;
+  text-decoration: none;
+}
+
+/*
+ * tables
+ */
+
+th{
+  color: #286090;
 }

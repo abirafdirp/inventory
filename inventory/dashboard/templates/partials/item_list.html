@@ -1,19 +1,50 @@
-<div class="menu">
-    <a href="#/create/item" class="btn btn-info">Create an Item</a>
-</div>
+<div ng-controller="SearchSortPaginationCtrl">
 
-<div class="row placeholders">
-    <div class="col-xs-4"><h4>Name</h4></div>
-    <div class="col-xs-4"><h4>Expiration Date</h4></div>
-    <div class="col-xs-4"><h4>Location</h4></div>
-        <div ng-repeat="item in items track by $index">
-            <a href="#/item/{$ item.id $}">
-                <div class="col-xs-12 item-placeholder">
-                    <div class="col-xs-4"><h4>{$ item.base_item.name $}</h4></div>
-                    <div class="col-xs-4"><h4>{$ item.expiration_date $}</h4></div>
-                    <div class="col-xs-4"><h4>{$ item.location.type + ' - ' + item.location.name + ', ' + item.location.address $}</h4></div>
-                </div>
-            </a>
+    <div class="row placeholders">
+        <div class="col-xs-12">
+            <div class="menu">
+                <form class="form-inline">
+                    <div class="form-group">
+                        <a href="#/create/item" class="btn btn-info">Create an Item</a>
+                    </div>
+                    <div class="form-group">
+                        <input type="text" ng-model="search" class="form-control" placeholder="Search">
+                    </div>
+                </form>
+            </div>
+            <div class="table-responsive">
+                <table class="table table-hover">
+                    <thead>
+                      <tr>
+                        <th ng-click="sort('base_item.name')">Name
+                            <span class="glyphicon sort-icon" ng-show="sortKey=='base_item.name'" ng-class="{'glyphicon-chevron-up':reverse,'glyphicon-chevron-down':!reverse}"></span>
+                        </th>
+                        <th ng-click="sort('expiration_date')">Expiration Date
+                            <span class="glyphicon sort-icon" ng-show="sortKey=='expiration_date'" ng-class="{'glyphicon-chevron-up':reverse,'glyphicon-chevron-down':!reverse}"></span>
+                        </th>
+                        <th ng-click="sort('location.type')">Location
+                            <span class="glyphicon sort-icon" ng-show="sortKey=='location.type'" ng-class="{'glyphicon-chevron-up':reverse,'glyphicon-chevron-down':!reverse}"></span>
+                        </th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr dir-paginate="item in items|orderBy:sortKey:reverse|filter:search|itemsPerPage:10">
+                            <td><a href="#/item/{$ item.id $}">{$ item.base_item.name $}</a></td>
+                            <td><a href="#/item/{$ item.id $}">{$ item.expiration_date $}</a></td>
+                            <td><a href="#/item/{$ item.id $}">{$ item.location.type + ' - ' + item.location.name + ', ' + item.location.address $}</a></td>
+                      </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="clearfix"></div>
+            <div style="text-align: center">
+                <dir-pagination-controls
+                    max-size="15"
+                    direction-links="true"
+                    boundary-links="true" >
+                </dir-pagination-controls>
+            </div>
         </div>
     </div>
 </div>
+

@@ -1,18 +1,38 @@
-<div class="menu">
-    <a href="#/create/baseitem" class="btn btn-info">Create a Base Item</a>
-</div>
-
-<div class="row placeholders">
-    <div ng-repeat="baseitem in baseitems">
-        <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
-            <a href="#/baseitem/{$ baseitem.id $}">
-                <div class="baseitem-placeholder">
-                  <img ng-src="{$ baseitem.image $}" class="img-responsive img-rounded" alt="Generic placeholder thumbnail">
-                  <h4>{$ baseitem.name $}</h4>
-                  <div ng-show="baseitem.description">{$ baseitem.description | limitTo:80 $}....</div>
-                    <div ng-show="!baseitem.description">No description</div>
+<div ng-controller="SearchSortPaginationCtrl">
+    <div class="col-xs-12">
+        <div class="row placeholders">
+            <div class="col-xs-12">
+                <div class="menu-grid">
+                    <form class="form-inline">
+                        <div class="form-group">
+                            <a href="#/create/baseitem" class="btn btn-info">Create a Base Item</a>
+                        </div>
+                        <div class="form-group">
+                            <input type="text" ng-model="search" class="form-control" placeholder="Search">
+                        </div>
+                    </form>
                 </div>
-            </a>
+            </div>
+            <div dir-paginate="baseitem in baseitems|filter:search|itemsPerPage:12">
+                <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+                    <a href="#/baseitem/{$ baseitem.id $}">
+                        <div class="baseitem-placeholder">
+                          <img ng-src="{$ baseitem.image $}" class="img-responsive img-rounded" alt="Generic placeholder thumbnail">
+                          <h4>{$ baseitem.name $}</h4>
+                          <div ng-show="baseitem.description">{$ baseitem.description | limitTo:80 $}....</div>
+                            <div ng-show="!baseitem.description">No description</div>
+                        </div>
+                    </a>
+                </div>
+            </div>
+            <div class="clearfix"></div>
+            <div style="text-align: center">
+                <dir-pagination-controls
+                    max-size="15"
+                    direction-links="true"
+                    boundary-links="true" >
+                </dir-pagination-controls>
+            </div>
         </div>
     </div>
 </div>

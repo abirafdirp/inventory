@@ -2,7 +2,8 @@ var inventoryApp = angular.module('inventory', [
   'ngRoute',
   'inventoryControllers',
   'ui.bootstrap',
-  'inventoryServices'
+  'inventoryServices',
+  'angularUtils.directives.dirPagination'
 ]);
 
 inventoryApp.config(function($interpolateProvider) {
@@ -102,7 +103,7 @@ inventoryApp.config(['$routeProvider', '$httpProvider',
       when('/create/location', {
         templateUrl: '/apiv1/locations/create ',
         controller: 'LocationListCtrl',
-        activetab: 'transaction'
+        activetab: 'location'
       }).
       otherwise({
         redirectTo: '/baseitem-list'
