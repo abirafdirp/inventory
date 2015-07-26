@@ -56,6 +56,5 @@ node_modules/
 .env
 
 # migrations
-**/migrations/*.*
 !__init__.py
 **/inventory/media/
