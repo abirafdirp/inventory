@@ -5,13 +5,13 @@ from django.conf import settings
 from django.conf.urls import include, url
 from django.conf.urls.static import static
 from django.contrib import admin
-from django.views.generic import TemplateView
+from django.views.generic.base import RedirectView
 
 urlpatterns = [
-    url(r'^$', TemplateView.as_view(template_name='pages/home.html'),
-        name="home"),
-    url(r'^about/$', TemplateView.as_view(template_name='pages/about.html'),
-        name="about"),
+    url(r'^$', RedirectView.as_view(url='/accounts/login/', permanent=True),
+        name="login"),
+    url(r'^users/inventorydemo/', RedirectView.as_view(url='/dashboard/',
+                                                permanent=True), name="redirect"),
 
     # Django Admin
     url(r'^admin/', include(admin.site.urls)),
