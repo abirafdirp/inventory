@@ -26,7 +26,10 @@ urlpatterns = [
     url(r'^apiv1/', include('apiv1.urls', namespace='apiv1')),
     url(r'^dashboard/', include('dashboard.urls', namespace='apiv1')),
 
-] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+    (r'^media/(?P<path>.*)$', 'django.views.static.serve',
+        {'document_root': settings.MEDIA_ROOT, 'show_indexes': True, }),
+
+] 
 
 if settings.DEBUG:
     # This allows the error pages to be debugged during development, just visit
