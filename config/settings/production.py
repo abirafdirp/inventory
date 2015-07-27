@@ -6,7 +6,7 @@ Production Configurations
 - Use Amazon's S3 for storing static files and uploaded media
 - Use sendgrid to send emails
 - Use MEMCACHIER on Heroku
-'''
+''' 
 from __future__ import absolute_import, unicode_literals
 
 
@@ -88,19 +88,8 @@ username = env('OPENSHIFT_POSTGRESQL_DB_USERNAME')
 password = env('OPENSHIFT_POSTGRESQL_DB_PASSWORD')
 host = env('OPENSHIFT_POSTGRESQL_DB_HOST')
 port = env('OPENSHIFT_POSTGRESQL_DB_PORT')
-# DATABASES['default'] = 'postgresql://'+username+':'+password+'@'+host+':'
-# +port+'/inventory'
+DATABASES['default'] = env.db("OPENSHIFT_POSTGRESQL_DB_URL")
 
-DATABASES['default'] = {
-    'default': {
-        'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'inventory',
-        'USER': username,
-        'PASSWORD': password,
-        'HOST': host,
-        'PORT': port,
-    }
-}
 # CACHING
 # ------------------------------------------------------------------------------
 try:
