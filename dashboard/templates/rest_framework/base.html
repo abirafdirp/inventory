@@ -1,0 +1,111 @@
+<div ng-app="inventory">
+<div ng-controller="FormValidationCtrl" ng-init="http_status_code = '{{ response.status_code }}'">
+{% load url from future %}
+{% load staticfiles %}
+{% load rest_framework %}
+
+<!-- angular v1.4.2 -->
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.2/angular.min.js"></script>
+<script src="{% static 'js/angular-route.js' %}"></script>
+<script src="{% static 'js/angular-resource.js' %}"></script>
+<!-- angular-ui-bootstrap v0.13.0 -->
+<script src="{% static 'js/ui-bootstrap-tpls-0.13.0.js' %}"></script>
+<!-- angulars -->
+<script src="{% static 'js/app.js' %}"></script>
+<script src="{% static 'js/controllers.js' %}"></script>
+<script src="{% static 'js/services.js' %}"></script>
+<script src="{% static 'js/dirPagination.js' %}"></script>
+<!-- jQuery -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
+<!-- Bootstrap JavaScript -->
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+
+<div ng-if="!not_form_validation">
+<link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css" rel="stylesheet">
+<link rel="stylesheet" type="text/css" href="{% static "rest_framework/css/bootstrap-tweaks.css" %}"/>
+<link rel="stylesheet" type="text/css" href="{% static "rest_framework/css/prettify.css" %}"/>
+<link rel="stylesheet" type="text/css" href="{% static "rest_framework/css/default.css" %}"/>
+</div>
+<link rel="shortcut icon" type="image/png" href="{% static "favicon/favicon.ico" %}"/>
+
+
+<div ng-class="{ 'col-xs-8 col-xs-offset-2' : !not_form_validation }">
+<div class="wrapper">
+    <!-- Content -->
+    <div id="content"">
+        <h4>{$ title $}</h4>
+        <div ng-if="http_status_code == '201' && !not_form_validation"><h2>Created <input type="button" class="btn btn-primary align-right" onclick="history.go(-2)" value="Back"></h2>
+                </div>
+        <div ng-if="http_status_code == '200' && !not_form_validation"><h2>Success <input type="button" class="btn btn-primary align-right" onclick="history.go(-2)" value="Back"></h2>
+                </div>
+        <div ng-if="http_status_code == '400' && !not_form_validation"><h2>Error <input type="button" class="btn btn-primary align-right" onclick="history.go(-2)" value="Back"></h2>
+                </div>
+        <div ng-if="http_status_code == '204' && !not_form_validation"><h2>Deleted <input type="button" class="btn btn-primary align-right" onclick="history.go(-2)" value="Back"></h2>
+                </div>
+
+
+
+
+        <div ng-if="!not_form_validation " class="content-main">
+            <div class="response-info">
+                <pre class="prettyprint">
+                        {% autoescape off %}{{ content|urlize_quoted_links }}
+                </pre>{% endautoescape %}
+            </div>
+        </div>
+
+
+        {% if display_edit_forms %}
+            {% if post_form or raw_data_post_form %}
+                <div ng-if="not_form_validation" class="well">
+                    {% if post_form %}
+                        {% with form=post_form %}
+                            <form action="{{ request.get_full_path }}"
+                                  method="POST" enctype="multipart/form-data" class="form-horizontal" novalidate>
+                                <fieldset>
+                                    {{ post_form }}
+                                    <div class="form-actions">
+                                        <button class="btn btn-primary"
+                                                title="Make a POST request on the {{ name }} resource" ng-click="IsFormSubmitted.set(true) ">POST</button>
+                                    </div>
+                                </fieldset>
+                            </form>
+                        {% endwith %}
+                    {% endif %}
+                {% endif %}
+                </div>
+
+            {% if put_form or raw_data_put_form or raw_data_patch_form %}
+                <div ng-if="not_form_validation" {% if put_form %}{% endif %}>
+                    <div class="well tab-content">
+                        {% if put_form %}
+                            <div id="put-object-form">
+                                <form action="{{ request.get_full_path }}"
+                                      method="POST" enctype="multipart/form-data" class="form-horizontal" novalidate>
+                                    <fieldset>
+                                        {{ put_form }}
+                                        <div class="form-actions">
+                                            <button class="btn btn-primary js-tooltip"
+                                                     name="{{ api_settings.FORM_METHOD_OVERRIDE }}"
+                                                    value="PUT" ng-click=" submitted = true ">PUT</button>
+                                    </form>
+                                    <form class="button-form" action="{{ request.get_full_path }}" method="POST" class="form-horizontal">
+                                        {% csrf_token %}
+                                        <input type="hidden" name="{{ api_settings.FORM_METHOD_OVERRIDE }}" value="DELETE" />
+                                            <button class="btn btn-danger js-tooltip" ng-click=" submitted = true ">DELETE</button>
+                                            </div>
+                                    </form>
+                                </fieldset>
+                            </div>
+                        {% endif %}
+                    </div>
+                </div>
+            {% endif %}
+        {% endif %}
+    </div>
+    <!-- END Content -->
+</div><!-- ./wrapper -->
+</div>
+</div>
+</div>
+

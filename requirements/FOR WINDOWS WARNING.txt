@@ -1,0 +1,2 @@
+pyscopg2 module must be installed from http://www.stickpeople.com/projects/python/win-psycopg/
+you must copy manually from your site-packages folder

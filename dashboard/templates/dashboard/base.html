@@ -1,0 +1,45 @@
+{% load staticfiles i18n %}<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<title>Title</title>
+		<meta charset="UTF-8">
+		<meta name=description content="">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+		<!-- Bootstrap CSS -->
+		<link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css" rel="stylesheet">
+
+        <link rel="stylesheet" type="text/css" href="{% static "rest_framework/css/default.css" %}"/>
+
+        <!-- Main CSS -->
+		<link href="{% static "css/main.css" %}" rel="stylesheet">
+        <link rel="shortcut icon" type="image/png" href="{% static "favicon/favicon.ico" %}"/>
+
+	</head>
+
+	<body ng-app="inventory">
+        {%  block main %}
+        {%  endblock %}
+
+        <!-- angular v1.4.2 -->
+        <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.2/angular.min.js"></script>
+        <script src="{% static 'js/angular-route.js' %}"></script>
+        <script src="{% static 'js/angular-resource.js' %}"></script>
+        <!-- angular-ui-bootstrap v0.13.0 -->
+        <script src="{% static 'js/ui-bootstrap-tpls-0.13.0.js' %}"></script>
+        <!-- angulars -->
+        <script src="{% static 'js/app.js' %}"></script>
+		<script src="{% static 'js/controllers.js' %}"></script>
+        <script src="{% static 'js/services.js' %}"></script>
+        <script src="{% static 'js/dirPagination.js' %}"></script>
+        <!-- jQuery -->
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
+		<!-- Bootstrap JavaScript -->
+		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+        <!-- Django Rest browsable API -->
+        <script src="{% static "rest_framework/js/prettify-min.js" %}"></script>
+        <script src="{% static "rest_framework/js/default.js" %}"></script>
+
+	</body>
+
+</html>

@@ -1,0 +1,58 @@
+{% extends "account/base.html" %}
+
+{% load i18n %}
+{% load account %}
+{% load url from future %}
+{% load crispy_forms_tags %}
+
+{% block head_title %}{% trans "Sign In" %}{% endblock %}
+
+{% block content %}
+<div class="container">
+  <div class="row">
+    <div class="col-xs-12">
+        <h1>Inventory System</h1><br>
+        Created using Django, django-rest-framework and AngularJS.<br>
+        Limitation : media files(pictures) is served directly from django, so it will be wiped every dyno's restart. Most CDN requires credit card (which I don't have)
+        <br>
+    </div>
+    <div class="col-md-5">
+        <br><h4>username : inventorydemo</h4>
+    <h4>password : inventorydemo</h4><br>
+      <h2>{% trans "Sign In" %}</h2>
+
+      {% if socialaccount.providers  %}
+      <p>{% blocktrans with site.name as site_name %}Please sign in with one
+      of your existing third party accounts. Or, <a href="{{ signup_url }}">sign up</a>
+      for a {{ site_name }} account and sign in below:{% endblocktrans %}</p>
+
+      <div class="socialaccount_ballot">
+
+        <ul class="socialaccount_providers">
+          {% include "socialaccount/snippets/provider_list.html" with process="login" %}
+        </ul>
+
+        <div class="login-or">{% trans 'or' %}</div>
+
+      </div>
+
+      {% include "socialaccount/snippets/login_extra.html" %}
+
+      {% endif %}
+
+      <form class="login" method="POST" action="{% url 'account_login' %}">
+        {% csrf_token %}
+        {{ form|crispy }}
+        {% if redirect_field_value %}
+        <input type="hidden" name="{{ redirect_field_name }}" value="{{ redirect_field_value }}" />
+        {% endif %}
+        <button class="btn btn-primary" type="submit">{% trans "Sign In" %}</button>
+      </form>
+        <br>
+        source code : <a href="https://github.com/abirafdirp/inventory/tree/heroku/production">github</a><br>
+        created by  : <a href="http://www.pythonified.com/blog/">Abirafdi Raditya Putra</a>
+    </div>
+  </div>
+</div>
+{% endblock %}
+

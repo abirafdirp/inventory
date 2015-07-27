@@ -1,0 +1,18 @@
+Super User
+-all access
+
+Inventory Admin
+-accept store request
+-request items to supplier
+-create base item
+-create categories
+-create brands
+-create product id prefix
+
+Supplier
+-accept inventory admin request
+-create items
+
+Store
+-request items to inventory admin
+-delete items

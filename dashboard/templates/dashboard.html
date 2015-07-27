@@ -1,0 +1,51 @@
+
+{%  extends 'dashboard/base.html' %}
+{%  block main %}
+
+    <nav class="navbar navbar-inverse navbar-fixed-top">
+      <div class="container-fluid">
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand">Inventory</a>
+        </div>
+          <div class="collapse navbar-collapse" id="bs-navbar-collapse-1">
+
+          <ul class="nav navbar-nav navbar-right">
+              <li><a href="{% url 'account_logout' %}">logout</a></li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+
+
+    <div class="container-fluid" ng-controller="NavCtrl">
+      <div class="row">
+        <div class="col-sm-2 sidebar"">
+          <ul class="nav nav-sidebar">
+            <li ng-class="{active: $route.current.activetab == 'item'}"><a href="#/item-list">Items</a></li>
+            <li ng-class="{active: $route.current.activetab == 'baseitem'}"><a href="#/baseitem-list">Base Items</a></li>
+            <li ng-class="{active: $route.current.activetab == 'category'}"><a href="#/category-list">Categories</a></li>
+            <li ng-class="{active: $route.current.activetab == 'brand'}"><a href="#/brand-list">Brands</a></li>
+          </ul>
+          <ul class="nav nav-sidebar">
+              <li ng-class="{active: $route.current.activetab == 'transaction'}"><a href="#/transaction-list">Transactions</a></li>
+              <li ng-class="{active: $route.current.activetab == 'location'}"><a href="#/location-list">Locations</a></li>
+          </ul>
+        </div>
+
+          <div id="content" class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
+          <div ng-view>
+
+          </div>
+              </div>
+
+      </div>
+    </div>
+
+
+{%  endblock %}
