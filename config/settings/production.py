@@ -88,14 +88,14 @@ TEMPLATES[0]['OPTIONS']['loaders'] = [
 # Raises ImproperlyConfigured exception if DATABASE_URL not in os.environ
 url = urlparse.urlparse(os.environ.get('OPENSHIFT_POSTGRESQL_DB_URL'))
 
-    DATABASES['default'] = {
-        'ENGINE' : 'django.db.backends.postgresql_psycopg2',
-        'NAME': os.environ['OPENSHIFT_APP_NAME'],
-        'USER': url.username,
-        'PASSWORD': url.password,
-        'HOST': url.hostname,
-        'PORT': url.port,
-        }
+DATABASES['default'] = {
+    'ENGINE' : 'django.db.backends.postgresql_psycopg2',
+    'NAME': os.environ['OPENSHIFT_APP_NAME'],
+    'USER': url.username,
+    'PASSWORD': url.password,
+    'HOST': url.hostname,
+    'PORT': url.port,
+    }
 
 # CACHING
 # ------------------------------------------------------------------------------
