@@ -89,8 +89,19 @@ username = env('OPENSHIFT_POSTGRESQL_DB_USERNAME')
 password = env('OPENSHIFT_POSTGRESQL_DB_PASSWORD')
 host = env('OPENSHIFT_POSTGRESQL_DB_HOST')
 port = env('OPENSHIFT_POSTGRESQL_DB_PORT')
-DATABASES['default'] = 'postgresql://'+username+':'+password+'@'+host+':'
-+port+'/inventory'
+# DATABASES['default'] = 'postgresql://'+username+':'+password+'@'+host+':'
+# +port+'/inventory'
+
+DATABASES['default'] = {
+    'default': {
+        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        'NAME': 'inventory'
+        'USER': username,
+        'PASSWORD': password,
+        'HOST': host,
+        'PORT': port,
+    }
+}
 # CACHING
 # ------------------------------------------------------------------------------
 try:
