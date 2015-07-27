@@ -86,7 +86,7 @@ TEMPLATES[0]['OPTIONS']['loaders'] = [
 # ------------------------------------------------------------------------------
 # Raises ImproperlyConfigured exception if DATABASE_URL not in os.environ
 username = env('OPENSHIFT_POSTGRESQL_DB_USERNAME')
-password = env('OPENSHIFT_POSTGRESQL_DB_PASSWORd')
+password = env('OPENSHIFT_POSTGRESQL_DB_PASSWORD')
 host = env('OPENSHIFT_POSTGRESQL_DB_HOST')
 port = env('OPENSHIFT_POSTGRESQL_DB_PORT')
 DATABASES['default'] = 'postgresql://'+username+':'+password+'@'+host+':'
