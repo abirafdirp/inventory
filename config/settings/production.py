@@ -99,15 +99,4 @@ DATABASES['default'] = {
 
 # CACHING
 # ------------------------------------------------------------------------------
-try:
-    # Only do this here because thanks to django-pylibmc-sasl and pylibmc
-    # memcacheify is painful to install on windows.
-    # See: https://github.com/rdegges/django-heroku-memcacheify
-    from memcacheify import memcacheify
-    CACHES = memcacheify()
-except ImportError:
-    CACHES = {
-        'default': env.cache_url("DJANGO_CACHE_URL", default="memcache://127.0.0.1:11211"),
-    }
-
 # Your production stuff: Below this line define 3rd party library settings
