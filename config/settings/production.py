@@ -85,8 +85,12 @@ TEMPLATES[0]['OPTIONS']['loaders'] = [
 # DATABASE CONFIGURATION
 # ------------------------------------------------------------------------------
 # Raises ImproperlyConfigured exception if DATABASE_URL not in os.environ
-DATABASES['default'] = env.db("DATABASE_URL")
-
+username = env('OPENSHIFT_inventory_DB_USERNAME')
+password = env('OPENSHIFT_inventory_DB_PASSWORd')
+host = env('OPENSHIFT_inventory_DB_HOST')
+port = env('OPENSHIFT_inventory_DB_PORT')
+DATABASES['default'] = 'postgresql://'+username+':'+password+'@'+host+':'
++port+'/inventory'
 # CACHING
 # ------------------------------------------------------------------------------
 try:
