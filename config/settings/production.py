@@ -85,7 +85,16 @@ TEMPLATES[0]['OPTIONS']['loaders'] = [
 # DATABASE CONFIGURATION
 # ------------------------------------------------------------------------------
 # Raises ImproperlyConfigured exception if DATABASE_URL not in os.environ
-DATABASES['default'] = env.db("OPENSHIFT_POSTGRESQL_DB_URL")
+DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.postgresql_psycopg2',
+            'NAME': 'inventory',
+            'USER': 'adminuru7hj2',
+            'PASSWORD': 'zhLcSMvAWDer',
+            'HOST': env('$OPENSHIFT_POSTGRESQL_DB_HOST',''),
+            'PORT': env('$OPENSHIFT_POSTGRESQL_DB_PORT',''),
+        }
+    }
 
 # CACHING
 # ------------------------------------------------------------------------------
