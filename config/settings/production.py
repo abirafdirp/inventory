@@ -6,10 +6,11 @@ Production Configurations
 - Use Amazon's S3 for storing static files and uploaded media
 - Use sendgrid to send emails
 - Use MEMCACHIER on Heroku
-''' 
+'''
 from __future__ import absolute_import, unicode_literals
 
 
+from boto.s3.connection import OrdinaryCallingFormat
 from django.utils import six
 
 from .common import *  # noqa
@@ -84,10 +85,6 @@ TEMPLATES[0]['OPTIONS']['loaders'] = [
 # DATABASE CONFIGURATION
 # ------------------------------------------------------------------------------
 # Raises ImproperlyConfigured exception if DATABASE_URL not in os.environ
-username = env('OPENSHIFT_POSTGRESQL_DB_USERNAME')
-password = env('OPENSHIFT_POSTGRESQL_DB_PASSWORD')
-host = env('OPENSHIFT_POSTGRESQL_DB_HOST')
-port = env('OPENSHIFT_POSTGRESQL_DB_PORT')
 DATABASES['default'] = env.db("OPENSHIFT_POSTGRESQL_DB_URL")
 
 # CACHING
