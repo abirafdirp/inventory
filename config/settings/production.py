@@ -8,7 +8,8 @@ Production Configurations
 - Use MEMCACHIER on Heroku
 '''
 from __future__ import absolute_import, unicode_literals
-
+import os
+import urlparse
 
 from boto.s3.connection import OrdinaryCallingFormat
 from django.utils import six
@@ -85,16 +86,16 @@ TEMPLATES[0]['OPTIONS']['loaders'] = [
 # DATABASE CONFIGURATION
 # ------------------------------------------------------------------------------
 # Raises ImproperlyConfigured exception if DATABASE_URL not in os.environ
-DATABASES = {
-        'default': {
-            'ENGINE': 'django.db.backends.postgresql_psycopg2',
-            'NAME': 'inventory',
-            'USER': 'adminuru7hj2',
-            'PASSWORD': 'zhLcSMvAWDer',
-            'HOST': env('$OPENSHIFT_POSTGRESQL_DB_HOST',''),
-            'PORT': env('$OPENSHIFT_POSTGRESQL_DB_PORT',''),
+url = urlparse.urlparse(os.environ.get('OPENSHIFT_POSTGRESQL_DB_URL'))
+
+    DATABASES['default'] = {
+        'ENGINE' : 'django.db.backends.postgresql_psycopg2',
+        'NAME': os.environ['OPENSHIFT_APP_NAME'],
+        'USER': url.username,
+        'PASSWORD': url.password,
+        'HOST': url.hostname,
+        'PORT': url.port,
         }
-    }
 
 # CACHING
 # ------------------------------------------------------------------------------
