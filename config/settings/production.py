@@ -95,7 +95,7 @@ port = env('OPENSHIFT_POSTGRESQL_DB_PORT')
 DATABASES['default'] = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'inventory'
+        'NAME': 'inventory',
         'USER': username,
         'PASSWORD': password,
         'HOST': host,
