@@ -1,4 +1,4 @@
-inventory - this project is still under development, there is no releases yet (still working on front-end)
+inventory - main branch (heroku/openshift) will be merged later
 ==============================
 
 RESTful inventory system using Django
