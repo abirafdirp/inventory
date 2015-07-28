@@ -1,0 +1,2 @@
+export DJANGO_SECRET_KEY='fi3190f01i2-irkf-0IK_)@I%I%(_)Uj9-jqt9gfjh9-2jhg9-jh_JHGJ-9jh29-juhg9-ju9-ojQ_J#H(_JHG9-'
+export DJANGO_SETTINGS_MODULE='config.settings.production'
