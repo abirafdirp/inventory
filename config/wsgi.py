@@ -16,7 +16,6 @@ framework.
 import os
 
 from django.core.wsgi import get_wsgi_application
-from whitenoise.django import DjangoWhiteNoise
 from dj_static import Cling
 
 # We defer to a DJANGO_SETTINGS_MODULE already in the environment. This breaks
